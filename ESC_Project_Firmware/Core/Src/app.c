@@ -1,45 +1,73 @@
 #include "main.h"
+#include "drv8301.h"
 #include "timebase.h"
 
-#define PHASEA_DUTY  (htim1.Init.Period / 5)  // 20%
-#define PHASEB_DUTY  (htim1.Init.Period / 3)  // 33%
-#define PHASEC_DUTY  (htim1.Init.Period / 2)  // 50%
+DRV8301_HandleTypeDef drv;
+char msg[50];
+uint8_t gain;
 
+// ---------------- Application Setup ----------------
 void App_Setup(void)
 {
-	Timebase_Init(1000);
-	HAL_TIM_PWM_Start(&htim1, TIM_CHANNEL_1);      // High-side
-	HAL_TIMEx_PWMN_Start(&htim1, TIM_CHANNEL_1);   // Low-side complementary
-
-	__HAL_TIM_SET_COMPARE(&htim1, TIM_CHANNEL_1, htim1.Init.Period*20/100);
-
-	HAL_TIM_PWM_Start(&htim1,TIM_CHANNEL_2);
-	HAL_TIMEx_PWMN_Start(&htim1,TIM_CHANNEL_2);
-
-	__HAL_TIM_SET_COMPARE(&htim1, TIM_CHANNEL_2, htim1.Init.Period*40/100);
-
-	HAL_TIM_PWM_Start(&htim1,TIM_CHANNEL_3);
-	HAL_TIMEx_PWMN_Start(&htim1,TIM_CHANNEL_3);
-
-	__HAL_TIM_SET_COMPARE(&htim1, TIM_CHANNEL_3, htim1.Init.Period*60/100);
-	// -------- Enable Gate Driver --------
+    // Init periodic timebase (1 kHz)
+    Timebase_Init(1000);
+    // Enable gate driver
     HAL_GPIO_WritePin(EN_GATE_GPIO_Port, EN_GATE_Pin, GPIO_PIN_SET);
-    Timebase_DownCounter_SS_Set_Securely(1,500);
-}
+    HAL_Delay(10); // small delay to ensure DRV8301 sees EN_GATE high
+    // SPI & CS pin for DRV8301
+    drv.hspi = &hspi1;
+    drv.CS_Port = SPI1_CS_GPIO_Port;
+    drv.CS_Pin  = SPI1_CS_Pin;
 
-void App_Main_Loop(void){
+    HAL_GPIO_WritePin(drv.CS_Port, drv.CS_Pin, GPIO_PIN_SET); // CS idle high
 
-	if(Timebase_DownCounter_SS_Continuous_Expired_Event(1)){
-
-		HAL_GPIO_TogglePin(LED_GPIO_Port, LED_Pin);
-	}
-
-    uint8_t msg[] = "Hello DMA UART3\r\n";
-
-    if (huart3.gState == HAL_UART_STATE_READY)
-    {
-        HAL_UART_Transmit_DMA(&huart3, msg, sizeof(msg)-1);
+    // Initialize DRV8301 registers
+    if(DRV8301_Init(&drv) == HAL_OK){
+        HAL_GPIO_WritePin(LED_GPIO_Port, LED_Pin, GPIO_PIN_SET); // indicate success
     }
 
+    // Set CSA gain to 40
+    if(DRV8301_SetCSAGain(&drv, DRV8301_CSA_GAIN_40) == HAL_OK){
+        //HAL_GPIO_WritePin(LED_GPIO_Port, LED_Pin, GPIO_PIN_SET); // confirm write success
+    }
+
+    // -------- 3-phase PWM setup --------
+    HAL_TIM_PWM_Start(&htim1, TIM_CHANNEL_1);
+    HAL_TIMEx_PWMN_Start(&htim1, TIM_CHANNEL_1);
+    __HAL_TIM_SET_COMPARE(&htim1, TIM_CHANNEL_1, htim1.Init.Period*20/100);
+
+    HAL_TIM_PWM_Start(&htim1, TIM_CHANNEL_2);
+    HAL_TIMEx_PWMN_Start(&htim1, TIM_CHANNEL_2);
+    __HAL_TIM_SET_COMPARE(&htim1, TIM_CHANNEL_2, htim1.Init.Period*20/100);
+
+    HAL_TIM_PWM_Start(&htim1, TIM_CHANNEL_3);
+    HAL_TIMEx_PWMN_Start(&htim1, TIM_CHANNEL_3);
+    __HAL_TIM_SET_COMPARE(&htim1, TIM_CHANNEL_3, htim1.Init.Period*20/100);
+
+
+
+    // Start down-counter for 500ms interval
+    Timebase_DownCounter_SS_Set_Securely(1, 500);
+}
+
+// ---------------- Application Main Loop ----------------
+void App_Main_Loop(void)
+{
+    if(Timebase_DownCounter_SS_Continuous_Expired_Event(1))
+    {
+        // Read CSA gain from DRV8301
+        gain = DRV8301_GetCSAGain(&drv);
+
+        // Toggle LED for visual feedback
+        //HAL_GPIO_TogglePin(LED_GPIO_Port, LED_Pin);
+
+        // Send gain value over UART3
+        sprintf(msg, "DRV8301 CSA G: 0x%02X\r\n", gain);
+        if(huart3.gState == HAL_UART_STATE_READY){
+            HAL_UART_Transmit_DMA(&huart3, (uint8_t*)msg, strlen(msg));
+        }
+    }
+
+    // Run any periodic tasks
     Timebase_Main_Loop_Executables();
 }

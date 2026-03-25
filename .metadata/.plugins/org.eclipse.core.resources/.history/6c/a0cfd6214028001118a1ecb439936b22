@@ -1,0 +1,93 @@
+#include "main.h"
+#include "drv8301.h"
+#include "timebase.h"
+
+DRV8301_HandleTypeDef drv;
+char msg[100];
+uint16_t reg_val;
+HAL_StatusTypeDef status;
+uint8_t gain;
+
+// ------------- Application Setup ----------------
+void App_Setup(void)
+{
+    // Init periodic timebase (1 kHz)
+    Timebase_Init(1000);
+
+    // SPI & CS pin for DRV8301
+    drv.hspi    = &hspi1;
+    drv.CS_Port = SPI1_CS_GPIO_Port;
+    drv.CS_Pin  = SPI1_CS_Pin;
+
+    HAL_GPIO_WritePin(drv.CS_Port, drv.CS_Pin, GPIO_PIN_SET); // CS idle high
+
+    // Initialize DRV8301 registers
+    status = DRV8301_Init(&drv);
+    if(status == HAL_OK){
+        HAL_GPIO_WritePin(LED_GPIO_Port, LED_Pin, GPIO_PIN_SET); // indicate init success
+        sprintf(msg, "DRV8301 Init OK\r\n");
+    } else {
+        HAL_GPIO_WritePin(LED_GPIO_Port, LED_Pin, GPIO_PIN_RESET); // init fail
+        sprintf(msg, "DRV8301 Init FAIL! Status: 0x%02X\r\n", status);
+    }
+    HAL_UART_Transmit(&huart3, (uint8_t*)msg, strlen(msg), HAL_MAX_DELAY);
+
+    // Set CSA gain to 40x
+    status = DRV8301_SetCSAGain(&drv, DRV8301_CSA_GAIN_40);
+    sprintf(msg, "Set CSA Gain Status: 0x%02X\r\n", status);
+    HAL_UART_Transmit(&huart3, (uint8_t*)msg, strlen(msg), HAL_MAX_DELAY);
+
+    // -------- 3-phase PWM setup --------
+    HAL_TIM_PWM_Start(&htim1, TIM_CHANNEL_1);
+    HAL_TIMEx_PWMN_Start(&htim1, TIM_CHANNEL_1);
+    __HAL_TIM_SET_COMPARE(&htim1, TIM_CHANNEL_1, htim1.Init.Period*20/100); // 20% duty
+
+    HAL_TIM_PWM_Start(&htim1, TIM_CHANNEL_2);
+    HAL_TIMEx_PWMN_Start(&htim1, TIM_CHANNEL_2);
+    __HAL_TIM_SET_COMPARE(&htim1, TIM_CHANNEL_2, htim1.Init.Period*20/100); // 20% duty
+
+    HAL_TIM_PWM_Start(&htim1, TIM_CHANNEL_3);
+    HAL_TIMEx_PWMN_Start(&htim1, TIM_CHANNEL_3);
+    __HAL_TIM_SET_COMPARE(&htim1, TIM_CHANNEL_3, htim1.Init.Period*20/100); // 20% duty
+
+    // Enable gate driver
+    HAL_GPIO_WritePin(EN_GATE_GPIO_Port, EN_GATE_Pin, GPIO_PIN_SET);
+
+    // Start down-counter for 500ms interval
+    Timebase_DownCounter_SS_Set_Securely(1, 500);
+}
+
+// ------------- Application Main Loop -------------
+void App_Main_Loop(void)
+{
+    // Check periodic timer (every 500 ms)
+    if(Timebase_DownCounter_SS_Continuous_Expired_Event(1))
+    {
+        // Toggle LED for visual feedback
+        HAL_GPIO_TogglePin(LED_GPIO_Port, LED_Pin);
+
+        // -------- Check DRV8301 Communication --------
+        // Read CSA gain
+        gain = DRV8301_GetCSAGain(&drv);
+        sprintf(msg, "CSA Gain Read: 0x%02X\r\n", gain);
+        HAL_UART_Transmit(&huart3, (uint8_t*)msg, strlen(msg), HAL_MAX_DELAY);
+
+        // Read full status register
+        status = DRV8301_GetStatus(&drv, &reg_val);
+        sprintf(msg, "DRV8301 Status: 0x%04X (HAL: 0x%02X)\r\n", reg_val, status);
+        HAL_UART_Transmit(&huart3, (uint8_t*)msg, strlen(msg), HAL_MAX_DELAY);
+
+        // Optional: try writing gain again for test
+        status = DRV8301_SetCSAGain(&drv, DRV8301_CSA_GAIN_80); // change gain to 80x
+        sprintf(msg, "Set CSA Gain 80x Status: 0x%02X\r\n", status);
+        HAL_UART_Transmit(&huart3, (uint8_t*)msg, strlen(msg), HAL_MAX_DELAY);
+
+        // Read back to confirm
+        gain = DRV8301_GetCSAGain(&drv);
+        sprintf(msg, "CSA Gain Confirm: 0x%02X\r\n", gain);
+        HAL_UART_Transmit(&huart3, (uint8_t*)msg, strlen(msg), HAL_MAX_DELAY);
+    }
+
+    // Execute any timebase tasks
+    Timebase_Main_Loop_Executables();
+}

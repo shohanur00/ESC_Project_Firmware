@@ -1,0 +1,77 @@
+#include "main.h"
+#include "drv8301.h"
+#include "timebase.h"
+
+DRV8301_HandleTypeDef drv;
+char msg[50];
+uint16_t gain;   // Correct type for DRV gain
+
+// ------------ Application Setup -------------
+void App_Setup(void)
+{
+    // Init timer for 1 kHz timebase (for LED toggle / periodic check)
+    Timebase_Init(1000);
+
+    // Init DRV8301 SPI
+    drv.hspi = &hspi1;
+    drv.cs_port = SPI1_CS_GPIO_Port;
+    drv.cs_pin  = SPI1_CS_Pin;
+
+    // Initialize CS pin high
+    HAL_GPIO_WritePin(drv.cs_port, drv.cs_pin, GPIO_PIN_SET);
+
+    // Test read device ID
+    uint16_t dev_id = DRV8301_ReadRegister(&drv, DRV8301_REG_STATUS); // or ID register
+    sprintf(msg, "DRV8301 ID: 0x%04X\r\n", dev_id);
+    HAL_UART_Transmit(&huart3, (uint8_t*)msg, strlen(msg), HAL_MAX_DELAY);
+
+    // Set CSA gain
+    if(DRV8301_SetCSAGain(&drv, DRV8301_CSA_GAIN_40) == HAL_OK){
+        HAL_GPIO_WritePin(LED_GPIO_Port, LED_Pin, GPIO_PIN_SET); // indicate success
+    }
+
+    // Setup 3-phase PWM on TIM1
+    HAL_TIM_PWM_Start(&htim1, TIM_CHANNEL_1);      // Phase A High-side
+    HAL_TIMEx_PWMN_Start(&htim1, TIM_CHANNEL_1);   // Phase A Low-side complementary
+    __HAL_TIM_SET_COMPARE(&htim1, TIM_CHANNEL_1, htim1.Init.Period*20/100);
+
+    HAL_TIM_PWM_Start(&htim1, TIM_CHANNEL_2);      // Phase B
+    HAL_TIMEx_PWMN_Start(&htim1, TIM_CHANNEL_2);
+    __HAL_TIM_SET_COMPARE(&htim1, TIM_CHANNEL_2, htim1.Init.Period*20/100);
+
+    HAL_TIM_PWM_Start(&htim1, TIM_CHANNEL_3);      // Phase C
+    HAL_TIMEx_PWMN_Start(&htim1, TIM_CHANNEL_3);
+    __HAL_TIM_SET_COMPARE(&htim1, TIM_CHANNEL_3, htim1.Init.Period*20/100);
+
+    // Enable gate driver
+    HAL_GPIO_WritePin(EN_GATE_GPIO_Port, EN_GATE_Pin, GPIO_PIN_SET);
+
+    // Start down-counter event (500ms)
+    Timebase_DownCounter_SS_Set_Securely(1, 500);
+}
+
+// ------------ Application Main Loop -------------
+void App_Main_Loop(void)
+{
+    // Check if 500ms elapsed
+    if(Timebase_DownCounter_SS_Continuous_Expired_Event(1))
+    {
+        // Read current gain
+        gain = DRV8301_GetCSAGain(&drv);
+
+        // Toggle LED for visual feedback
+        HAL_GPIO_TogglePin(LED_GPIO_Port, LED_Pin);
+
+        // Prepare UART message
+        sprintf(msg, "DRV8301 Gain: 0x%04X\r\n", gain);
+
+        // Transmit via DMA
+        if(huart3.gState == HAL_UART_STATE_READY)
+        {
+            HAL_UART_Transmit_DMA(&huart3, (uint8_t*)msg, strlen(msg));
+        }
+    }
+
+    // Execute timebase events
+    Timebase_Main_Loop_Executables();
+}

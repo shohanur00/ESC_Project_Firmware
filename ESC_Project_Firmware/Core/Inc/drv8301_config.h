@@ -1,0 +1,11 @@
+#ifndef __DRV8301_CONFIG_H
+#define __DRV8301_CONFIG_H
+
+// Default values / masks
+#define DRV8301_DEFAULT_CTRL       0x0000
+#define DRV8301_DEFAULT_GATE_HS    0x0000
+#define DRV8301_DEFAULT_GATE_LS    0x0000
+#define DRV8301_DEFAULT_OCP_CTRL   0x0000
+#define DRV8301_DEFAULT_CSA_CTRL   0x0000
+
+#endif

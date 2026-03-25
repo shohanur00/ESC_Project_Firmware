@@ -639,3 +639,1294 @@ arm-none-eabi-size  ESC_Project_Firmware.elf
   32944	     12	   3372	  36328	   8de8	ESC_Project_Firmware.elf
 Finished building: default.size.stdout
  
+16:32:22 **** Incremental Build of configuration Debug for project ESC_Project_Firmware ****
+make -j20 all 
+arm-none-eabi-gcc "../Core/Src/app.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32G431xx -c -I../Core/Inc -I../Drivers/STM32G4xx_HAL_Driver/Inc -I../Drivers/STM32G4xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32G4xx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/app.d" -MT"Core/Src/app.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Src/app.o"
+arm-none-eabi-gcc "../Core/Src/drv8301.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32G431xx -c -I../Core/Inc -I../Drivers/STM32G4xx_HAL_Driver/Inc -I../Drivers/STM32G4xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32G4xx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/drv8301.d" -MT"Core/Src/drv8301.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Src/drv8301.o"
+arm-none-eabi-gcc "../Core/Src/main.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32G431xx -c -I../Core/Inc -I../Drivers/STM32G4xx_HAL_Driver/Inc -I../Drivers/STM32G4xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32G4xx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/main.d" -MT"Core/Src/main.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Src/main.o"
+arm-none-eabi-gcc "../Core/Src/stm32g4xx_hal_msp.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32G431xx -c -I../Core/Inc -I../Drivers/STM32G4xx_HAL_Driver/Inc -I../Drivers/STM32G4xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32G4xx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/stm32g4xx_hal_msp.d" -MT"Core/Src/stm32g4xx_hal_msp.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Src/stm32g4xx_hal_msp.o"
+arm-none-eabi-gcc "../Core/Src/stm32g4xx_it.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32G431xx -c -I../Core/Inc -I../Drivers/STM32G4xx_HAL_Driver/Inc -I../Drivers/STM32G4xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32G4xx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/stm32g4xx_it.d" -MT"Core/Src/stm32g4xx_it.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Src/stm32g4xx_it.o"
+arm-none-eabi-gcc "../Core/Src/syscalls.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32G431xx -c -I../Core/Inc -I../Drivers/STM32G4xx_HAL_Driver/Inc -I../Drivers/STM32G4xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32G4xx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/syscalls.d" -MT"Core/Src/syscalls.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Src/syscalls.o"
+arm-none-eabi-gcc "../Core/Src/sysmem.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32G431xx -c -I../Core/Inc -I../Drivers/STM32G4xx_HAL_Driver/Inc -I../Drivers/STM32G4xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32G4xx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/sysmem.d" -MT"Core/Src/sysmem.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Src/sysmem.o"
+arm-none-eabi-gcc "../Core/Src/system_stm32g4xx.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32G431xx -c -I../Core/Inc -I../Drivers/STM32G4xx_HAL_Driver/Inc -I../Drivers/STM32G4xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32G4xx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/system_stm32g4xx.d" -MT"Core/Src/system_stm32g4xx.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Src/system_stm32g4xx.o"
+arm-none-eabi-gcc "../Core/Src/timebase.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32G431xx -c -I../Core/Inc -I../Drivers/STM32G4xx_HAL_Driver/Inc -I../Drivers/STM32G4xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32G4xx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/timebase.d" -MT"Core/Src/timebase.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Src/timebase.o"
+../Core/Src/app.c: In function 'App_Setup':
+../Core/Src/app.c:15:27: error: expected ';' before 'HAL_TIM_PWM_Start'
+   15 |         DRV8301_Init(&drv)
+      |                           ^
+      |                           ;
+   16 |         HAL_TIM_PWM_Start(&htim1, TIM_CHANNEL_1);      // High-side
+      |         ~~~~~~~~~~~~~~~~~  
+../Core/Src/app.c: In function 'App_Main_Loop':
+../Core/Src/app.c:55:9: warning: implicit declaration of function 'sprintf' [-Wimplicit-function-declaration]
+   55 |         sprintf(msg, "DRV8301 Status: 0x%04X\r\n", status);
+      |         ^~~~~~~
+../Core/Src/app.c:4:1: note: include '<stdio.h>' or provide a declaration of 'sprintf'
+    3 | #include "drv8301.h"
+  +++ |+#include <stdio.h>
+    4 | 
+../Core/Src/app.c:55:9: warning: incompatible implicit declaration of built-in function 'sprintf' [-Wbuiltin-declaration-mismatch]
+   55 |         sprintf(msg, "DRV8301 Status: 0x%04X\r\n", status);
+      |         ^~~~~~~
+../Core/Src/app.c:55:9: note: include '<stdio.h>' or provide a declaration of 'sprintf'
+../Core/Src/app.c:55:17: warning: pointer targets in passing argument 1 of 'sprintf' differ in signedness [-Wpointer-sign]
+   55 |         sprintf(msg, "DRV8301 Status: 0x%04X\r\n", status);
+      |                 ^~~
+      |                 |
+      |                 uint8_t * {aka unsigned char *}
+../Core/Src/app.c:55:17: note: expected 'char *' but argument is of type 'uint8_t *' {aka 'unsigned char *'}
+../Core/Src/app.c:58:51: warning: implicit declaration of function 'strlen' [-Wimplicit-function-declaration]
+   58 |         HAL_UART_Transmit(&huart3, (uint8_t*)msg, strlen(msg), HAL_MAX_DELAY);
+      |                                                   ^~~~~~
+../Core/Src/app.c:4:1: note: include '<string.h>' or provide a declaration of 'strlen'
+    3 | #include "drv8301.h"
+  +++ |+#include <string.h>
+    4 | 
+../Core/Src/app.c:58:51: warning: incompatible implicit declaration of built-in function 'strlen' [-Wbuiltin-declaration-mismatch]
+   58 |         HAL_UART_Transmit(&huart3, (uint8_t*)msg, strlen(msg), HAL_MAX_DELAY);
+      |                                                   ^~~~~~
+../Core/Src/app.c:58:51: note: include '<string.h>' or provide a declaration of 'strlen'
+../Core/Src/app.c:58:58: warning: pointer targets in passing argument 1 of 'strlen' differ in signedness [-Wpointer-sign]
+   58 |         HAL_UART_Transmit(&huart3, (uint8_t*)msg, strlen(msg), HAL_MAX_DELAY);
+      |                                                          ^~~
+      |                                                          |
+      |                                                          uint8_t * {aka unsigned char *}
+../Core/Src/app.c:58:58: note: expected 'const char *' but argument is of type 'uint8_t *' {aka 'unsigned char *'}
+make: *** [Core/Src/subdir.mk:43: Core/Src/app.o] Error 1
+make: *** Waiting for unfinished jobs....
+"make -j20 all" terminated with exit code 2. Build might be incomplete.
+16:33:21 **** Incremental Build of configuration Debug for project ESC_Project_Firmware ****
+make -j20 all 
+arm-none-eabi-gcc "../Core/Src/app.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32G431xx -c -I../Core/Inc -I../Drivers/STM32G4xx_HAL_Driver/Inc -I../Drivers/STM32G4xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32G4xx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/app.d" -MT"Core/Src/app.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Src/app.o"
+../Core/Src/app.c: In function 'App_Setup':
+../Core/Src/app.c:15:27: error: expected ';' before 'HAL_TIM_PWM_Start'
+   15 |         DRV8301_Init(&drv)
+      |                           ^
+      |                           ;
+   16 |         HAL_TIM_PWM_Start(&htim1, TIM_CHANNEL_1);      // High-side
+      |         ~~~~~~~~~~~~~~~~~  
+../Core/Src/app.c: In function 'App_Main_Loop':
+../Core/Src/app.c:55:9: warning: implicit declaration of function 'sprintf' [-Wimplicit-function-declaration]
+   55 |         sprintf(msg, "DRV8301 Status: 0x%04X\r\n", status);
+      |         ^~~~~~~
+../Core/Src/app.c:4:1: note: include '<stdio.h>' or provide a declaration of 'sprintf'
+    3 | #include "drv8301.h"
+  +++ |+#include <stdio.h>
+    4 | 
+../Core/Src/app.c:55:9: warning: incompatible implicit declaration of built-in function 'sprintf' [-Wbuiltin-declaration-mismatch]
+   55 |         sprintf(msg, "DRV8301 Status: 0x%04X\r\n", status);
+      |         ^~~~~~~
+../Core/Src/app.c:55:9: note: include '<stdio.h>' or provide a declaration of 'sprintf'
+../Core/Src/app.c:58:51: warning: implicit declaration of function 'strlen' [-Wimplicit-function-declaration]
+   58 |         HAL_UART_Transmit(&huart3, (uint8_t*)msg, strlen(msg), HAL_MAX_DELAY);
+      |                                                   ^~~~~~
+../Core/Src/app.c:4:1: note: include '<string.h>' or provide a declaration of 'strlen'
+    3 | #include "drv8301.h"
+  +++ |+#include <string.h>
+    4 | 
+../Core/Src/app.c:58:51: warning: incompatible implicit declaration of built-in function 'strlen' [-Wbuiltin-declaration-mismatch]
+   58 |         HAL_UART_Transmit(&huart3, (uint8_t*)msg, strlen(msg), HAL_MAX_DELAY);
+      |                                                   ^~~~~~
+../Core/Src/app.c:58:51: note: include '<string.h>' or provide a declaration of 'strlen'
+../Core/Src/app.c:62:40: warning: pointer targets in passing argument 2 of 'HAL_UART_Transmit_DMA' differ in signedness [-Wpointer-sign]
+   62 |         HAL_UART_Transmit_DMA(&huart3, msg, sizeof(msg)-1);
+      |                                        ^~~
+      |                                        |
+      |                                        char *
+In file included from ../Core/Inc/stm32g4xx_hal_conf.h:348,
+                 from ../Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_hal.h:29,
+                 from ../Core/Inc/main.h:30,
+                 from ../Core/Src/app.c:1:
+../Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_hal_uart.h:1635:83: note: expected 'const uint8_t *' {aka 'const unsigned char *'} but argument is of type 'char *'
+ 1635 | HAL_StatusTypeDef HAL_UART_Transmit_DMA(UART_HandleTypeDef *huart, const uint8_t *pData, uint16_t Size);
+      |                                                                    ~~~~~~~~~~~~~~~^~~~~
+make: *** [Core/Src/subdir.mk:43: Core/Src/app.o] Error 1
+"make -j20 all" terminated with exit code 2. Build might be incomplete.
+16:34:38 **** Incremental Build of configuration Debug for project ESC_Project_Firmware ****
+make -j20 all 
+arm-none-eabi-gcc "../Core/Src/app.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32G431xx -c -I../Core/Inc -I../Drivers/STM32G4xx_HAL_Driver/Inc -I../Drivers/STM32G4xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32G4xx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/app.d" -MT"Core/Src/app.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Src/app.o"
+../Core/Src/app.c: In function 'App_Setup':
+../Core/Src/app.c:15:27: error: expected ';' before 'HAL_TIM_PWM_Start'
+   15 |         DRV8301_Init(&drv)
+      |                           ^
+      |                           ;
+   16 |         HAL_TIM_PWM_Start(&htim1, TIM_CHANNEL_1);      // High-side
+      |         ~~~~~~~~~~~~~~~~~  
+../Core/Src/app.c: In function 'App_Main_Loop':
+../Core/Src/app.c:55:9: warning: implicit declaration of function 'sprintf' [-Wimplicit-function-declaration]
+   55 |         sprintf(msg, "DRV8301 Status: 0x%04X\r\n", status);
+      |         ^~~~~~~
+../Core/Src/app.c:4:1: note: include '<stdio.h>' or provide a declaration of 'sprintf'
+    3 | #include "drv8301.h"
+  +++ |+#include <stdio.h>
+    4 | 
+../Core/Src/app.c:55:9: warning: incompatible implicit declaration of built-in function 'sprintf' [-Wbuiltin-declaration-mismatch]
+   55 |         sprintf(msg, "DRV8301 Status: 0x%04X\r\n", status);
+      |         ^~~~~~~
+../Core/Src/app.c:55:9: note: include '<stdio.h>' or provide a declaration of 'sprintf'
+../Core/Src/app.c:58:51: warning: implicit declaration of function 'strlen' [-Wimplicit-function-declaration]
+   58 |         HAL_UART_Transmit(&huart3, (uint8_t*)msg, strlen(msg), HAL_MAX_DELAY);
+      |                                                   ^~~~~~
+../Core/Src/app.c:4:1: note: include '<string.h>' or provide a declaration of 'strlen'
+    3 | #include "drv8301.h"
+  +++ |+#include <string.h>
+    4 | 
+../Core/Src/app.c:58:51: warning: incompatible implicit declaration of built-in function 'strlen' [-Wbuiltin-declaration-mismatch]
+   58 |         HAL_UART_Transmit(&huart3, (uint8_t*)msg, strlen(msg), HAL_MAX_DELAY);
+      |                                                   ^~~~~~
+../Core/Src/app.c:58:51: note: include '<string.h>' or provide a declaration of 'strlen'
+../Core/Src/app.c:62:40: warning: pointer targets in passing argument 2 of 'HAL_UART_Transmit_DMA' differ in signedness [-Wpointer-sign]
+   62 |         HAL_UART_Transmit_DMA(&huart3, msg, sizeof(msg)-1);
+      |                                        ^~~
+      |                                        |
+      |                                        char *
+In file included from ../Core/Inc/stm32g4xx_hal_conf.h:348,
+                 from ../Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_hal.h:29,
+                 from ../Core/Inc/main.h:30,
+                 from ../Core/Src/app.c:1:
+../Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_hal_uart.h:1635:83: note: expected 'const uint8_t *' {aka 'const unsigned char *'} but argument is of type 'char *'
+ 1635 | HAL_StatusTypeDef HAL_UART_Transmit_DMA(UART_HandleTypeDef *huart, const uint8_t *pData, uint16_t Size);
+      |                                                                    ~~~~~~~~~~~~~~~^~~~~
+make: *** [Core/Src/subdir.mk:43: Core/Src/app.o] Error 1
+"make -j20 all" terminated with exit code 2. Build might be incomplete.
+16:34:49 **** Incremental Build of configuration Debug for project ESC_Project_Firmware ****
+make -j20 all 
+arm-none-eabi-gcc "../Core/Src/app.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32G431xx -c -I../Core/Inc -I../Drivers/STM32G4xx_HAL_Driver/Inc -I../Drivers/STM32G4xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32G4xx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/app.d" -MT"Core/Src/app.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Src/app.o"
+../Core/Src/app.c: In function 'App_Main_Loop':
+../Core/Src/app.c:55:9: warning: implicit declaration of function 'sprintf' [-Wimplicit-function-declaration]
+   55 |         sprintf(msg, "DRV8301 Status: 0x%04X\r\n", status);
+      |         ^~~~~~~
+../Core/Src/app.c:4:1: note: include '<stdio.h>' or provide a declaration of 'sprintf'
+    3 | #include "drv8301.h"
+  +++ |+#include <stdio.h>
+    4 | 
+../Core/Src/app.c:55:9: warning: incompatible implicit declaration of built-in function 'sprintf' [-Wbuiltin-declaration-mismatch]
+   55 |         sprintf(msg, "DRV8301 Status: 0x%04X\r\n", status);
+      |         ^~~~~~~
+../Core/Src/app.c:55:9: note: include '<stdio.h>' or provide a declaration of 'sprintf'
+../Core/Src/app.c:58:51: warning: implicit declaration of function 'strlen' [-Wimplicit-function-declaration]
+   58 |         HAL_UART_Transmit(&huart3, (uint8_t*)msg, strlen(msg), HAL_MAX_DELAY);
+      |                                                   ^~~~~~
+../Core/Src/app.c:4:1: note: include '<string.h>' or provide a declaration of 'strlen'
+    3 | #include "drv8301.h"
+  +++ |+#include <string.h>
+    4 | 
+../Core/Src/app.c:58:51: warning: incompatible implicit declaration of built-in function 'strlen' [-Wbuiltin-declaration-mismatch]
+   58 |         HAL_UART_Transmit(&huart3, (uint8_t*)msg, strlen(msg), HAL_MAX_DELAY);
+      |                                                   ^~~~~~
+../Core/Src/app.c:58:51: note: include '<string.h>' or provide a declaration of 'strlen'
+../Core/Src/app.c:62:40: warning: pointer targets in passing argument 2 of 'HAL_UART_Transmit_DMA' differ in signedness [-Wpointer-sign]
+   62 |         HAL_UART_Transmit_DMA(&huart3, msg, sizeof(msg)-1);
+      |                                        ^~~
+      |                                        |
+      |                                        char *
+In file included from ../Core/Inc/stm32g4xx_hal_conf.h:348,
+                 from ../Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_hal.h:29,
+                 from ../Core/Inc/main.h:30,
+                 from ../Core/Src/app.c:1:
+../Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_hal_uart.h:1635:83: note: expected 'const uint8_t *' {aka 'const unsigned char *'} but argument is of type 'char *'
+ 1635 | HAL_StatusTypeDef HAL_UART_Transmit_DMA(UART_HandleTypeDef *huart, const uint8_t *pData, uint16_t Size);
+      |                                                                    ~~~~~~~~~~~~~~~^~~~~
+arm-none-eabi-gcc -o "ESC_Project_Firmware.elf" @"objects.list"   -mcpu=cortex-m4 -T"E:\Personal Projects\ESC_V1.0\ESC_Project_Firmware\ESC_Project_Firmware\STM32G431CBTX_FLASH.ld" --specs=nosys.specs -Wl,-Map="ESC_Project_Firmware.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
+Finished building target: ESC_Project_Firmware.elf
+ 
+arm-none-eabi-size  ESC_Project_Firmware.elf 
+arm-none-eabi-objdump -h -S ESC_Project_Firmware.elf  > "ESC_Project_Firmware.list"
+   text	   data	    bss	    dec	    hex	filename
+  38880	     92	   3764	  42736	   a6f0	ESC_Project_Firmware.elf
+Finished building: default.size.stdout
+ 
+Finished building: ESC_Project_Firmware.list
+ 
+16:34:59 **** Incremental Build of configuration Debug for project ESC_Project_Firmware ****
+make -j20 all 
+arm-none-eabi-size  ESC_Project_Firmware.elf 
+   text	   data	    bss	    dec	    hex	filename
+  38880	     92	   3764	  42736	   a6f0	ESC_Project_Firmware.elf
+Finished building: default.size.stdout
+ 
+16:42:08 **** Incremental Build of configuration Debug for project ESC_Project_Firmware ****
+make -j20 all 
+arm-none-eabi-gcc "../Core/Src/app.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32G431xx -c -I../Core/Inc -I../Drivers/STM32G4xx_HAL_Driver/Inc -I../Drivers/STM32G4xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32G4xx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/app.d" -MT"Core/Src/app.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Src/app.o"
+arm-none-eabi-gcc "../Core/Src/drv8301.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32G431xx -c -I../Core/Inc -I../Drivers/STM32G4xx_HAL_Driver/Inc -I../Drivers/STM32G4xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32G4xx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/drv8301.d" -MT"Core/Src/drv8301.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Src/drv8301.o"
+../Core/Src/app.c: In function 'App_Main_Loop':
+../Core/Src/app.c:45:9: warning: implicit declaration of function 'sprintf' [-Wimplicit-function-declaration]
+   45 |         sprintf(msg, "DRV8301 Status: 0x%04X\r\n", status);
+      |         ^~~~~~~
+../Core/Src/app.c:4:1: note: include '<stdio.h>' or provide a declaration of 'sprintf'
+    3 | #include "drv8301.h"
+  +++ |+#include <stdio.h>
+    4 | 
+../Core/Src/app.c:45:9: warning: incompatible implicit declaration of built-in function 'sprintf' [-Wbuiltin-declaration-mismatch]
+   45 |         sprintf(msg, "DRV8301 Status: 0x%04X\r\n", status);
+      |         ^~~~~~~
+../Core/Src/app.c:45:9: note: include '<stdio.h>' or provide a declaration of 'sprintf'
+../Core/Src/app.c:48:51: warning: implicit declaration of function 'strlen' [-Wimplicit-function-declaration]
+   48 |         HAL_UART_Transmit(&huart3, (uint8_t*)msg, strlen(msg), HAL_MAX_DELAY);
+      |                                                   ^~~~~~
+../Core/Src/app.c:4:1: note: include '<string.h>' or provide a declaration of 'strlen'
+    3 | #include "drv8301.h"
+  +++ |+#include <string.h>
+    4 | 
+../Core/Src/app.c:48:51: warning: incompatible implicit declaration of built-in function 'strlen' [-Wbuiltin-declaration-mismatch]
+   48 |         HAL_UART_Transmit(&huart3, (uint8_t*)msg, strlen(msg), HAL_MAX_DELAY);
+      |                                                   ^~~~~~
+../Core/Src/app.c:48:51: note: include '<string.h>' or provide a declaration of 'strlen'
+../Core/Src/app.c:52:40: warning: pointer targets in passing argument 2 of 'HAL_UART_Transmit_DMA' differ in signedness [-Wpointer-sign]
+   52 |         HAL_UART_Transmit_DMA(&huart3, msg, sizeof(msg)-1);
+      |                                        ^~~
+      |                                        |
+      |                                        char *
+In file included from ../Core/Inc/stm32g4xx_hal_conf.h:348,
+                 from ../Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_hal.h:29,
+                 from ../Core/Inc/main.h:30,
+                 from ../Core/Src/app.c:1:
+../Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_hal_uart.h:1635:83: note: expected 'const uint8_t *' {aka 'const unsigned char *'} but argument is of type 'char *'
+ 1635 | HAL_StatusTypeDef HAL_UART_Transmit_DMA(UART_HandleTypeDef *huart, const uint8_t *pData, uint16_t Size);
+      |                                                                    ~~~~~~~~~~~~~~~^~~~~
+arm-none-eabi-gcc -o "ESC_Project_Firmware.elf" @"objects.list"   -mcpu=cortex-m4 -T"E:\Personal Projects\ESC_V1.0\ESC_Project_Firmware\ESC_Project_Firmware\STM32G431CBTX_FLASH.ld" --specs=nosys.specs -Wl,-Map="ESC_Project_Firmware.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
+Finished building target: ESC_Project_Firmware.elf
+ 
+arm-none-eabi-size  ESC_Project_Firmware.elf 
+arm-none-eabi-objdump -h -S ESC_Project_Firmware.elf  > "ESC_Project_Firmware.list"
+   text	   data	    bss	    dec	    hex	filename
+  38964	     92	   3764	  42820	   a744	ESC_Project_Firmware.elf
+Finished building: default.size.stdout
+ 
+Finished building: ESC_Project_Firmware.list
+ 
+16:42:59 **** Incremental Build of configuration Debug for project ESC_Project_Firmware ****
+make -j20 all 
+arm-none-eabi-size  ESC_Project_Firmware.elf 
+   text	   data	    bss	    dec	    hex	filename
+  38964	     92	   3764	  42820	   a744	ESC_Project_Firmware.elf
+Finished building: default.size.stdout
+ 
+16:44:00 **** Incremental Build of configuration Debug for project ESC_Project_Firmware ****
+make -j20 all 
+arm-none-eabi-gcc "../Core/Src/app.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32G431xx -c -I../Core/Inc -I../Drivers/STM32G4xx_HAL_Driver/Inc -I../Drivers/STM32G4xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32G4xx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/app.d" -MT"Core/Src/app.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Src/app.o"
+../Core/Src/app.c: In function 'App_Main_Loop':
+../Core/Src/app.c:45:9: warning: implicit declaration of function 'sprintf' [-Wimplicit-function-declaration]
+   45 |         sprintf(msg, "DRV8301 Status: 0x%04X\r\n", status);
+      |         ^~~~~~~
+../Core/Src/app.c:4:1: note: include '<stdio.h>' or provide a declaration of 'sprintf'
+    3 | #include "drv8301.h"
+  +++ |+#include <stdio.h>
+    4 | 
+../Core/Src/app.c:45:9: warning: incompatible implicit declaration of built-in function 'sprintf' [-Wbuiltin-declaration-mismatch]
+   45 |         sprintf(msg, "DRV8301 Status: 0x%04X\r\n", status);
+      |         ^~~~~~~
+../Core/Src/app.c:45:9: note: include '<stdio.h>' or provide a declaration of 'sprintf'
+../Core/Src/app.c:48:51: warning: implicit declaration of function 'strlen' [-Wimplicit-function-declaration]
+   48 |         HAL_UART_Transmit(&huart3, (uint8_t*)msg, strlen(msg), HAL_MAX_DELAY);
+      |                                                   ^~~~~~
+../Core/Src/app.c:4:1: note: include '<string.h>' or provide a declaration of 'strlen'
+    3 | #include "drv8301.h"
+  +++ |+#include <string.h>
+    4 | 
+../Core/Src/app.c:48:51: warning: incompatible implicit declaration of built-in function 'strlen' [-Wbuiltin-declaration-mismatch]
+   48 |         HAL_UART_Transmit(&huart3, (uint8_t*)msg, strlen(msg), HAL_MAX_DELAY);
+      |                                                   ^~~~~~
+../Core/Src/app.c:48:51: note: include '<string.h>' or provide a declaration of 'strlen'
+../Core/Src/app.c:52:40: warning: pointer targets in passing argument 2 of 'HAL_UART_Transmit_DMA' differ in signedness [-Wpointer-sign]
+   52 |         HAL_UART_Transmit_DMA(&huart3, msg, sizeof(msg)-1);
+      |                                        ^~~
+      |                                        |
+      |                                        char *
+In file included from ../Core/Inc/stm32g4xx_hal_conf.h:348,
+                 from ../Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_hal.h:29,
+                 from ../Core/Inc/main.h:30,
+                 from ../Core/Src/app.c:1:
+../Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_hal_uart.h:1635:83: note: expected 'const uint8_t *' {aka 'const unsigned char *'} but argument is of type 'char *'
+ 1635 | HAL_StatusTypeDef HAL_UART_Transmit_DMA(UART_HandleTypeDef *huart, const uint8_t *pData, uint16_t Size);
+      |                                                                    ~~~~~~~~~~~~~~~^~~~~
+arm-none-eabi-gcc -o "ESC_Project_Firmware.elf" @"objects.list"   -mcpu=cortex-m4 -T"E:\Personal Projects\ESC_V1.0\ESC_Project_Firmware\ESC_Project_Firmware\STM32G431CBTX_FLASH.ld" --specs=nosys.specs -Wl,-Map="ESC_Project_Firmware.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
+Finished building target: ESC_Project_Firmware.elf
+ 
+arm-none-eabi-size  ESC_Project_Firmware.elf 
+arm-none-eabi-objdump -h -S ESC_Project_Firmware.elf  > "ESC_Project_Firmware.list"
+   text	   data	    bss	    dec	    hex	filename
+  38964	     92	   3764	  42820	   a744	ESC_Project_Firmware.elf
+Finished building: default.size.stdout
+ 
+Finished building: ESC_Project_Firmware.list
+ 
+16:44:09 **** Incremental Build of configuration Debug for project ESC_Project_Firmware ****
+make -j20 all 
+arm-none-eabi-size  ESC_Project_Firmware.elf 
+   text	   data	    bss	    dec	    hex	filename
+  38964	     92	   3764	  42820	   a744	ESC_Project_Firmware.elf
+Finished building: default.size.stdout
+ 
+16:45:31 **** Incremental Build of configuration Debug for project ESC_Project_Firmware ****
+make -j20 all 
+arm-none-eabi-gcc "../Core/Src/app.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32G431xx -c -I../Core/Inc -I../Drivers/STM32G4xx_HAL_Driver/Inc -I../Drivers/STM32G4xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32G4xx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/app.d" -MT"Core/Src/app.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Src/app.o"
+../Core/Src/app.c: In function 'App_Main_Loop':
+../Core/Src/app.c:45:9: warning: implicit declaration of function 'sprintf' [-Wimplicit-function-declaration]
+   45 |         sprintf(msg, "DRV8301 Status: 0x%04X\r\n", status);
+      |         ^~~~~~~
+../Core/Src/app.c:4:1: note: include '<stdio.h>' or provide a declaration of 'sprintf'
+    3 | #include "drv8301.h"
+  +++ |+#include <stdio.h>
+    4 | 
+../Core/Src/app.c:45:9: warning: incompatible implicit declaration of built-in function 'sprintf' [-Wbuiltin-declaration-mismatch]
+   45 |         sprintf(msg, "DRV8301 Status: 0x%04X\r\n", status);
+      |         ^~~~~~~
+../Core/Src/app.c:45:9: note: include '<stdio.h>' or provide a declaration of 'sprintf'
+../Core/Src/app.c:48:51: warning: implicit declaration of function 'strlen' [-Wimplicit-function-declaration]
+   48 |         HAL_UART_Transmit(&huart3, (uint8_t*)msg, strlen(msg), HAL_MAX_DELAY);
+      |                                                   ^~~~~~
+../Core/Src/app.c:4:1: note: include '<string.h>' or provide a declaration of 'strlen'
+    3 | #include "drv8301.h"
+  +++ |+#include <string.h>
+    4 | 
+../Core/Src/app.c:48:51: warning: incompatible implicit declaration of built-in function 'strlen' [-Wbuiltin-declaration-mismatch]
+   48 |         HAL_UART_Transmit(&huart3, (uint8_t*)msg, strlen(msg), HAL_MAX_DELAY);
+      |                                                   ^~~~~~
+../Core/Src/app.c:48:51: note: include '<string.h>' or provide a declaration of 'strlen'
+../Core/Src/app.c:52:40: warning: pointer targets in passing argument 2 of 'HAL_UART_Transmit_DMA' differ in signedness [-Wpointer-sign]
+   52 |         HAL_UART_Transmit_DMA(&huart3, msg, sizeof(msg)-1);
+      |                                        ^~~
+      |                                        |
+      |                                        char *
+In file included from ../Core/Inc/stm32g4xx_hal_conf.h:348,
+                 from ../Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_hal.h:29,
+                 from ../Core/Inc/main.h:30,
+                 from ../Core/Src/app.c:1:
+../Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_hal_uart.h:1635:83: note: expected 'const uint8_t *' {aka 'const unsigned char *'} but argument is of type 'char *'
+ 1635 | HAL_StatusTypeDef HAL_UART_Transmit_DMA(UART_HandleTypeDef *huart, const uint8_t *pData, uint16_t Size);
+      |                                                                    ~~~~~~~~~~~~~~~^~~~~
+arm-none-eabi-gcc -o "ESC_Project_Firmware.elf" @"objects.list"   -mcpu=cortex-m4 -T"E:\Personal Projects\ESC_V1.0\ESC_Project_Firmware\ESC_Project_Firmware\STM32G431CBTX_FLASH.ld" --specs=nosys.specs -Wl,-Map="ESC_Project_Firmware.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
+Finished building target: ESC_Project_Firmware.elf
+ 
+arm-none-eabi-size  ESC_Project_Firmware.elf 
+arm-none-eabi-objdump -h -S ESC_Project_Firmware.elf  > "ESC_Project_Firmware.list"
+   text	   data	    bss	    dec	    hex	filename
+  38964	     92	   3764	  42820	   a744	ESC_Project_Firmware.elf
+Finished building: default.size.stdout
+ 
+Finished building: ESC_Project_Firmware.list
+ 
+16:45:39 **** Incremental Build of configuration Debug for project ESC_Project_Firmware ****
+make -j20 all 
+arm-none-eabi-size  ESC_Project_Firmware.elf 
+   text	   data	    bss	    dec	    hex	filename
+  38964	     92	   3764	  42820	   a744	ESC_Project_Firmware.elf
+Finished building: default.size.stdout
+ 
+16:46:40 **** Incremental Build of configuration Debug for project ESC_Project_Firmware ****
+make -j20 all 
+arm-none-eabi-size  ESC_Project_Firmware.elf 
+   text	   data	    bss	    dec	    hex	filename
+  38964	     92	   3764	  42820	   a744	ESC_Project_Firmware.elf
+Finished building: default.size.stdout
+ 
+16:47:33 **** Incremental Build of configuration Debug for project ESC_Project_Firmware ****
+make -j20 all 
+arm-none-eabi-size  ESC_Project_Firmware.elf 
+   text	   data	    bss	    dec	    hex	filename
+  38964	     92	   3764	  42820	   a744	ESC_Project_Firmware.elf
+Finished building: default.size.stdout
+ 
+16:56:28 **** Incremental Build of configuration Debug for project ESC_Project_Firmware ****
+make -j20 all 
+arm-none-eabi-gcc "../Core/Src/app.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32G431xx -c -I../Core/Inc -I../Drivers/STM32G4xx_HAL_Driver/Inc -I../Drivers/STM32G4xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32G4xx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/app.d" -MT"Core/Src/app.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Src/app.o"
+arm-none-eabi-gcc "../Core/Src/drv8301.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32G431xx -c -I../Core/Inc -I../Drivers/STM32G4xx_HAL_Driver/Inc -I../Drivers/STM32G4xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32G4xx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/drv8301.d" -MT"Core/Src/drv8301.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Src/drv8301.o"
+../Core/Src/app.c: In function 'App_Main_Loop':
+../Core/Src/app.c:46:9: warning: implicit declaration of function 'sprintf' [-Wimplicit-function-declaration]
+   46 |         sprintf(msg, "DRV8301 Status: 0x%04X\r\n", status);
+      |         ^~~~~~~
+../Core/Src/app.c:4:1: note: include '<stdio.h>' or provide a declaration of 'sprintf'
+    3 | #include "drv8301.h"
+  +++ |+#include <stdio.h>
+    4 | 
+../Core/Src/app.c:46:9: warning: incompatible implicit declaration of built-in function 'sprintf' [-Wbuiltin-declaration-mismatch]
+   46 |         sprintf(msg, "DRV8301 Status: 0x%04X\r\n", status);
+      |         ^~~~~~~
+../Core/Src/app.c:46:9: note: include '<stdio.h>' or provide a declaration of 'sprintf'
+../Core/Src/app.c:49:51: warning: implicit declaration of function 'strlen' [-Wimplicit-function-declaration]
+   49 |         HAL_UART_Transmit(&huart3, (uint8_t*)msg, strlen(msg), HAL_MAX_DELAY);
+      |                                                   ^~~~~~
+../Core/Src/app.c:4:1: note: include '<string.h>' or provide a declaration of 'strlen'
+    3 | #include "drv8301.h"
+  +++ |+#include <string.h>
+    4 | 
+../Core/Src/app.c:49:51: warning: incompatible implicit declaration of built-in function 'strlen' [-Wbuiltin-declaration-mismatch]
+   49 |         HAL_UART_Transmit(&huart3, (uint8_t*)msg, strlen(msg), HAL_MAX_DELAY);
+      |                                                   ^~~~~~
+../Core/Src/app.c:49:51: note: include '<string.h>' or provide a declaration of 'strlen'
+../Core/Src/app.c:53:40: warning: pointer targets in passing argument 2 of 'HAL_UART_Transmit_DMA' differ in signedness [-Wpointer-sign]
+   53 |         HAL_UART_Transmit_DMA(&huart3, msg, sizeof(msg)-1);
+      |                                        ^~~
+      |                                        |
+      |                                        char *
+In file included from ../Core/Inc/stm32g4xx_hal_conf.h:348,
+                 from ../Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_hal.h:29,
+                 from ../Core/Inc/main.h:30,
+                 from ../Core/Src/app.c:1:
+../Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_hal_uart.h:1635:83: note: expected 'const uint8_t *' {aka 'const unsigned char *'} but argument is of type 'char *'
+ 1635 | HAL_StatusTypeDef HAL_UART_Transmit_DMA(UART_HandleTypeDef *huart, const uint8_t *pData, uint16_t Size);
+      |                                                                    ~~~~~~~~~~~~~~~^~~~~
+arm-none-eabi-gcc -o "ESC_Project_Firmware.elf" @"objects.list"   -mcpu=cortex-m4 -T"E:\Personal Projects\ESC_V1.0\ESC_Project_Firmware\ESC_Project_Firmware\STM32G431CBTX_FLASH.ld" --specs=nosys.specs -Wl,-Map="ESC_Project_Firmware.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
+Finished building target: ESC_Project_Firmware.elf
+ 
+arm-none-eabi-size  ESC_Project_Firmware.elf 
+arm-none-eabi-objdump -h -S ESC_Project_Firmware.elf  > "ESC_Project_Firmware.list"
+   text	   data	    bss	    dec	    hex	filename
+  39032	     92	   3764	  42888	   a788	ESC_Project_Firmware.elf
+Finished building: default.size.stdout
+ 
+Finished building: ESC_Project_Firmware.list
+ 
+16:56:37 **** Incremental Build of configuration Debug for project ESC_Project_Firmware ****
+make -j20 all 
+arm-none-eabi-size  ESC_Project_Firmware.elf 
+   text	   data	    bss	    dec	    hex	filename
+  39032	     92	   3764	  42888	   a788	ESC_Project_Firmware.elf
+Finished building: default.size.stdout
+ 
+16:57:14 **** Incremental Build of configuration Debug for project ESC_Project_Firmware ****
+make -j20 all 
+arm-none-eabi-gcc "../Core/Src/app.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32G431xx -c -I../Core/Inc -I../Drivers/STM32G4xx_HAL_Driver/Inc -I../Drivers/STM32G4xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32G4xx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/app.d" -MT"Core/Src/app.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Src/app.o"
+../Core/Src/app.c: In function 'App_Main_Loop':
+../Core/Src/app.c:46:9: warning: implicit declaration of function 'sprintf' [-Wimplicit-function-declaration]
+   46 |         sprintf(msg, "DRV8301 Gain: 0x%04X\r\n", status);
+      |         ^~~~~~~
+../Core/Src/app.c:4:1: note: include '<stdio.h>' or provide a declaration of 'sprintf'
+    3 | #include "drv8301.h"
+  +++ |+#include <stdio.h>
+    4 | 
+../Core/Src/app.c:46:9: warning: incompatible implicit declaration of built-in function 'sprintf' [-Wbuiltin-declaration-mismatch]
+   46 |         sprintf(msg, "DRV8301 Gain: 0x%04X\r\n", status);
+      |         ^~~~~~~
+../Core/Src/app.c:46:9: note: include '<stdio.h>' or provide a declaration of 'sprintf'
+../Core/Src/app.c:49:51: warning: implicit declaration of function 'strlen' [-Wimplicit-function-declaration]
+   49 |         HAL_UART_Transmit(&huart3, (uint8_t*)msg, strlen(msg), HAL_MAX_DELAY);
+      |                                                   ^~~~~~
+../Core/Src/app.c:4:1: note: include '<string.h>' or provide a declaration of 'strlen'
+    3 | #include "drv8301.h"
+  +++ |+#include <string.h>
+    4 | 
+../Core/Src/app.c:49:51: warning: incompatible implicit declaration of built-in function 'strlen' [-Wbuiltin-declaration-mismatch]
+   49 |         HAL_UART_Transmit(&huart3, (uint8_t*)msg, strlen(msg), HAL_MAX_DELAY);
+      |                                                   ^~~~~~
+../Core/Src/app.c:49:51: note: include '<string.h>' or provide a declaration of 'strlen'
+../Core/Src/app.c:53:40: warning: pointer targets in passing argument 2 of 'HAL_UART_Transmit_DMA' differ in signedness [-Wpointer-sign]
+   53 |         HAL_UART_Transmit_DMA(&huart3, msg, sizeof(msg)-1);
+      |                                        ^~~
+      |                                        |
+      |                                        char *
+In file included from ../Core/Inc/stm32g4xx_hal_conf.h:348,
+                 from ../Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_hal.h:29,
+                 from ../Core/Inc/main.h:30,
+                 from ../Core/Src/app.c:1:
+../Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_hal_uart.h:1635:83: note: expected 'const uint8_t *' {aka 'const unsigned char *'} but argument is of type 'char *'
+ 1635 | HAL_StatusTypeDef HAL_UART_Transmit_DMA(UART_HandleTypeDef *huart, const uint8_t *pData, uint16_t Size);
+      |                                                                    ~~~~~~~~~~~~~~~^~~~~
+arm-none-eabi-gcc -o "ESC_Project_Firmware.elf" @"objects.list"   -mcpu=cortex-m4 -T"E:\Personal Projects\ESC_V1.0\ESC_Project_Firmware\ESC_Project_Firmware\STM32G431CBTX_FLASH.ld" --specs=nosys.specs -Wl,-Map="ESC_Project_Firmware.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
+Finished building target: ESC_Project_Firmware.elf
+ 
+arm-none-eabi-size  ESC_Project_Firmware.elf 
+arm-none-eabi-objdump -h -S ESC_Project_Firmware.elf  > "ESC_Project_Firmware.list"
+   text	   data	    bss	    dec	    hex	filename
+  39028	     92	   3764	  42884	   a784	ESC_Project_Firmware.elf
+Finished building: default.size.stdout
+ 
+Finished building: ESC_Project_Firmware.list
+ 
+16:57:19 **** Incremental Build of configuration Debug for project ESC_Project_Firmware ****
+make -j20 all 
+arm-none-eabi-size  ESC_Project_Firmware.elf 
+   text	   data	    bss	    dec	    hex	filename
+  39028	     92	   3764	  42884	   a784	ESC_Project_Firmware.elf
+Finished building: default.size.stdout
+ 
+17:18:45 **** Incremental Build of configuration Debug for project ESC_Project_Firmware ****
+make -j20 all 
+arm-none-eabi-gcc "../Core/Src/app.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32G431xx -c -I../Core/Inc -I../Drivers/STM32G4xx_HAL_Driver/Inc -I../Drivers/STM32G4xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32G4xx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/app.d" -MT"Core/Src/app.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Src/app.o"
+../Core/Src/app.c: In function 'App_Main_Loop':
+../Core/Src/app.c:47:9: warning: implicit declaration of function 'sprintf' [-Wimplicit-function-declaration]
+   47 |         sprintf(msg, "DRV8301 Gain: 0x%04X\r\n", status);
+      |         ^~~~~~~
+../Core/Src/app.c:4:1: note: include '<stdio.h>' or provide a declaration of 'sprintf'
+    3 | #include "drv8301.h"
+  +++ |+#include <stdio.h>
+    4 | 
+../Core/Src/app.c:47:9: warning: incompatible implicit declaration of built-in function 'sprintf' [-Wbuiltin-declaration-mismatch]
+   47 |         sprintf(msg, "DRV8301 Gain: 0x%04X\r\n", status);
+      |         ^~~~~~~
+../Core/Src/app.c:47:9: note: include '<stdio.h>' or provide a declaration of 'sprintf'
+../Core/Src/app.c:50:51: warning: implicit declaration of function 'strlen' [-Wimplicit-function-declaration]
+   50 |         HAL_UART_Transmit(&huart3, (uint8_t*)msg, strlen(msg), HAL_MAX_DELAY);
+      |                                                   ^~~~~~
+../Core/Src/app.c:4:1: note: include '<string.h>' or provide a declaration of 'strlen'
+    3 | #include "drv8301.h"
+  +++ |+#include <string.h>
+    4 | 
+../Core/Src/app.c:50:51: warning: incompatible implicit declaration of built-in function 'strlen' [-Wbuiltin-declaration-mismatch]
+   50 |         HAL_UART_Transmit(&huart3, (uint8_t*)msg, strlen(msg), HAL_MAX_DELAY);
+      |                                                   ^~~~~~
+../Core/Src/app.c:50:51: note: include '<string.h>' or provide a declaration of 'strlen'
+../Core/Src/app.c:54:40: warning: pointer targets in passing argument 2 of 'HAL_UART_Transmit_DMA' differ in signedness [-Wpointer-sign]
+   54 |         HAL_UART_Transmit_DMA(&huart3, msg, sizeof(msg)-1);
+      |                                        ^~~
+      |                                        |
+      |                                        char *
+In file included from ../Core/Inc/stm32g4xx_hal_conf.h:348,
+                 from ../Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_hal.h:29,
+                 from ../Core/Inc/main.h:30,
+                 from ../Core/Src/app.c:1:
+../Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_hal_uart.h:1635:83: note: expected 'const uint8_t *' {aka 'const unsigned char *'} but argument is of type 'char *'
+ 1635 | HAL_StatusTypeDef HAL_UART_Transmit_DMA(UART_HandleTypeDef *huart, const uint8_t *pData, uint16_t Size);
+      |                                                                    ~~~~~~~~~~~~~~~^~~~~
+arm-none-eabi-gcc -o "ESC_Project_Firmware.elf" @"objects.list"   -mcpu=cortex-m4 -T"E:\Personal Projects\ESC_V1.0\ESC_Project_Firmware\ESC_Project_Firmware\STM32G431CBTX_FLASH.ld" --specs=nosys.specs -Wl,-Map="ESC_Project_Firmware.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
+Finished building target: ESC_Project_Firmware.elf
+ 
+arm-none-eabi-size  ESC_Project_Firmware.elf 
+arm-none-eabi-objdump -h -S ESC_Project_Firmware.elf  > "ESC_Project_Firmware.list"
+   text	   data	    bss	    dec	    hex	filename
+  39036	     92	   3764	  42892	   a78c	ESC_Project_Firmware.elf
+Finished building: default.size.stdout
+ 
+Finished building: ESC_Project_Firmware.list
+ 
+17:18:50 **** Incremental Build of configuration Debug for project ESC_Project_Firmware ****
+make -j20 all 
+arm-none-eabi-size  ESC_Project_Firmware.elf 
+   text	   data	    bss	    dec	    hex	filename
+  39036	     92	   3764	  42892	   a78c	ESC_Project_Firmware.elf
+Finished building: default.size.stdout
+ 
+17:24:21 **** Incremental Build of configuration Debug for project ESC_Project_Firmware ****
+make -j20 all 
+arm-none-eabi-gcc "../Core/Src/app.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32G431xx -c -I../Core/Inc -I../Drivers/STM32G4xx_HAL_Driver/Inc -I../Drivers/STM32G4xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32G4xx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/app.d" -MT"Core/Src/app.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Src/app.o"
+../Core/Src/app.c: In function 'App_Setup':
+../Core/Src/app.c:17:9: error: 'DRV8301_HandleTypeDef' has no member named 'cs_port'; did you mean 'CS_Port'?
+   17 |     drv.cs_port = SPI1_CS_GPIO_Port;
+      |         ^~~~~~~
+      |         CS_Port
+../Core/Src/app.c:18:9: error: 'DRV8301_HandleTypeDef' has no member named 'cs_pin'; did you mean 'CS_Pin'?
+   18 |     drv.cs_pin  = SPI1_CS_Pin;
+      |         ^~~~~~
+      |         CS_Pin
+../Core/Src/app.c:21:27: error: 'DRV8301_HandleTypeDef' has no member named 'cs_port'; did you mean 'CS_Port'?
+   21 |     HAL_GPIO_WritePin(drv.cs_port, drv.cs_pin, GPIO_PIN_SET);
+      |                           ^~~~~~~
+      |                           CS_Port
+../Core/Src/app.c:21:40: error: 'DRV8301_HandleTypeDef' has no member named 'cs_pin'; did you mean 'CS_Pin'?
+   21 |     HAL_GPIO_WritePin(drv.cs_port, drv.cs_pin, GPIO_PIN_SET);
+      |                                        ^~~~~~
+      |                                        CS_Pin
+../Core/Src/app.c:24:50: error: 'DRV8301_REG_STATUS' undeclared (first use in this function); did you mean 'DRV8301_REG_DRV_STATUS'?
+   24 |     uint16_t dev_id = DRV8301_ReadRegister(&drv, DRV8301_REG_STATUS); // or ID register
+      |                                                  ^~~~~~~~~~~~~~~~~~
+      |                                                  DRV8301_REG_DRV_STATUS
+../Core/Src/app.c:24:50: note: each undeclared identifier is reported only once for each function it appears in
+../Core/Src/app.c:24:23: error: too few arguments to function 'DRV8301_ReadRegister'
+   24 |     uint16_t dev_id = DRV8301_ReadRegister(&drv, DRV8301_REG_STATUS); // or ID register
+      |                       ^~~~~~~~~~~~~~~~~~~~
+In file included from ../Core/Src/app.c:2:
+../Core/Inc/drv8301.h:13:19: note: declared here
+   13 | HAL_StatusTypeDef DRV8301_ReadRegister(DRV8301_HandleTypeDef *drv, drv8301_reg_t reg, uint16_t *data);
+      |                   ^~~~~~~~~~~~~~~~~~~~
+../Core/Src/app.c:25:5: warning: implicit declaration of function 'sprintf' [-Wimplicit-function-declaration]
+   25 |     sprintf(msg, "DRV8301 ID: 0x%04X\r\n", dev_id);
+      |     ^~~~~~~
+../Core/Src/app.c:4:1: note: include '<stdio.h>' or provide a declaration of 'sprintf'
+    3 | #include "timebase.h"
+  +++ |+#include <stdio.h>
+    4 | 
+../Core/Src/app.c:25:5: warning: incompatible implicit declaration of built-in function 'sprintf' [-Wbuiltin-declaration-mismatch]
+   25 |     sprintf(msg, "DRV8301 ID: 0x%04X\r\n", dev_id);
+      |     ^~~~~~~
+../Core/Src/app.c:25:5: note: include '<stdio.h>' or provide a declaration of 'sprintf'
+../Core/Src/app.c:26:47: warning: implicit declaration of function 'strlen' [-Wimplicit-function-declaration]
+   26 |     HAL_UART_Transmit(&huart3, (uint8_t*)msg, strlen(msg), HAL_MAX_DELAY);
+      |                                               ^~~~~~
+../Core/Src/app.c:4:1: note: include '<string.h>' or provide a declaration of 'strlen'
+    3 | #include "timebase.h"
+  +++ |+#include <string.h>
+    4 | 
+../Core/Src/app.c:26:47: warning: incompatible implicit declaration of built-in function 'strlen' [-Wbuiltin-declaration-mismatch]
+   26 |     HAL_UART_Transmit(&huart3, (uint8_t*)msg, strlen(msg), HAL_MAX_DELAY);
+      |                                               ^~~~~~
+../Core/Src/app.c:26:47: note: include '<string.h>' or provide a declaration of 'strlen'
+../Core/Src/app.c: In function 'App_Main_Loop':
+../Core/Src/app.c:66:9: warning: incompatible implicit declaration of built-in function 'sprintf' [-Wbuiltin-declaration-mismatch]
+   66 |         sprintf(msg, "DRV8301 Gain: 0x%04X\r\n", gain);
+      |         ^~~~~~~
+../Core/Src/app.c:66:9: note: include '<stdio.h>' or provide a declaration of 'sprintf'
+../Core/Src/app.c:71:59: warning: incompatible implicit declaration of built-in function 'strlen' [-Wbuiltin-declaration-mismatch]
+   71 |             HAL_UART_Transmit_DMA(&huart3, (uint8_t*)msg, strlen(msg));
+      |                                                           ^~~~~~
+../Core/Src/app.c:71:59: note: include '<string.h>' or provide a declaration of 'strlen'
+make: *** [Core/Src/subdir.mk:43: Core/Src/app.o] Error 1
+"make -j20 all" terminated with exit code 2. Build might be incomplete.
+17:27:38 **** Incremental Build of configuration Debug for project ESC_Project_Firmware ****
+make -j20 all 
+arm-none-eabi-gcc "../Core/Src/app.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32G431xx -c -I../Core/Inc -I../Drivers/STM32G4xx_HAL_Driver/Inc -I../Drivers/STM32G4xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32G4xx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/app.d" -MT"Core/Src/app.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Src/app.o"
+../Core/Src/app.c: In function 'App_Setup':
+../Core/Src/app.c:17:9: error: 'DRV8301_HandleTypeDef' has no member named 'cs_port'; did you mean 'CS_Port'?
+   17 |     drv.cs_port = SPI1_CS_GPIO_Port;
+      |         ^~~~~~~
+      |         CS_Port
+../Core/Src/app.c:18:9: error: 'DRV8301_HandleTypeDef' has no member named 'cs_pin'; did you mean 'CS_Pin'?
+   18 |     drv.cs_pin  = SPI1_CS_Pin;
+      |         ^~~~~~
+      |         CS_Pin
+../Core/Src/app.c:20:27: error: 'DRV8301_HandleTypeDef' has no member named 'cs_port'; did you mean 'CS_Port'?
+   20 |     HAL_GPIO_WritePin(drv.cs_port, drv.cs_pin, GPIO_PIN_SET); // CS idle high
+      |                           ^~~~~~~
+      |                           CS_Port
+../Core/Src/app.c:20:40: error: 'DRV8301_HandleTypeDef' has no member named 'cs_pin'; did you mean 'CS_Pin'?
+   20 |     HAL_GPIO_WritePin(drv.cs_port, drv.cs_pin, GPIO_PIN_SET); // CS idle high
+      |                                        ^~~~~~
+      |                                        CS_Pin
+../Core/Src/app.c: In function 'App_Main_Loop':
+../Core/Src/app.c:66:9: warning: implicit declaration of function 'sprintf' [-Wimplicit-function-declaration]
+   66 |         sprintf(msg, "DRV8301 Gain: 0x%02X\r\n", gain);
+      |         ^~~~~~~
+../Core/Src/app.c:4:1: note: include '<stdio.h>' or provide a declaration of 'sprintf'
+    3 | #include "timebase.h"
+  +++ |+#include <stdio.h>
+    4 | 
+../Core/Src/app.c:66:9: warning: incompatible implicit declaration of built-in function 'sprintf' [-Wbuiltin-declaration-mismatch]
+   66 |         sprintf(msg, "DRV8301 Gain: 0x%02X\r\n", gain);
+      |         ^~~~~~~
+../Core/Src/app.c:66:9: note: include '<stdio.h>' or provide a declaration of 'sprintf'
+../Core/Src/app.c:71:59: warning: implicit declaration of function 'strlen' [-Wimplicit-function-declaration]
+   71 |             HAL_UART_Transmit_DMA(&huart3, (uint8_t*)msg, strlen(msg));
+      |                                                           ^~~~~~
+../Core/Src/app.c:4:1: note: include '<string.h>' or provide a declaration of 'strlen'
+    3 | #include "timebase.h"
+  +++ |+#include <string.h>
+    4 | 
+../Core/Src/app.c:71:59: warning: incompatible implicit declaration of built-in function 'strlen' [-Wbuiltin-declaration-mismatch]
+   71 |             HAL_UART_Transmit_DMA(&huart3, (uint8_t*)msg, strlen(msg));
+      |                                                           ^~~~~~
+../Core/Src/app.c:71:59: note: include '<string.h>' or provide a declaration of 'strlen'
+make: *** [Core/Src/subdir.mk:43: Core/Src/app.o] Error 1
+"make -j20 all" terminated with exit code 2. Build might be incomplete.
+17:30:51 **** Incremental Build of configuration Debug for project ESC_Project_Firmware ****
+make -j20 all 
+arm-none-eabi-gcc "../Core/Src/app.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32G431xx -c -I../Core/Inc -I../Drivers/STM32G4xx_HAL_Driver/Inc -I../Drivers/STM32G4xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32G4xx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/app.d" -MT"Core/Src/app.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Src/app.o"
+../Core/Src/app.c: In function 'App_Main_Loop':
+../Core/Src/app.c:66:9: warning: implicit declaration of function 'sprintf' [-Wimplicit-function-declaration]
+   66 |         sprintf(msg, "DRV8301 Gain: 0x%02X\r\n", gain);
+      |         ^~~~~~~
+../Core/Src/app.c:4:1: note: include '<stdio.h>' or provide a declaration of 'sprintf'
+    3 | #include "timebase.h"
+  +++ |+#include <stdio.h>
+    4 | 
+../Core/Src/app.c:66:9: warning: incompatible implicit declaration of built-in function 'sprintf' [-Wbuiltin-declaration-mismatch]
+   66 |         sprintf(msg, "DRV8301 Gain: 0x%02X\r\n", gain);
+      |         ^~~~~~~
+../Core/Src/app.c:66:9: note: include '<stdio.h>' or provide a declaration of 'sprintf'
+../Core/Src/app.c:71:59: warning: implicit declaration of function 'strlen' [-Wimplicit-function-declaration]
+   71 |             HAL_UART_Transmit_DMA(&huart3, (uint8_t*)msg, strlen(msg));
+      |                                                           ^~~~~~
+../Core/Src/app.c:4:1: note: include '<string.h>' or provide a declaration of 'strlen'
+    3 | #include "timebase.h"
+  +++ |+#include <string.h>
+    4 | 
+../Core/Src/app.c:71:59: warning: incompatible implicit declaration of built-in function 'strlen' [-Wbuiltin-declaration-mismatch]
+   71 |             HAL_UART_Transmit_DMA(&huart3, (uint8_t*)msg, strlen(msg));
+      |                                                           ^~~~~~
+../Core/Src/app.c:71:59: note: include '<string.h>' or provide a declaration of 'strlen'
+arm-none-eabi-gcc -o "ESC_Project_Firmware.elf" @"objects.list"   -mcpu=cortex-m4 -T"E:\Personal Projects\ESC_V1.0\ESC_Project_Firmware\ESC_Project_Firmware\STM32G431CBTX_FLASH.ld" --specs=nosys.specs -Wl,-Map="ESC_Project_Firmware.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
+Finished building target: ESC_Project_Firmware.elf
+ 
+arm-none-eabi-size  ESC_Project_Firmware.elf 
+arm-none-eabi-objdump -h -S ESC_Project_Firmware.elf  > "ESC_Project_Firmware.list"
+   text	   data	    bss	    dec	    hex	filename
+  38772	     92	   3764	  42628	   a684	ESC_Project_Firmware.elf
+Finished building: default.size.stdout
+ 
+Finished building: ESC_Project_Firmware.list
+ 
+17:31:17 **** Incremental Build of configuration Debug for project ESC_Project_Firmware ****
+make -j20 all 
+arm-none-eabi-size  ESC_Project_Firmware.elf 
+   text	   data	    bss	    dec	    hex	filename
+  38772	     92	   3764	  42628	   a684	ESC_Project_Firmware.elf
+Finished building: default.size.stdout
+ 
+17:32:25 **** Incremental Build of configuration Debug for project ESC_Project_Firmware ****
+make -j20 all 
+arm-none-eabi-size  ESC_Project_Firmware.elf 
+   text	   data	    bss	    dec	    hex	filename
+  38772	     92	   3764	  42628	   a684	ESC_Project_Firmware.elf
+Finished building: default.size.stdout
+ 
+17:35:00 **** Incremental Build of configuration Debug for project ESC_Project_Firmware ****
+make -j20 all 
+arm-none-eabi-gcc "../Core/Src/app.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32G431xx -c -I../Core/Inc -I../Drivers/STM32G4xx_HAL_Driver/Inc -I../Drivers/STM32G4xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32G4xx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/app.d" -MT"Core/Src/app.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Src/app.o"
+../Core/Src/app.c: In function 'App_Setup':
+../Core/Src/app.c:28:9: warning: implicit declaration of function 'sprintf' [-Wimplicit-function-declaration]
+   28 |         sprintf(msg, "DRV8301 Init OK\r\n");
+      |         ^~~~~~~
+../Core/Src/app.c:4:1: note: include '<stdio.h>' or provide a declaration of 'sprintf'
+    3 | #include "timebase.h"
+  +++ |+#include <stdio.h>
+    4 | 
+../Core/Src/app.c:28:9: warning: incompatible implicit declaration of built-in function 'sprintf' [-Wbuiltin-declaration-mismatch]
+   28 |         sprintf(msg, "DRV8301 Init OK\r\n");
+      |         ^~~~~~~
+../Core/Src/app.c:28:9: note: include '<stdio.h>' or provide a declaration of 'sprintf'
+../Core/Src/app.c:31:9: warning: incompatible implicit declaration of built-in function 'sprintf' [-Wbuiltin-declaration-mismatch]
+   31 |         sprintf(msg, "DRV8301 Init FAIL! Status: 0x%02X\r\n", status);
+      |         ^~~~~~~
+../Core/Src/app.c:31:9: note: include '<stdio.h>' or provide a declaration of 'sprintf'
+../Core/Src/app.c:33:47: warning: implicit declaration of function 'strlen' [-Wimplicit-function-declaration]
+   33 |     HAL_UART_Transmit(&huart3, (uint8_t*)msg, strlen(msg), HAL_MAX_DELAY);
+      |                                               ^~~~~~
+../Core/Src/app.c:4:1: note: include '<string.h>' or provide a declaration of 'strlen'
+    3 | #include "timebase.h"
+  +++ |+#include <string.h>
+    4 | 
+../Core/Src/app.c:33:47: warning: incompatible implicit declaration of built-in function 'strlen' [-Wbuiltin-declaration-mismatch]
+   33 |     HAL_UART_Transmit(&huart3, (uint8_t*)msg, strlen(msg), HAL_MAX_DELAY);
+      |                                               ^~~~~~
+../Core/Src/app.c:33:47: note: include '<string.h>' or provide a declaration of 'strlen'
+../Core/Src/app.c:37:5: warning: incompatible implicit declaration of built-in function 'sprintf' [-Wbuiltin-declaration-mismatch]
+   37 |     sprintf(msg, "Set CSA Gain Status: 0x%02X\r\n", status);
+      |     ^~~~~~~
+../Core/Src/app.c:37:5: note: include '<stdio.h>' or provide a declaration of 'sprintf'
+../Core/Src/app.c: In function 'App_Main_Loop':
+../Core/Src/app.c:72:9: warning: incompatible implicit declaration of built-in function 'sprintf' [-Wbuiltin-declaration-mismatch]
+   72 |         sprintf(msg, "CSA Gain Read: 0x%02X\r\n", gain);
+      |         ^~~~~~~
+../Core/Src/app.c:72:9: note: include '<stdio.h>' or provide a declaration of 'sprintf'
+../Core/Src/app.c:73:51: warning: incompatible implicit declaration of built-in function 'strlen' [-Wbuiltin-declaration-mismatch]
+   73 |         HAL_UART_Transmit(&huart3, (uint8_t*)msg, strlen(msg), HAL_MAX_DELAY);
+      |                                                   ^~~~~~
+../Core/Src/app.c:73:51: note: include '<string.h>' or provide a declaration of 'strlen'
+arm-none-eabi-gcc -o "ESC_Project_Firmware.elf" @"objects.list"   -mcpu=cortex-m4 -T"E:\Personal Projects\ESC_V1.0\ESC_Project_Firmware\ESC_Project_Firmware\STM32G431CBTX_FLASH.ld" --specs=nosys.specs -Wl,-Map="ESC_Project_Firmware.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
+Finished building target: ESC_Project_Firmware.elf
+ 
+arm-none-eabi-size  ESC_Project_Firmware.elf 
+arm-none-eabi-objdump -h -S ESC_Project_Firmware.elf  > "ESC_Project_Firmware.list"
+   text	   data	    bss	    dec	    hex	filename
+  38532	     92	   3820	  42444	   a5cc	ESC_Project_Firmware.elf
+Finished building: default.size.stdout
+ 
+Finished building: ESC_Project_Firmware.list
+ 
+17:35:06 **** Incremental Build of configuration Debug for project ESC_Project_Firmware ****
+make -j20 all 
+arm-none-eabi-size  ESC_Project_Firmware.elf 
+   text	   data	    bss	    dec	    hex	filename
+  38532	     92	   3820	  42444	   a5cc	ESC_Project_Firmware.elf
+Finished building: default.size.stdout
+ 
+17:35:55 **** Clean-only build of configuration Debug for project ESC_Project_Firmware ****
+make -j20 clean 
+rm -rf ./Drivers/STM32G4xx_HAL_Driver/Src/stm32g4xx_hal.cyclo ./Drivers/STM32G4xx_HAL_Driver/Src/stm32g4xx_hal.d ./Drivers/STM32G4xx_HAL_Driver/Src/stm32g4xx_hal.o ./Drivers/STM32G4xx_HAL_Driver/Src/stm32g4xx_hal.su ./Drivers/STM32G4xx_HAL_Driver/Src/stm32g4xx_hal_adc.cyclo ./Drivers/STM32G4xx_HAL_Driver/Src/stm32g4xx_hal_adc.d ./Drivers/STM32G4xx_HAL_Driver/Src/stm32g4xx_hal_adc.o ./Drivers/STM32G4xx_HAL_Driver/Src/stm32g4xx_hal_adc.su ./Drivers/STM32G4xx_HAL_Driver/Src/stm32g4xx_hal_adc_ex.cyclo ./Drivers/STM32G4xx_HAL_Driver/Src/stm32g4xx_hal_adc_ex.d ./Drivers/STM32G4xx_HAL_Driver/Src/stm32g4xx_hal_adc_ex.o ./Drivers/STM32G4xx_HAL_Driver/Src/stm32g4xx_hal_adc_ex.su ./Drivers/STM32G4xx_HAL_Driver/Src/stm32g4xx_hal_cortex.cyclo ./Drivers/STM32G4xx_HAL_Driver/Src/stm32g4xx_hal_cortex.d ./Drivers/STM32G4xx_HAL_Driver/Src/stm32g4xx_hal_cortex.o ./Drivers/STM32G4xx_HAL_Driver/Src/stm32g4xx_hal_cortex.su ./Drivers/STM32G4xx_HAL_Driver/Src/stm32g4xx_hal_dma.cyclo ./Drivers/STM32G4xx_HAL_Driver/Src/stm32g4xx_hal_dma.d ./Drivers/STM32G4xx_HAL_Driver/Src/stm32g4xx_hal_dma.o ./Drivers/STM32G4xx_HAL_Driver/Src/stm32g4xx_hal_dma.su ./Drivers/STM32G4xx_HAL_Driver/Src/stm32g4xx_hal_dma_ex.cyclo ./Drivers/STM32G4xx_HAL_Driver/Src/stm32g4xx_hal_dma_ex.d ./Drivers/STM32G4xx_HAL_Driver/Src/stm32g4xx_hal_dma_ex.o ./Drivers/STM32G4xx_HAL_Driver/Src/stm32g4xx_hal_dma_ex.su ./Drivers/STM32G4xx_HAL_Driver/Src/stm32g4xx_hal_exti.cyclo ./Drivers/STM32G4xx_HAL_Driver/Src/stm32g4xx_hal_exti.d ./Drivers/STM32G4xx_HAL_Driver/Src/stm32g4xx_hal_exti.o ./Drivers/STM32G4xx_HAL_Driver/Src/stm32g4xx_hal_exti.su ./Drivers/STM32G4xx_HAL_Driver/Src/stm32g4xx_hal_flash.cyclo ./Drivers/STM32G4xx_HAL_Driver/Src/stm32g4xx_hal_flash.d ./Drivers/STM32G4xx_HAL_Driver/Src/stm32g4xx_hal_flash.o ./Drivers/STM32G4xx_HAL_Driver/Src/stm32g4xx_hal_flash.su ./Drivers/STM32G4xx_HAL_Driver/Src/stm32g4xx_hal_flash_ex.cyclo ./Drivers/STM32G4xx_HAL_Driver/Src/stm32g4xx_hal_flash_ex.d ./Drivers/STM32G4xx_HAL_Driver/Src/stm32g4xx_hal_flash_ex.o ./Drivers/STM32G4xx_HAL_Driver/Src/stm32g4xx_hal_flash_ex.su ./Drivers/STM32G4xx_HAL_Driver/Src/stm32g4xx_hal_flash_ramfunc.cyclo ./Drivers/STM32G4xx_HAL_Driver/Src/stm32g4xx_hal_flash_ramfunc.d ./Drivers/STM32G4xx_HAL_Driver/Src/stm32g4xx_hal_flash_ramfunc.o ./Drivers/STM32G4xx_HAL_Driver/Src/stm32g4xx_hal_flash_ramfunc.su ./Drivers/STM32G4xx_HAL_Driver/Src/stm32g4xx_hal_gpio.cyclo ./Drivers/STM32G4xx_HAL_Driver/Src/stm32g4xx_hal_gpio.d ./Drivers/STM32G4xx_HAL_Driver/Src/stm32g4xx_hal_gpio.o ./Drivers/STM32G4xx_HAL_Driver/Src/stm32g4xx_hal_gpio.su ./Drivers/STM32G4xx_HAL_Driver/Src/stm32g4xx_hal_pwr.cyclo ./Drivers/STM32G4xx_HAL_Driver/Src/stm32g4xx_hal_pwr.d ./Drivers/STM32G4xx_HAL_Driver/Src/stm32g4xx_hal_pwr.o ./Drivers/STM32G4xx_HAL_Driver/Src/stm32g4xx_hal_pwr.su ./Drivers/STM32G4xx_HAL_Driver/Src/stm32g4xx_hal_pwr_ex.cyclo ./Drivers/STM32G4xx_HAL_Driver/Src/stm32g4xx_hal_pwr_ex.d ./Drivers/STM32G4xx_HAL_Driver/Src/stm32g4xx_hal_pwr_ex.o ./Drivers/STM32G4xx_HAL_Driver/Src/stm32g4xx_hal_pwr_ex.su ./Drivers/STM32G4xx_HAL_Driver/Src/stm32g4xx_hal_rcc.cyclo ./Drivers/STM32G4xx_HAL_Driver/Src/stm32g4xx_hal_rcc.d ./Drivers/STM32G4xx_HAL_Driver/Src/stm32g4xx_hal_rcc.o ./Drivers/STM32G4xx_HAL_Driver/Src/stm32g4xx_hal_rcc.su ./Drivers/STM32G4xx_HAL_Driver/Src/stm32g4xx_hal_rcc_ex.cyclo ./Drivers/STM32G4xx_HAL_Driver/Src/stm32g4xx_hal_rcc_ex.d ./Drivers/STM32G4xx_HAL_Driver/Src/stm32g4xx_hal_rcc_ex.o ./Drivers/STM32G4xx_HAL_Driver/Src/stm32g4xx_hal_rcc_ex.su ./Drivers/STM32G4xx_HAL_Driver/Src/stm32g4xx_hal_spi.cyclo ./Drivers/STM32G4xx_HAL_Driver/Src/stm32g4xx_hal_spi.d ./Drivers/STM32G4xx_HAL_Driver/Src/stm32g4xx_hal_spi.o ./Drivers/STM32G4xx_HAL_Driver/Src/stm32g4xx_hal_spi.su ./Drivers/STM32G4xx_HAL_Driver/Src/stm32g4xx_hal_spi_ex.cyclo ./Drivers/STM32G4xx_HAL_Driver/Src/stm32g4xx_hal_spi_ex.d ./Drivers/STM32G4xx_HAL_Driver/Src/stm32g4xx_hal_spi_ex.o ./Drivers/STM32G4xx_HAL_Driver/Src/stm32g4xx_hal_spi_ex.su ./Drivers/STM32G4xx_HAL_Driver/Src/stm32g4xx_hal_tim.cyclo ./Drivers/STM32G4xx_HAL_Driver/Src/stm32g4xx_hal_tim.d ./Drivers/STM32G4xx_HAL_Driver/Src/stm32g4xx_hal_tim.o ./Drivers/STM32G4xx_HAL_Driver/Src/stm32g4xx_hal_tim.su ./Drivers/STM32G4xx_HAL_Driver/Src/stm32g4xx_hal_tim_ex.cyclo ./Drivers/STM32G4xx_HAL_Driver/Src/stm32g4xx_hal_tim_ex.d ./Drivers/STM32G4xx_HAL_Driver/Src/stm32g4xx_hal_tim_ex.o ./Drivers/STM32G4xx_HAL_Driver/Src/stm32g4xx_hal_tim_ex.su ./Drivers/STM32G4xx_HAL_Driver/Src/stm32g4xx_hal_uart.cyclo ./Drivers/STM32G4xx_HAL_Driver/Src/stm32g4xx_hal_uart.d ./Drivers/STM32G4xx_HAL_Driver/Src/stm32g4xx_hal_uart.o ./Drivers/STM32G4xx_HAL_Driver/Src/stm32g4xx_hal_uart.su ./Drivers/STM32G4xx_HAL_Driver/Src/stm32g4xx_hal_uart_ex.cyclo ./Drivers/STM32G4xx_HAL_Driver/Src/stm32g4xx_hal_uart_ex.d ./Drivers/STM32G4xx_HAL_Driver/Src/stm32g4xx_hal_uart_ex.o ./Drivers/STM32G4xx_HAL_Driver/Src/stm32g4xx_hal_uart_ex.su ./Drivers/STM32G4xx_HAL_Driver/Src/stm32g4xx_ll_adc.cyclo ./Drivers/STM32G4xx_HAL_Driver/Src/stm32g4xx_ll_adc.d ./Drivers/STM32G4xx_HAL_Driver/Src/stm32g4xx_ll_adc.o ./Drivers/STM32G4xx_HAL_Driver/Src/stm32g4xx_ll_adc.su
+rm -rf ./Core/Startup/startup_stm32g431cbtx.d ./Core/Startup/startup_stm32g431cbtx.o
+rm -rf ./Core/Src/app.cyclo ./Core/Src/app.d ./Core/Src/app.o ./Core/Src/app.su ./Core/Src/drv8301.cyclo ./Core/Src/drv8301.d ./Core/Src/drv8301.o ./Core/Src/drv8301.su ./Core/Src/main.cyclo ./Core/Src/main.d ./Core/Src/main.o ./Core/Src/main.su ./Core/Src/stm32g4xx_hal_msp.cyclo ./Core/Src/stm32g4xx_hal_msp.d ./Core/Src/stm32g4xx_hal_msp.o ./Core/Src/stm32g4xx_hal_msp.su ./Core/Src/stm32g4xx_it.cyclo ./Core/Src/stm32g4xx_it.d ./Core/Src/stm32g4xx_it.o ./Core/Src/stm32g4xx_it.su ./Core/Src/syscalls.cyclo ./Core/Src/syscalls.d ./Core/Src/syscalls.o ./Core/Src/syscalls.su ./Core/Src/sysmem.cyclo ./Core/Src/sysmem.d ./Core/Src/sysmem.o ./Core/Src/sysmem.su ./Core/Src/system_stm32g4xx.cyclo ./Core/Src/system_stm32g4xx.d ./Core/Src/system_stm32g4xx.o ./Core/Src/system_stm32g4xx.su ./Core/Src/timebase.cyclo ./Core/Src/timebase.d ./Core/Src/timebase.o ./Core/Src/timebase.su
+rm -rf ESC_Project_Firmware.elf ESC_Project_Firmware.list ESC_Project_Firmware.map default.size.stdout
+ 
+17:35:55 **** Build of configuration Debug for project ESC_Project_Firmware ****
+make -j20 all 
+arm-none-eabi-gcc "../Drivers/STM32G4xx_HAL_Driver/Src/stm32g4xx_hal.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32G431xx -c -I../Core/Inc -I../Drivers/STM32G4xx_HAL_Driver/Inc -I../Drivers/STM32G4xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32G4xx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Drivers/STM32G4xx_HAL_Driver/Src/stm32g4xx_hal.d" -MT"Drivers/STM32G4xx_HAL_Driver/Src/stm32g4xx_hal.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Drivers/STM32G4xx_HAL_Driver/Src/stm32g4xx_hal.o"
+arm-none-eabi-gcc "../Drivers/STM32G4xx_HAL_Driver/Src/stm32g4xx_hal_adc.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32G431xx -c -I../Core/Inc -I../Drivers/STM32G4xx_HAL_Driver/Inc -I../Drivers/STM32G4xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32G4xx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Drivers/STM32G4xx_HAL_Driver/Src/stm32g4xx_hal_adc.d" -MT"Drivers/STM32G4xx_HAL_Driver/Src/stm32g4xx_hal_adc.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Drivers/STM32G4xx_HAL_Driver/Src/stm32g4xx_hal_adc.o"
+arm-none-eabi-gcc "../Drivers/STM32G4xx_HAL_Driver/Src/stm32g4xx_hal_adc_ex.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32G431xx -c -I../Core/Inc -I../Drivers/STM32G4xx_HAL_Driver/Inc -I../Drivers/STM32G4xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32G4xx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Drivers/STM32G4xx_HAL_Driver/Src/stm32g4xx_hal_adc_ex.d" -MT"Drivers/STM32G4xx_HAL_Driver/Src/stm32g4xx_hal_adc_ex.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Drivers/STM32G4xx_HAL_Driver/Src/stm32g4xx_hal_adc_ex.o"
+arm-none-eabi-gcc "../Drivers/STM32G4xx_HAL_Driver/Src/stm32g4xx_hal_cortex.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32G431xx -c -I../Core/Inc -I../Drivers/STM32G4xx_HAL_Driver/Inc -I../Drivers/STM32G4xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32G4xx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Drivers/STM32G4xx_HAL_Driver/Src/stm32g4xx_hal_cortex.d" -MT"Drivers/STM32G4xx_HAL_Driver/Src/stm32g4xx_hal_cortex.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Drivers/STM32G4xx_HAL_Driver/Src/stm32g4xx_hal_cortex.o"
+arm-none-eabi-gcc "../Drivers/STM32G4xx_HAL_Driver/Src/stm32g4xx_hal_dma.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32G431xx -c -I../Core/Inc -I../Drivers/STM32G4xx_HAL_Driver/Inc -I../Drivers/STM32G4xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32G4xx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Drivers/STM32G4xx_HAL_Driver/Src/stm32g4xx_hal_dma.d" -MT"Drivers/STM32G4xx_HAL_Driver/Src/stm32g4xx_hal_dma.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Drivers/STM32G4xx_HAL_Driver/Src/stm32g4xx_hal_dma.o"
+arm-none-eabi-gcc "../Drivers/STM32G4xx_HAL_Driver/Src/stm32g4xx_hal_dma_ex.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32G431xx -c -I../Core/Inc -I../Drivers/STM32G4xx_HAL_Driver/Inc -I../Drivers/STM32G4xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32G4xx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Drivers/STM32G4xx_HAL_Driver/Src/stm32g4xx_hal_dma_ex.d" -MT"Drivers/STM32G4xx_HAL_Driver/Src/stm32g4xx_hal_dma_ex.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Drivers/STM32G4xx_HAL_Driver/Src/stm32g4xx_hal_dma_ex.o"
+arm-none-eabi-gcc "../Drivers/STM32G4xx_HAL_Driver/Src/stm32g4xx_hal_exti.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32G431xx -c -I../Core/Inc -I../Drivers/STM32G4xx_HAL_Driver/Inc -I../Drivers/STM32G4xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32G4xx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Drivers/STM32G4xx_HAL_Driver/Src/stm32g4xx_hal_exti.d" -MT"Drivers/STM32G4xx_HAL_Driver/Src/stm32g4xx_hal_exti.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Drivers/STM32G4xx_HAL_Driver/Src/stm32g4xx_hal_exti.o"
+arm-none-eabi-gcc "../Drivers/STM32G4xx_HAL_Driver/Src/stm32g4xx_hal_flash.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32G431xx -c -I../Core/Inc -I../Drivers/STM32G4xx_HAL_Driver/Inc -I../Drivers/STM32G4xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32G4xx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Drivers/STM32G4xx_HAL_Driver/Src/stm32g4xx_hal_flash.d" -MT"Drivers/STM32G4xx_HAL_Driver/Src/stm32g4xx_hal_flash.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Drivers/STM32G4xx_HAL_Driver/Src/stm32g4xx_hal_flash.o"
+arm-none-eabi-gcc "../Drivers/STM32G4xx_HAL_Driver/Src/stm32g4xx_hal_flash_ex.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32G431xx -c -I../Core/Inc -I../Drivers/STM32G4xx_HAL_Driver/Inc -I../Drivers/STM32G4xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32G4xx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Drivers/STM32G4xx_HAL_Driver/Src/stm32g4xx_hal_flash_ex.d" -MT"Drivers/STM32G4xx_HAL_Driver/Src/stm32g4xx_hal_flash_ex.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Drivers/STM32G4xx_HAL_Driver/Src/stm32g4xx_hal_flash_ex.o"
+arm-none-eabi-gcc "../Drivers/STM32G4xx_HAL_Driver/Src/stm32g4xx_hal_flash_ramfunc.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32G431xx -c -I../Core/Inc -I../Drivers/STM32G4xx_HAL_Driver/Inc -I../Drivers/STM32G4xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32G4xx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Drivers/STM32G4xx_HAL_Driver/Src/stm32g4xx_hal_flash_ramfunc.d" -MT"Drivers/STM32G4xx_HAL_Driver/Src/stm32g4xx_hal_flash_ramfunc.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Drivers/STM32G4xx_HAL_Driver/Src/stm32g4xx_hal_flash_ramfunc.o"
+arm-none-eabi-gcc "../Drivers/STM32G4xx_HAL_Driver/Src/stm32g4xx_hal_gpio.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32G431xx -c -I../Core/Inc -I../Drivers/STM32G4xx_HAL_Driver/Inc -I../Drivers/STM32G4xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32G4xx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Drivers/STM32G4xx_HAL_Driver/Src/stm32g4xx_hal_gpio.d" -MT"Drivers/STM32G4xx_HAL_Driver/Src/stm32g4xx_hal_gpio.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Drivers/STM32G4xx_HAL_Driver/Src/stm32g4xx_hal_gpio.o"
+arm-none-eabi-gcc "../Drivers/STM32G4xx_HAL_Driver/Src/stm32g4xx_hal_pwr.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32G431xx -c -I../Core/Inc -I../Drivers/STM32G4xx_HAL_Driver/Inc -I../Drivers/STM32G4xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32G4xx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Drivers/STM32G4xx_HAL_Driver/Src/stm32g4xx_hal_pwr.d" -MT"Drivers/STM32G4xx_HAL_Driver/Src/stm32g4xx_hal_pwr.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Drivers/STM32G4xx_HAL_Driver/Src/stm32g4xx_hal_pwr.o"
+arm-none-eabi-gcc "../Drivers/STM32G4xx_HAL_Driver/Src/stm32g4xx_hal_pwr_ex.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32G431xx -c -I../Core/Inc -I../Drivers/STM32G4xx_HAL_Driver/Inc -I../Drivers/STM32G4xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32G4xx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Drivers/STM32G4xx_HAL_Driver/Src/stm32g4xx_hal_pwr_ex.d" -MT"Drivers/STM32G4xx_HAL_Driver/Src/stm32g4xx_hal_pwr_ex.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Drivers/STM32G4xx_HAL_Driver/Src/stm32g4xx_hal_pwr_ex.o"
+arm-none-eabi-gcc "../Drivers/STM32G4xx_HAL_Driver/Src/stm32g4xx_hal_rcc.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32G431xx -c -I../Core/Inc -I../Drivers/STM32G4xx_HAL_Driver/Inc -I../Drivers/STM32G4xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32G4xx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Drivers/STM32G4xx_HAL_Driver/Src/stm32g4xx_hal_rcc.d" -MT"Drivers/STM32G4xx_HAL_Driver/Src/stm32g4xx_hal_rcc.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Drivers/STM32G4xx_HAL_Driver/Src/stm32g4xx_hal_rcc.o"
+arm-none-eabi-gcc "../Drivers/STM32G4xx_HAL_Driver/Src/stm32g4xx_hal_rcc_ex.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32G431xx -c -I../Core/Inc -I../Drivers/STM32G4xx_HAL_Driver/Inc -I../Drivers/STM32G4xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32G4xx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Drivers/STM32G4xx_HAL_Driver/Src/stm32g4xx_hal_rcc_ex.d" -MT"Drivers/STM32G4xx_HAL_Driver/Src/stm32g4xx_hal_rcc_ex.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Drivers/STM32G4xx_HAL_Driver/Src/stm32g4xx_hal_rcc_ex.o"
+arm-none-eabi-gcc "../Drivers/STM32G4xx_HAL_Driver/Src/stm32g4xx_hal_spi.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32G431xx -c -I../Core/Inc -I../Drivers/STM32G4xx_HAL_Driver/Inc -I../Drivers/STM32G4xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32G4xx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Drivers/STM32G4xx_HAL_Driver/Src/stm32g4xx_hal_spi.d" -MT"Drivers/STM32G4xx_HAL_Driver/Src/stm32g4xx_hal_spi.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Drivers/STM32G4xx_HAL_Driver/Src/stm32g4xx_hal_spi.o"
+arm-none-eabi-gcc "../Drivers/STM32G4xx_HAL_Driver/Src/stm32g4xx_hal_spi_ex.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32G431xx -c -I../Core/Inc -I../Drivers/STM32G4xx_HAL_Driver/Inc -I../Drivers/STM32G4xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32G4xx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Drivers/STM32G4xx_HAL_Driver/Src/stm32g4xx_hal_spi_ex.d" -MT"Drivers/STM32G4xx_HAL_Driver/Src/stm32g4xx_hal_spi_ex.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Drivers/STM32G4xx_HAL_Driver/Src/stm32g4xx_hal_spi_ex.o"
+arm-none-eabi-gcc "../Drivers/STM32G4xx_HAL_Driver/Src/stm32g4xx_hal_tim.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32G431xx -c -I../Core/Inc -I../Drivers/STM32G4xx_HAL_Driver/Inc -I../Drivers/STM32G4xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32G4xx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Drivers/STM32G4xx_HAL_Driver/Src/stm32g4xx_hal_tim.d" -MT"Drivers/STM32G4xx_HAL_Driver/Src/stm32g4xx_hal_tim.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Drivers/STM32G4xx_HAL_Driver/Src/stm32g4xx_hal_tim.o"
+arm-none-eabi-gcc "../Drivers/STM32G4xx_HAL_Driver/Src/stm32g4xx_hal_tim_ex.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32G431xx -c -I../Core/Inc -I../Drivers/STM32G4xx_HAL_Driver/Inc -I../Drivers/STM32G4xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32G4xx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Drivers/STM32G4xx_HAL_Driver/Src/stm32g4xx_hal_tim_ex.d" -MT"Drivers/STM32G4xx_HAL_Driver/Src/stm32g4xx_hal_tim_ex.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Drivers/STM32G4xx_HAL_Driver/Src/stm32g4xx_hal_tim_ex.o"
+arm-none-eabi-gcc "../Drivers/STM32G4xx_HAL_Driver/Src/stm32g4xx_hal_uart.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32G431xx -c -I../Core/Inc -I../Drivers/STM32G4xx_HAL_Driver/Inc -I../Drivers/STM32G4xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32G4xx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Drivers/STM32G4xx_HAL_Driver/Src/stm32g4xx_hal_uart.d" -MT"Drivers/STM32G4xx_HAL_Driver/Src/stm32g4xx_hal_uart.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Drivers/STM32G4xx_HAL_Driver/Src/stm32g4xx_hal_uart.o"
+arm-none-eabi-gcc "../Drivers/STM32G4xx_HAL_Driver/Src/stm32g4xx_hal_uart_ex.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32G431xx -c -I../Core/Inc -I../Drivers/STM32G4xx_HAL_Driver/Inc -I../Drivers/STM32G4xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32G4xx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Drivers/STM32G4xx_HAL_Driver/Src/stm32g4xx_hal_uart_ex.d" -MT"Drivers/STM32G4xx_HAL_Driver/Src/stm32g4xx_hal_uart_ex.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Drivers/STM32G4xx_HAL_Driver/Src/stm32g4xx_hal_uart_ex.o"
+arm-none-eabi-gcc "../Drivers/STM32G4xx_HAL_Driver/Src/stm32g4xx_ll_adc.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32G431xx -c -I../Core/Inc -I../Drivers/STM32G4xx_HAL_Driver/Inc -I../Drivers/STM32G4xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32G4xx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Drivers/STM32G4xx_HAL_Driver/Src/stm32g4xx_ll_adc.d" -MT"Drivers/STM32G4xx_HAL_Driver/Src/stm32g4xx_ll_adc.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Drivers/STM32G4xx_HAL_Driver/Src/stm32g4xx_ll_adc.o"
+arm-none-eabi-gcc -mcpu=cortex-m4 -g3 -DDEBUG -c -x assembler-with-cpp -MMD -MP -MF"Core/Startup/startup_stm32g431cbtx.d" -MT"Core/Startup/startup_stm32g431cbtx.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Startup/startup_stm32g431cbtx.o" "../Core/Startup/startup_stm32g431cbtx.s"
+arm-none-eabi-gcc "../Core/Src/app.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32G431xx -c -I../Core/Inc -I../Drivers/STM32G4xx_HAL_Driver/Inc -I../Drivers/STM32G4xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32G4xx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/app.d" -MT"Core/Src/app.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Src/app.o"
+arm-none-eabi-gcc "../Core/Src/drv8301.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32G431xx -c -I../Core/Inc -I../Drivers/STM32G4xx_HAL_Driver/Inc -I../Drivers/STM32G4xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32G4xx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/drv8301.d" -MT"Core/Src/drv8301.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Src/drv8301.o"
+arm-none-eabi-gcc "../Core/Src/main.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32G431xx -c -I../Core/Inc -I../Drivers/STM32G4xx_HAL_Driver/Inc -I../Drivers/STM32G4xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32G4xx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/main.d" -MT"Core/Src/main.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Src/main.o"
+arm-none-eabi-gcc "../Core/Src/stm32g4xx_hal_msp.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32G431xx -c -I../Core/Inc -I../Drivers/STM32G4xx_HAL_Driver/Inc -I../Drivers/STM32G4xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32G4xx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/stm32g4xx_hal_msp.d" -MT"Core/Src/stm32g4xx_hal_msp.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Src/stm32g4xx_hal_msp.o"
+arm-none-eabi-gcc "../Core/Src/stm32g4xx_it.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32G431xx -c -I../Core/Inc -I../Drivers/STM32G4xx_HAL_Driver/Inc -I../Drivers/STM32G4xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32G4xx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/stm32g4xx_it.d" -MT"Core/Src/stm32g4xx_it.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Src/stm32g4xx_it.o"
+arm-none-eabi-gcc "../Core/Src/syscalls.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32G431xx -c -I../Core/Inc -I../Drivers/STM32G4xx_HAL_Driver/Inc -I../Drivers/STM32G4xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32G4xx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/syscalls.d" -MT"Core/Src/syscalls.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Src/syscalls.o"
+arm-none-eabi-gcc "../Core/Src/sysmem.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32G431xx -c -I../Core/Inc -I../Drivers/STM32G4xx_HAL_Driver/Inc -I../Drivers/STM32G4xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32G4xx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/sysmem.d" -MT"Core/Src/sysmem.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Src/sysmem.o"
+arm-none-eabi-gcc "../Core/Src/system_stm32g4xx.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32G431xx -c -I../Core/Inc -I../Drivers/STM32G4xx_HAL_Driver/Inc -I../Drivers/STM32G4xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32G4xx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/system_stm32g4xx.d" -MT"Core/Src/system_stm32g4xx.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Src/system_stm32g4xx.o"
+arm-none-eabi-gcc "../Core/Src/timebase.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32G431xx -c -I../Core/Inc -I../Drivers/STM32G4xx_HAL_Driver/Inc -I../Drivers/STM32G4xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32G4xx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/timebase.d" -MT"Core/Src/timebase.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Src/timebase.o"
+../Core/Src/app.c: In function 'App_Setup':
+../Core/Src/app.c:28:9: warning: implicit declaration of function 'sprintf' [-Wimplicit-function-declaration]
+   28 |         sprintf(msg, "DRV8301 Init OK\r\n");
+      |         ^~~~~~~
+../Core/Src/app.c:4:1: note: include '<stdio.h>' or provide a declaration of 'sprintf'
+    3 | #include "timebase.h"
+  +++ |+#include <stdio.h>
+    4 | 
+../Core/Src/app.c:28:9: warning: incompatible implicit declaration of built-in function 'sprintf' [-Wbuiltin-declaration-mismatch]
+   28 |         sprintf(msg, "DRV8301 Init OK\r\n");
+      |         ^~~~~~~
+../Core/Src/app.c:28:9: note: include '<stdio.h>' or provide a declaration of 'sprintf'
+../Core/Src/app.c:31:9: warning: incompatible implicit declaration of built-in function 'sprintf' [-Wbuiltin-declaration-mismatch]
+   31 |         sprintf(msg, "DRV8301 Init FAIL! Status: 0x%02X\r\n", status);
+      |         ^~~~~~~
+../Core/Src/app.c:31:9: note: include '<stdio.h>' or provide a declaration of 'sprintf'
+../Core/Src/app.c:33:47: warning: implicit declaration of function 'strlen' [-Wimplicit-function-declaration]
+   33 |     HAL_UART_Transmit(&huart3, (uint8_t*)msg, strlen(msg), HAL_MAX_DELAY);
+      |                                               ^~~~~~
+../Core/Src/app.c:4:1: note: include '<string.h>' or provide a declaration of 'strlen'
+    3 | #include "timebase.h"
+  +++ |+#include <string.h>
+    4 | 
+../Core/Src/app.c:33:47: warning: incompatible implicit declaration of built-in function 'strlen' [-Wbuiltin-declaration-mismatch]
+   33 |     HAL_UART_Transmit(&huart3, (uint8_t*)msg, strlen(msg), HAL_MAX_DELAY);
+      |                                               ^~~~~~
+../Core/Src/app.c:33:47: note: include '<string.h>' or provide a declaration of 'strlen'
+../Core/Src/app.c:37:5: warning: incompatible implicit declaration of built-in function 'sprintf' [-Wbuiltin-declaration-mismatch]
+   37 |     sprintf(msg, "Set CSA Gain Status: 0x%02X\r\n", status);
+      |     ^~~~~~~
+../Core/Src/app.c:37:5: note: include '<stdio.h>' or provide a declaration of 'sprintf'
+../Core/Src/app.c: In function 'App_Main_Loop':
+../Core/Src/app.c:72:9: warning: incompatible implicit declaration of built-in function 'sprintf' [-Wbuiltin-declaration-mismatch]
+   72 |         sprintf(msg, "CSA Gain Read: 0x%02X\r\n", gain);
+      |         ^~~~~~~
+../Core/Src/app.c:72:9: note: include '<stdio.h>' or provide a declaration of 'sprintf'
+../Core/Src/app.c:73:51: warning: incompatible implicit declaration of built-in function 'strlen' [-Wbuiltin-declaration-mismatch]
+   73 |         HAL_UART_Transmit(&huart3, (uint8_t*)msg, strlen(msg), HAL_MAX_DELAY);
+      |                                                   ^~~~~~
+../Core/Src/app.c:73:51: note: include '<string.h>' or provide a declaration of 'strlen'
+arm-none-eabi-gcc -o "ESC_Project_Firmware.elf" @"objects.list"   -mcpu=cortex-m4 -T"E:\Personal Projects\ESC_V1.0\ESC_Project_Firmware\ESC_Project_Firmware\STM32G431CBTX_FLASH.ld" --specs=nosys.specs -Wl,-Map="ESC_Project_Firmware.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
+Finished building target: ESC_Project_Firmware.elf
+ 
+arm-none-eabi-size  ESC_Project_Firmware.elf 
+arm-none-eabi-objdump -h -S ESC_Project_Firmware.elf  > "ESC_Project_Firmware.list"
+   text	   data	    bss	    dec	    hex	filename
+  38532	     92	   3820	  42444	   a5cc	ESC_Project_Firmware.elf
+Finished building: default.size.stdout
+ 
+Finished building: ESC_Project_Firmware.list
+ 
+17:36:03 **** Incremental Build of configuration Debug for project ESC_Project_Firmware ****
+make -j20 all 
+arm-none-eabi-size  ESC_Project_Firmware.elf 
+   text	   data	    bss	    dec	    hex	filename
+  38532	     92	   3820	  42444	   a5cc	ESC_Project_Firmware.elf
+Finished building: default.size.stdout
+ 
+17:36:10 **** Incremental Build of configuration Debug for project ESC_Project_Firmware ****
+make -j20 all 
+arm-none-eabi-size  ESC_Project_Firmware.elf 
+   text	   data	    bss	    dec	    hex	filename
+  38532	     92	   3820	  42444	   a5cc	ESC_Project_Firmware.elf
+Finished building: default.size.stdout
+ 
+17:37:05 **** Incremental Build of configuration Debug for project ESC_Project_Firmware ****
+make -j20 all 
+arm-none-eabi-size  ESC_Project_Firmware.elf 
+   text	   data	    bss	    dec	    hex	filename
+  38532	     92	   3820	  42444	   a5cc	ESC_Project_Firmware.elf
+Finished building: default.size.stdout
+ 
+17:42:07 **** Incremental Build of configuration Debug for project ESC_Project_Firmware ****
+make -j20 all 
+arm-none-eabi-size  ESC_Project_Firmware.elf 
+   text	   data	    bss	    dec	    hex	filename
+  38532	     92	   3820	  42444	   a5cc	ESC_Project_Firmware.elf
+Finished building: default.size.stdout
+ 
+17:42:39 **** Incremental Build of configuration Debug for project ESC_Project_Firmware ****
+make -j20 all 
+arm-none-eabi-size  ESC_Project_Firmware.elf 
+   text	   data	    bss	    dec	    hex	filename
+  38532	     92	   3820	  42444	   a5cc	ESC_Project_Firmware.elf
+Finished building: default.size.stdout
+ 
+17:42:46 **** Incremental Build of configuration Debug for project ESC_Project_Firmware ****
+make -j20 all 
+arm-none-eabi-size  ESC_Project_Firmware.elf 
+   text	   data	    bss	    dec	    hex	filename
+  38532	     92	   3820	  42444	   a5cc	ESC_Project_Firmware.elf
+Finished building: default.size.stdout
+ 
+17:45:33 **** Incremental Build of configuration Debug for project ESC_Project_Firmware ****
+make -j20 all 
+arm-none-eabi-gcc "../Core/Src/app.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32G431xx -c -I../Core/Inc -I../Drivers/STM32G4xx_HAL_Driver/Inc -I../Drivers/STM32G4xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32G4xx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/app.d" -MT"Core/Src/app.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Src/app.o"
+../Core/Src/app.c: In function 'App_Main_Loop':
+../Core/Src/app.c:66:9: warning: implicit declaration of function 'sprintf' [-Wimplicit-function-declaration]
+   66 |         sprintf(msg, "DRV8301: 0x%02X\r\n", gain);
+      |         ^~~~~~~
+../Core/Src/app.c:4:1: note: include '<stdio.h>' or provide a declaration of 'sprintf'
+    3 | #include "timebase.h"
+  +++ |+#include <stdio.h>
+    4 | 
+../Core/Src/app.c:66:9: warning: incompatible implicit declaration of built-in function 'sprintf' [-Wbuiltin-declaration-mismatch]
+   66 |         sprintf(msg, "DRV8301: 0x%02X\r\n", gain);
+      |         ^~~~~~~
+../Core/Src/app.c:66:9: note: include '<stdio.h>' or provide a declaration of 'sprintf'
+../Core/Src/app.c:71:59: warning: implicit declaration of function 'strlen' [-Wimplicit-function-declaration]
+   71 |             HAL_UART_Transmit_DMA(&huart3, (uint8_t*)msg, strlen(msg));
+      |                                                           ^~~~~~
+../Core/Src/app.c:4:1: note: include '<string.h>' or provide a declaration of 'strlen'
+    3 | #include "timebase.h"
+  +++ |+#include <string.h>
+    4 | 
+../Core/Src/app.c:71:59: warning: incompatible implicit declaration of built-in function 'strlen' [-Wbuiltin-declaration-mismatch]
+   71 |             HAL_UART_Transmit_DMA(&huart3, (uint8_t*)msg, strlen(msg));
+      |                                                           ^~~~~~
+../Core/Src/app.c:71:59: note: include '<string.h>' or provide a declaration of 'strlen'
+arm-none-eabi-gcc -o "ESC_Project_Firmware.elf" @"objects.list"   -mcpu=cortex-m4 -T"E:\Personal Projects\ESC_V1.0\ESC_Project_Firmware\ESC_Project_Firmware\STM32G431CBTX_FLASH.ld" --specs=nosys.specs -Wl,-Map="ESC_Project_Firmware.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
+Finished building target: ESC_Project_Firmware.elf
+ 
+arm-none-eabi-size  ESC_Project_Firmware.elf 
+arm-none-eabi-objdump -h -S ESC_Project_Firmware.elf  > "ESC_Project_Firmware.list"
+   text	   data	    bss	    dec	    hex	filename
+  38768	     92	   3764	  42624	   a680	ESC_Project_Firmware.elf
+Finished building: default.size.stdout
+ 
+Finished building: ESC_Project_Firmware.list
+ 
+17:45:39 **** Incremental Build of configuration Debug for project ESC_Project_Firmware ****
+make -j20 all 
+arm-none-eabi-size  ESC_Project_Firmware.elf 
+   text	   data	    bss	    dec	    hex	filename
+  38768	     92	   3764	  42624	   a680	ESC_Project_Firmware.elf
+Finished building: default.size.stdout
+ 
+17:46:50 **** Incremental Build of configuration Debug for project ESC_Project_Firmware ****
+make -j20 all 
+arm-none-eabi-gcc "../Core/Src/app.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32G431xx -c -I../Core/Inc -I../Drivers/STM32G4xx_HAL_Driver/Inc -I../Drivers/STM32G4xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32G4xx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/app.d" -MT"Core/Src/app.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Src/app.o"
+../Core/Src/app.c: In function 'App_Setup':
+../Core/Src/app.c:28:9: warning: implicit declaration of function 'sprintf' [-Wimplicit-function-declaration]
+   28 |         sprintf(msg, "DRV8301 Init OK\r\n");
+      |         ^~~~~~~
+../Core/Src/app.c:4:1: note: include '<stdio.h>' or provide a declaration of 'sprintf'
+    3 | #include "timebase.h"
+  +++ |+#include <stdio.h>
+    4 | 
+../Core/Src/app.c:28:9: warning: incompatible implicit declaration of built-in function 'sprintf' [-Wbuiltin-declaration-mismatch]
+   28 |         sprintf(msg, "DRV8301 Init OK\r\n");
+      |         ^~~~~~~
+../Core/Src/app.c:28:9: note: include '<stdio.h>' or provide a declaration of 'sprintf'
+../Core/Src/app.c:31:9: warning: incompatible implicit declaration of built-in function 'sprintf' [-Wbuiltin-declaration-mismatch]
+   31 |         sprintf(msg, "DRV8301 Init FAIL! Status: 0x%02X\r\n", status);
+      |         ^~~~~~~
+../Core/Src/app.c:31:9: note: include '<stdio.h>' or provide a declaration of 'sprintf'
+../Core/Src/app.c:33:47: warning: implicit declaration of function 'strlen' [-Wimplicit-function-declaration]
+   33 |     HAL_UART_Transmit(&huart3, (uint8_t*)msg, strlen(msg), HAL_MAX_DELAY);
+      |                                               ^~~~~~
+../Core/Src/app.c:4:1: note: include '<string.h>' or provide a declaration of 'strlen'
+    3 | #include "timebase.h"
+  +++ |+#include <string.h>
+    4 | 
+../Core/Src/app.c:33:47: warning: incompatible implicit declaration of built-in function 'strlen' [-Wbuiltin-declaration-mismatch]
+   33 |     HAL_UART_Transmit(&huart3, (uint8_t*)msg, strlen(msg), HAL_MAX_DELAY);
+      |                                               ^~~~~~
+../Core/Src/app.c:33:47: note: include '<string.h>' or provide a declaration of 'strlen'
+../Core/Src/app.c:37:5: warning: incompatible implicit declaration of built-in function 'sprintf' [-Wbuiltin-declaration-mismatch]
+   37 |     sprintf(msg, "Set CSA Gain Status: 0x%02X\r\n", status);
+      |     ^~~~~~~
+../Core/Src/app.c:37:5: note: include '<stdio.h>' or provide a declaration of 'sprintf'
+../Core/Src/app.c: In function 'App_Main_Loop':
+../Core/Src/app.c:72:9: warning: incompatible implicit declaration of built-in function 'sprintf' [-Wbuiltin-declaration-mismatch]
+   72 |         sprintf(msg, "CSA Gain Read: 0x%02X\r\n", gain);
+      |         ^~~~~~~
+../Core/Src/app.c:72:9: note: include '<stdio.h>' or provide a declaration of 'sprintf'
+../Core/Src/app.c:73:51: warning: incompatible implicit declaration of built-in function 'strlen' [-Wbuiltin-declaration-mismatch]
+   73 |         HAL_UART_Transmit(&huart3, (uint8_t*)msg, strlen(msg), HAL_MAX_DELAY);
+      |                                                   ^~~~~~
+../Core/Src/app.c:73:51: note: include '<string.h>' or provide a declaration of 'strlen'
+arm-none-eabi-gcc -o "ESC_Project_Firmware.elf" @"objects.list"   -mcpu=cortex-m4 -T"E:\Personal Projects\ESC_V1.0\ESC_Project_Firmware\ESC_Project_Firmware\STM32G431CBTX_FLASH.ld" --specs=nosys.specs -Wl,-Map="ESC_Project_Firmware.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
+Finished building target: ESC_Project_Firmware.elf
+ 
+arm-none-eabi-size  ESC_Project_Firmware.elf 
+arm-none-eabi-objdump -h -S ESC_Project_Firmware.elf  > "ESC_Project_Firmware.list"
+   text	   data	    bss	    dec	    hex	filename
+  38532	     92	   3820	  42444	   a5cc	ESC_Project_Firmware.elf
+Finished building: default.size.stdout
+ 
+Finished building: ESC_Project_Firmware.list
+ 
+17:46:58 **** Incremental Build of configuration Debug for project ESC_Project_Firmware ****
+make -j20 all 
+arm-none-eabi-size  ESC_Project_Firmware.elf 
+   text	   data	    bss	    dec	    hex	filename
+  38532	     92	   3820	  42444	   a5cc	ESC_Project_Firmware.elf
+Finished building: default.size.stdout
+ 
+17:53:57 **** Incremental Build of configuration Debug for project ESC_Project_Firmware ****
+make -j20 all 
+arm-none-eabi-gcc "../Core/Src/app.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32G431xx -c -I../Core/Inc -I../Drivers/STM32G4xx_HAL_Driver/Inc -I../Drivers/STM32G4xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32G4xx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/app.d" -MT"Core/Src/app.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Src/app.o"
+../Core/Src/app.c: In function 'App_Main_Loop':
+../Core/Src/app.c:63:13: warning: implicit declaration of function 'sprintf' [-Wimplicit-function-declaration]
+   63 |             sprintf(msg, "DRV8301 Status: 0x%04X\r\n", drv_status);
+      |             ^~~~~~~
+../Core/Src/app.c:4:1: note: include '<stdio.h>' or provide a declaration of 'sprintf'
+    3 | #include "drv8301.h"
+  +++ |+#include <stdio.h>
+    4 | 
+../Core/Src/app.c:63:13: warning: incompatible implicit declaration of built-in function 'sprintf' [-Wbuiltin-declaration-mismatch]
+   63 |             sprintf(msg, "DRV8301 Status: 0x%04X\r\n", drv_status);
+      |             ^~~~~~~
+../Core/Src/app.c:63:13: note: include '<stdio.h>' or provide a declaration of 'sprintf'
+../Core/Src/app.c:68:63: warning: implicit declaration of function 'strlen' [-Wimplicit-function-declaration]
+   68 |                 HAL_UART_Transmit_DMA(&huart3, (uint8_t*)msg, strlen(msg));
+      |                                                               ^~~~~~
+../Core/Src/app.c:4:1: note: include '<string.h>' or provide a declaration of 'strlen'
+    3 | #include "drv8301.h"
+  +++ |+#include <string.h>
+    4 | 
+../Core/Src/app.c:68:63: warning: incompatible implicit declaration of built-in function 'strlen' [-Wbuiltin-declaration-mismatch]
+   68 |                 HAL_UART_Transmit_DMA(&huart3, (uint8_t*)msg, strlen(msg));
+      |                                                               ^~~~~~
+../Core/Src/app.c:68:63: note: include '<string.h>' or provide a declaration of 'strlen'
+arm-none-eabi-gcc -o "ESC_Project_Firmware.elf" @"objects.list"   -mcpu=cortex-m4 -T"E:\Personal Projects\ESC_V1.0\ESC_Project_Firmware\ESC_Project_Firmware\STM32G431CBTX_FLASH.ld" --specs=nosys.specs -Wl,-Map="ESC_Project_Firmware.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
+Finished building target: ESC_Project_Firmware.elf
+ 
+arm-none-eabi-size  ESC_Project_Firmware.elf 
+arm-none-eabi-objdump -h -S ESC_Project_Firmware.elf  > "ESC_Project_Firmware.list"
+   text	   data	    bss	    dec	    hex	filename
+  38664	     92	   3772	  42528	   a620	ESC_Project_Firmware.elf
+Finished building: default.size.stdout
+ 
+Finished building: ESC_Project_Firmware.list
+ 
+17:54:02 **** Incremental Build of configuration Debug for project ESC_Project_Firmware ****
+make -j20 all 
+arm-none-eabi-size  ESC_Project_Firmware.elf 
+   text	   data	    bss	    dec	    hex	filename
+  38664	     92	   3772	  42528	   a620	ESC_Project_Firmware.elf
+Finished building: default.size.stdout
+ 
+18:01:10 **** Incremental Build of configuration Debug for project ESC_Project_Firmware ****
+make -j20 all 
+arm-none-eabi-gcc "../Core/Src/app.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32G431xx -c -I../Core/Inc -I../Drivers/STM32G4xx_HAL_Driver/Inc -I../Drivers/STM32G4xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32G4xx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/app.d" -MT"Core/Src/app.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Src/app.o"
+arm-none-eabi-gcc "../Core/Src/drv8301.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32G431xx -c -I../Core/Inc -I../Drivers/STM32G4xx_HAL_Driver/Inc -I../Drivers/STM32G4xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32G4xx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/drv8301.d" -MT"Core/Src/drv8301.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Src/drv8301.o"
+../Core/Src/app.c: In function 'App_Main_Loop':
+../Core/Src/app.c:64:9: warning: implicit declaration of function 'sprintf' [-Wimplicit-function-declaration]
+   64 |         sprintf(msg, "DRV8301 CSA Gain: 0x%02X\r\n", gain);
+      |         ^~~~~~~
+../Core/Src/app.c:4:1: note: include '<stdio.h>' or provide a declaration of 'sprintf'
+    3 | #include "timebase.h"
+  +++ |+#include <stdio.h>
+    4 | 
+../Core/Src/app.c:64:9: warning: incompatible implicit declaration of built-in function 'sprintf' [-Wbuiltin-declaration-mismatch]
+   64 |         sprintf(msg, "DRV8301 CSA Gain: 0x%02X\r\n", gain);
+      |         ^~~~~~~
+../Core/Src/app.c:64:9: note: include '<stdio.h>' or provide a declaration of 'sprintf'
+../Core/Src/app.c:66:59: warning: implicit declaration of function 'strlen' [-Wimplicit-function-declaration]
+   66 |             HAL_UART_Transmit_DMA(&huart3, (uint8_t*)msg, strlen(msg));
+      |                                                           ^~~~~~
+../Core/Src/app.c:4:1: note: include '<string.h>' or provide a declaration of 'strlen'
+    3 | #include "timebase.h"
+  +++ |+#include <string.h>
+    4 | 
+../Core/Src/app.c:66:59: warning: incompatible implicit declaration of built-in function 'strlen' [-Wbuiltin-declaration-mismatch]
+   66 |             HAL_UART_Transmit_DMA(&huart3, (uint8_t*)msg, strlen(msg));
+      |                                                           ^~~~~~
+../Core/Src/app.c:66:59: note: include '<string.h>' or provide a declaration of 'strlen'
+arm-none-eabi-gcc -o "ESC_Project_Firmware.elf" @"objects.list"   -mcpu=cortex-m4 -T"E:\Personal Projects\ESC_V1.0\ESC_Project_Firmware\ESC_Project_Firmware\STM32G431CBTX_FLASH.ld" --specs=nosys.specs -Wl,-Map="ESC_Project_Firmware.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
+Finished building target: ESC_Project_Firmware.elf
+ 
+arm-none-eabi-size  ESC_Project_Firmware.elf 
+arm-none-eabi-objdump -h -S ESC_Project_Firmware.elf  > "ESC_Project_Firmware.list"
+   text	   data	    bss	    dec	    hex	filename
+  38796	     92	   3764	  42652	   a69c	ESC_Project_Firmware.elf
+Finished building: default.size.stdout
+ 
+Finished building: ESC_Project_Firmware.list
+ 
+18:01:20 **** Incremental Build of configuration Debug for project ESC_Project_Firmware ****
+make -j20 all 
+arm-none-eabi-size  ESC_Project_Firmware.elf 
+   text	   data	    bss	    dec	    hex	filename
+  38796	     92	   3764	  42652	   a69c	ESC_Project_Firmware.elf
+Finished building: default.size.stdout
+ 
+18:05:07 **** Incremental Build of configuration Debug for project ESC_Project_Firmware ****
+make -j20 all 
+arm-none-eabi-gcc "../Core/Src/app.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32G431xx -c -I../Core/Inc -I../Drivers/STM32G4xx_HAL_Driver/Inc -I../Drivers/STM32G4xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32G4xx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/app.d" -MT"Core/Src/app.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Src/app.o"
+../Core/Src/app.c: In function 'App_Main_Loop':
+../Core/Src/app.c:64:9: warning: implicit declaration of function 'sprintf' [-Wimplicit-function-declaration]
+   64 |         sprintf(msg, "DRV8301 CSA : 0x%02X\r\n", gain);
+      |         ^~~~~~~
+../Core/Src/app.c:4:1: note: include '<stdio.h>' or provide a declaration of 'sprintf'
+    3 | #include "timebase.h"
+  +++ |+#include <stdio.h>
+    4 | 
+../Core/Src/app.c:64:9: warning: incompatible implicit declaration of built-in function 'sprintf' [-Wbuiltin-declaration-mismatch]
+   64 |         sprintf(msg, "DRV8301 CSA : 0x%02X\r\n", gain);
+      |         ^~~~~~~
+../Core/Src/app.c:64:9: note: include '<stdio.h>' or provide a declaration of 'sprintf'
+../Core/Src/app.c:66:59: warning: implicit declaration of function 'strlen' [-Wimplicit-function-declaration]
+   66 |             HAL_UART_Transmit_DMA(&huart3, (uint8_t*)msg, strlen(msg));
+      |                                                           ^~~~~~
+../Core/Src/app.c:4:1: note: include '<string.h>' or provide a declaration of 'strlen'
+    3 | #include "timebase.h"
+  +++ |+#include <string.h>
+    4 | 
+../Core/Src/app.c:66:59: warning: incompatible implicit declaration of built-in function 'strlen' [-Wbuiltin-declaration-mismatch]
+   66 |             HAL_UART_Transmit_DMA(&huart3, (uint8_t*)msg, strlen(msg));
+      |                                                           ^~~~~~
+../Core/Src/app.c:66:59: note: include '<string.h>' or provide a declaration of 'strlen'
+arm-none-eabi-gcc -o "ESC_Project_Firmware.elf" @"objects.list"   -mcpu=cortex-m4 -T"E:\Personal Projects\ESC_V1.0\ESC_Project_Firmware\ESC_Project_Firmware\STM32G431CBTX_FLASH.ld" --specs=nosys.specs -Wl,-Map="ESC_Project_Firmware.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
+Finished building target: ESC_Project_Firmware.elf
+ 
+arm-none-eabi-size  ESC_Project_Firmware.elf 
+arm-none-eabi-objdump -h -S ESC_Project_Firmware.elf  > "ESC_Project_Firmware.list"
+   text	   data	    bss	    dec	    hex	filename
+  38792	     92	   3764	  42648	   a698	ESC_Project_Firmware.elf
+Finished building: default.size.stdout
+ 
+Finished building: ESC_Project_Firmware.list
+ 
+18:05:12 **** Incremental Build of configuration Debug for project ESC_Project_Firmware ****
+make -j20 all 
+arm-none-eabi-size  ESC_Project_Firmware.elf 
+   text	   data	    bss	    dec	    hex	filename
+  38792	     92	   3764	  42648	   a698	ESC_Project_Firmware.elf
+Finished building: default.size.stdout
+ 
+18:07:26 **** Incremental Build of configuration Debug for project ESC_Project_Firmware ****
+make -j20 all 
+arm-none-eabi-gcc "../Core/Src/app.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32G431xx -c -I../Core/Inc -I../Drivers/STM32G4xx_HAL_Driver/Inc -I../Drivers/STM32G4xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32G4xx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/app.d" -MT"Core/Src/app.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Src/app.o"
+../Core/Src/app.c: In function 'App_Main_Loop':
+../Core/Src/app.c:64:9: warning: implicit declaration of function 'sprintf' [-Wimplicit-function-declaration]
+   64 |         sprintf(msg, "DRV8301 CSA : 0x%02X\r\n", gain);
+      |         ^~~~~~~
+../Core/Src/app.c:4:1: note: include '<stdio.h>' or provide a declaration of 'sprintf'
+    3 | #include "timebase.h"
+  +++ |+#include <stdio.h>
+    4 | 
+../Core/Src/app.c:64:9: warning: incompatible implicit declaration of built-in function 'sprintf' [-Wbuiltin-declaration-mismatch]
+   64 |         sprintf(msg, "DRV8301 CSA : 0x%02X\r\n", gain);
+      |         ^~~~~~~
+../Core/Src/app.c:64:9: note: include '<stdio.h>' or provide a declaration of 'sprintf'
+../Core/Src/app.c:66:59: warning: implicit declaration of function 'strlen' [-Wimplicit-function-declaration]
+   66 |             HAL_UART_Transmit_DMA(&huart3, (uint8_t*)msg, strlen(msg));
+      |                                                           ^~~~~~
+../Core/Src/app.c:4:1: note: include '<string.h>' or provide a declaration of 'strlen'
+    3 | #include "timebase.h"
+  +++ |+#include <string.h>
+    4 | 
+../Core/Src/app.c:66:59: warning: incompatible implicit declaration of built-in function 'strlen' [-Wbuiltin-declaration-mismatch]
+   66 |             HAL_UART_Transmit_DMA(&huart3, (uint8_t*)msg, strlen(msg));
+      |                                                           ^~~~~~
+../Core/Src/app.c:66:59: note: include '<string.h>' or provide a declaration of 'strlen'
+arm-none-eabi-gcc -o "ESC_Project_Firmware.elf" @"objects.list"   -mcpu=cortex-m4 -T"E:\Personal Projects\ESC_V1.0\ESC_Project_Firmware\ESC_Project_Firmware\STM32G431CBTX_FLASH.ld" --specs=nosys.specs -Wl,-Map="ESC_Project_Firmware.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
+Finished building target: ESC_Project_Firmware.elf
+ 
+arm-none-eabi-size  ESC_Project_Firmware.elf 
+arm-none-eabi-objdump -h -S ESC_Project_Firmware.elf  > "ESC_Project_Firmware.list"
+   text	   data	    bss	    dec	    hex	filename
+  38708	     92	   3764	  42564	   a644	ESC_Project_Firmware.elf
+Finished building: default.size.stdout
+ 
+Finished building: ESC_Project_Firmware.list
+ 
+18:07:31 **** Incremental Build of configuration Debug for project ESC_Project_Firmware ****
+make -j20 all 
+arm-none-eabi-size  ESC_Project_Firmware.elf 
+   text	   data	    bss	    dec	    hex	filename
+  38708	     92	   3764	  42564	   a644	ESC_Project_Firmware.elf
+Finished building: default.size.stdout
+ 
+18:09:57 **** Incremental Build of configuration Debug for project ESC_Project_Firmware ****
+make -j20 all 
+arm-none-eabi-gcc "../Core/Src/app.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32G431xx -c -I../Core/Inc -I../Drivers/STM32G4xx_HAL_Driver/Inc -I../Drivers/STM32G4xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32G4xx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/app.d" -MT"Core/Src/app.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Src/app.o"
+../Core/Src/app.c: In function 'App_Main_Loop':
+../Core/Src/app.c:64:9: warning: implicit declaration of function 'sprintf' [-Wimplicit-function-declaration]
+   64 |         sprintf(msg, "DRV8301 CSA G: 0x%02X\r\n", gain);
+      |         ^~~~~~~
+../Core/Src/app.c:4:1: note: include '<stdio.h>' or provide a declaration of 'sprintf'
+    3 | #include "timebase.h"
+  +++ |+#include <stdio.h>
+    4 | 
+../Core/Src/app.c:64:9: warning: incompatible implicit declaration of built-in function 'sprintf' [-Wbuiltin-declaration-mismatch]
+   64 |         sprintf(msg, "DRV8301 CSA G: 0x%02X\r\n", gain);
+      |         ^~~~~~~
+../Core/Src/app.c:64:9: note: include '<stdio.h>' or provide a declaration of 'sprintf'
+../Core/Src/app.c:66:59: warning: implicit declaration of function 'strlen' [-Wimplicit-function-declaration]
+   66 |             HAL_UART_Transmit_DMA(&huart3, (uint8_t*)msg, strlen(msg));
+      |                                                           ^~~~~~
+../Core/Src/app.c:4:1: note: include '<string.h>' or provide a declaration of 'strlen'
+    3 | #include "timebase.h"
+  +++ |+#include <string.h>
+    4 | 
+../Core/Src/app.c:66:59: warning: incompatible implicit declaration of built-in function 'strlen' [-Wbuiltin-declaration-mismatch]
+   66 |             HAL_UART_Transmit_DMA(&huart3, (uint8_t*)msg, strlen(msg));
+      |                                                           ^~~~~~
+../Core/Src/app.c:66:59: note: include '<string.h>' or provide a declaration of 'strlen'
+arm-none-eabi-gcc -o "ESC_Project_Firmware.elf" @"objects.list"   -mcpu=cortex-m4 -T"E:\Personal Projects\ESC_V1.0\ESC_Project_Firmware\ESC_Project_Firmware\STM32G431CBTX_FLASH.ld" --specs=nosys.specs -Wl,-Map="ESC_Project_Firmware.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
+Finished building target: ESC_Project_Firmware.elf
+ 
+arm-none-eabi-size  ESC_Project_Firmware.elf 
+arm-none-eabi-objdump -h -S ESC_Project_Firmware.elf  > "ESC_Project_Firmware.list"
+   text	   data	    bss	    dec	    hex	filename
+  38708	     92	   3764	  42564	   a644	ESC_Project_Firmware.elf
+Finished building: default.size.stdout
+ 
+Finished building: ESC_Project_Firmware.list
+ 
+18:10:03 **** Incremental Build of configuration Debug for project ESC_Project_Firmware ****
+make -j20 all 
+arm-none-eabi-size  ESC_Project_Firmware.elf 
+   text	   data	    bss	    dec	    hex	filename
+  38708	     92	   3764	  42564	   a644	ESC_Project_Firmware.elf
+Finished building: default.size.stdout
+ 
+18:12:07 **** Incremental Build of configuration Debug for project ESC_Project_Firmware ****
+make -j20 all 
+arm-none-eabi-gcc "../Core/Src/app.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32G431xx -c -I../Core/Inc -I../Drivers/STM32G4xx_HAL_Driver/Inc -I../Drivers/STM32G4xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32G4xx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/app.d" -MT"Core/Src/app.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Src/app.o"
+../Core/Src/app.c: In function 'App_Main_Loop':
+../Core/Src/app.c:65:9: warning: implicit declaration of function 'sprintf' [-Wimplicit-function-declaration]
+   65 |         sprintf(msg, "DRV8301 CSA G: 0x%02X\r\n", gain);
+      |         ^~~~~~~
+../Core/Src/app.c:4:1: note: include '<stdio.h>' or provide a declaration of 'sprintf'
+    3 | #include "timebase.h"
+  +++ |+#include <stdio.h>
+    4 | 
+../Core/Src/app.c:65:9: warning: incompatible implicit declaration of built-in function 'sprintf' [-Wbuiltin-declaration-mismatch]
+   65 |         sprintf(msg, "DRV8301 CSA G: 0x%02X\r\n", gain);
+      |         ^~~~~~~
+../Core/Src/app.c:65:9: note: include '<stdio.h>' or provide a declaration of 'sprintf'
+../Core/Src/app.c:67:59: warning: implicit declaration of function 'strlen' [-Wimplicit-function-declaration]
+   67 |             HAL_UART_Transmit_DMA(&huart3, (uint8_t*)msg, strlen(msg));
+      |                                                           ^~~~~~
+../Core/Src/app.c:4:1: note: include '<string.h>' or provide a declaration of 'strlen'
+    3 | #include "timebase.h"
+  +++ |+#include <string.h>
+    4 | 
+../Core/Src/app.c:67:59: warning: incompatible implicit declaration of built-in function 'strlen' [-Wbuiltin-declaration-mismatch]
+   67 |             HAL_UART_Transmit_DMA(&huart3, (uint8_t*)msg, strlen(msg));
+      |                                                           ^~~~~~
+../Core/Src/app.c:67:59: note: include '<string.h>' or provide a declaration of 'strlen'
+arm-none-eabi-gcc -o "ESC_Project_Firmware.elf" @"objects.list"   -mcpu=cortex-m4 -T"E:\Personal Projects\ESC_V1.0\ESC_Project_Firmware\ESC_Project_Firmware\STM32G431CBTX_FLASH.ld" --specs=nosys.specs -Wl,-Map="ESC_Project_Firmware.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
+Finished building target: ESC_Project_Firmware.elf
+ 
+arm-none-eabi-size  ESC_Project_Firmware.elf 
+arm-none-eabi-objdump -h -S ESC_Project_Firmware.elf  > "ESC_Project_Firmware.list"
+   text	   data	    bss	    dec	    hex	filename
+  38784	     92	   3764	  42640	   a690	ESC_Project_Firmware.elf
+Finished building: default.size.stdout
+ 
+Finished building: ESC_Project_Firmware.list
+ 
+18:12:15 **** Incremental Build of configuration Debug for project ESC_Project_Firmware ****
+make -j20 all 
+arm-none-eabi-size  ESC_Project_Firmware.elf 
+   text	   data	    bss	    dec	    hex	filename
+  38784	     92	   3764	  42640	   a690	ESC_Project_Firmware.elf
+Finished building: default.size.stdout
+ 
+18:17:25 **** Incremental Build of configuration Debug for project ESC_Project_Firmware ****
+make -j20 all 
+arm-none-eabi-size  ESC_Project_Firmware.elf 
+   text	   data	    bss	    dec	    hex	filename
+  38784	     92	   3764	  42640	   a690	ESC_Project_Firmware.elf
+Finished building: default.size.stdout
+ 
