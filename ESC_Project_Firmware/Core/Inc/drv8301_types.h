@@ -6,22 +6,20 @@
 
 /* DRV8301 Register Addresses */
 typedef enum {
-    DRV8301_REG_CTRL = 0x00,
-    DRV8301_REG_GATE_DRV_HS = 0x01,
-    DRV8301_REG_GATE_DRV_LS = 0x02,
-    DRV8301_REG_OCP_CTRL = 0x03,
-    DRV8301_REG_CSA_CTRL = 0x04,
-    DRV8301_REG_DRV_STATUS = 0x05
+    DRV8301_REG_STATUS1 = 0x00,
+    DRV8301_REG_STATUS2 = 0x01,
+    DRV8301_REG_CTRL1   = 0x02,
+    DRV8301_REG_CTRL2   = 0x03
 } drv8301_reg_t;
 
 /* DRV8301 Handle */
 typedef struct {
-    SPI_HandleTypeDef *hspi; // SPI handle
-    GPIO_TypeDef *CS_Port;    // Chip select GPIO port
-    uint16_t CS_Pin;          // Chip select GPIO pin
+    SPI_HandleTypeDef *hspi;  // SPI handle
+    GPIO_TypeDef      *CS_Port; // Chip select GPIO port
+    uint16_t           CS_Pin;  // Chip select GPIO pin
 } DRV8301_HandleTypeDef;
 
-
+/* CSA Gain options */
 typedef enum {
     DRV8301_CSA_GAIN_10 = 0,
     DRV8301_CSA_GAIN_20 = 1,
@@ -29,4 +27,4 @@ typedef enum {
     DRV8301_CSA_GAIN_80 = 3
 } DRV8301_CSA_Gain_t;
 
-#endif
+#endif /* __DRV8301_TYPES_H */

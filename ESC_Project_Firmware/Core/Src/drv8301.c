@@ -1,91 +1,129 @@
 #include "drv8301.h"
 
-/* SPI write: 16-bit write to DRV8301 register */
-HAL_StatusTypeDef DRV8301_WriteRegister(DRV8301_HandleTypeDef *drv, drv8301_reg_t reg, uint16_t data){
-    uint16_t tx = ((reg & 0x7) << 11) | (data & 0x7FF); // DRV8301 format: 3-bit addr + 11-bit data
-    uint8_t buf[2];
-    buf[0] = (tx >> 8) & 0xFF;
-    buf[1] = tx & 0xFF;
-
+/* ================= Internal CS Control ================= */
+static inline void _CS_Low(DRV8301_HandleTypeDef *drv)
+{
     HAL_GPIO_WritePin(drv->CS_Port, drv->CS_Pin, GPIO_PIN_RESET);
-    HAL_StatusTypeDef status = HAL_SPI_Transmit(drv->hspi, buf, 2, HAL_MAX_DELAY);
+    for(volatile int i=0; i<20; i++); // Short setup delay for G4 high clock
+}
+
+static inline void _CS_High(DRV8301_HandleTypeDef *drv)
+{
+    for(volatile int i=0; i<20; i++); // Hold time
     HAL_GPIO_WritePin(drv->CS_Port, drv->CS_Pin, GPIO_PIN_SET);
+}
+
+/* ================= SPI Write ================= */
+HAL_StatusTypeDef DRV8301_WriteRegister(DRV8301_HandleTypeDef *drv, drv8301_reg_t reg, uint16_t data)
+{
+    // Frame: [W=0][Addr=4 bit][Data=11 bit]
+    uint16_t tx = ((uint16_t)(reg & 0x0F) << 11) | (data & 0x07FF);
+
+    _CS_Low(drv);
+    // Since SPI is in 16-bit mode, size is 1 (one 16-bit word)
+    HAL_StatusTypeDef status = HAL_SPI_Transmit(drv->hspi, (uint8_t*)&tx, 1, DRV8301_SPI_TIMEOUT);
+    _CS_High(drv);
 
     return status;
 }
 
-/* SPI read: send address with read bit and get 16-bit response */
-HAL_StatusTypeDef DRV8301_ReadRegister(DRV8301_HandleTypeDef *drv, drv8301_reg_t reg, uint16_t *data){
-    uint16_t tx = (0x8000) | ((reg & 0x7) << 11); // MSB=1 for read
-    uint8_t buf[2];
-    buf[0] = (tx >> 8) & 0xFF;
-    buf[1] = tx & 0xFF;
+/* ================= SPI Read ================= */
+HAL_StatusTypeDef DRV8301_ReadRegister(DRV8301_HandleTypeDef *drv, drv8301_reg_t reg, uint16_t *data)
+{
+    // Cycle 1: Send Read Command [R=1][Addr=4 bit][Dummy Data]
+    uint16_t tx = DRV8301_SPI_READ_BIT | ((uint16_t)(reg & 0x0F) << 11);
+    uint16_t rx = 0;
+    uint16_t dummy = 0x8000; // Read Status 1 command as dummy for the next cycle
 
-    HAL_GPIO_WritePin(drv->CS_Port, drv->CS_Pin, GPIO_PIN_RESET);
-    HAL_StatusTypeDef status = HAL_SPI_TransmitReceive(drv->hspi, buf, buf, 2, HAL_MAX_DELAY);
-    HAL_GPIO_WritePin(drv->CS_Port, drv->CS_Pin, GPIO_PIN_SET);
+    // Step 1: Transmit Address to read
+    _CS_Low(drv);
+    HAL_StatusTypeDef status = HAL_SPI_Transmit(drv->hspi, (uint8_t*)&tx, 1, DRV8301_SPI_TIMEOUT);
+    _CS_High(drv);
 
-    *data = ((uint16_t)buf[0] << 8) | buf[1];
+    if(status != HAL_OK) return status;
+
+    // Small delay between SPI frames
+    for(volatile int i=0; i<30; i++);
+
+    // Step 2: Transmit dummy and receive the data from the previous command
+    _CS_Low(drv);
+    status = HAL_SPI_TransmitReceive(drv->hspi, (uint8_t*)&dummy, (uint8_t*)&rx, 1, DRV8301_SPI_TIMEOUT);
+    _CS_High(drv);
+
+    if(status == HAL_OK) {
+        *data = rx & 0x07FF; // Mask to get 11-bit data
+    }
+
     return status;
 }
 
-/* Initialize DRV8301 with default config */
-HAL_StatusTypeDef DRV8301_Init(DRV8301_HandleTypeDef *drv){
-    HAL_StatusTypeDef status = HAL_OK;
-    status |= DRV8301_WriteRegister(drv, DRV8301_REG_CTRL, DRV8301_DEFAULT_CTRL);
-    status |= DRV8301_WriteRegister(drv, DRV8301_REG_GATE_DRV_HS, DRV8301_DEFAULT_GATE_HS);
-    status |= DRV8301_WriteRegister(drv, DRV8301_REG_GATE_DRV_LS, DRV8301_DEFAULT_GATE_LS);
-    status |= DRV8301_WriteRegister(drv, DRV8301_REG_OCP_CTRL, DRV8301_DEFAULT_OCP_CTRL);
-    status |= DRV8301_WriteRegister(drv, DRV8301_REG_CSA_CTRL, DRV8301_DEFAULT_CSA_CTRL);
-    return status;
+/* ================= Init ================= */
+HAL_StatusTypeDef DRV8301_Init(DRV8301_HandleTypeDef *drv)
+{
+    // EN_GATE pin must be high before calling this
+    HAL_Delay(20); // Wait for DRV8301 to wake up
+
+    // Clear any power-up faults
+    return DRV8301_ClearFaults(drv);
 }
 
-/* Example high-level API */
-HAL_StatusTypeDef DRV8301_SetGateCurrent(DRV8301_HandleTypeDef *drv, uint16_t value){
-    return DRV8301_WriteRegister(drv, DRV8301_REG_GATE_DRV_HS, value);
+/* ================= Status Functions ================= */
+HAL_StatusTypeDef DRV8301_GetStatus1(DRV8301_HandleTypeDef *drv, uint16_t *status)
+{
+    return DRV8301_ReadRegister(drv, DRV8301_REG_STATUS1, status);
 }
 
-HAL_StatusTypeDef DRV8301_Enable(DRV8301_HandleTypeDef *drv, bool enable){
-    uint16_t ctrl;
-    DRV8301_ReadRegister(drv, DRV8301_REG_CTRL, &ctrl);
-    if(enable) ctrl |= (1<<0);
-    else ctrl &= ~(1<<0);
-    return DRV8301_WriteRegister(drv, DRV8301_REG_CTRL, ctrl);
+HAL_StatusTypeDef DRV8301_GetStatus2(DRV8301_HandleTypeDef *drv, uint16_t *status)
+{
+    return DRV8301_ReadRegister(drv, DRV8301_REG_STATUS2, status);
 }
 
-HAL_StatusTypeDef DRV8301_GetStatus(DRV8301_HandleTypeDef *drv, uint16_t *status){
-    return DRV8301_ReadRegister(drv, DRV8301_REG_DRV_STATUS, status);
-}
-
-
+/* ================= CSA Gain Control ================= */
 HAL_StatusTypeDef DRV8301_SetCSAGain(DRV8301_HandleTypeDef *drv, DRV8301_CSA_Gain_t gain)
 {
-    uint16_t reg = 0;
+    uint16_t reg;
 
-    // Read current CSA register (dummy + actual read)
-    DRV8301_ReadRegister(drv, DRV8301_REG_CSA_CTRL, &reg);
-    DRV8301_ReadRegister(drv, DRV8301_REG_CSA_CTRL, &reg);
+    // Read current Control Register 2
+    if(DRV8301_ReadRegister(drv, DRV8301_REG_CTRL2, &reg) != HAL_OK)
+        return HAL_ERROR;
 
-    // Clear gain bits (bit 3:2)
-    reg &= ~(0x3 << 2);
+    // Mask bits 2-3 (GAIN) and set new value
+    reg &= ~(0x03 << 2);
+    reg |= ((uint16_t)gain << 2);
 
-    // Set new gain
-    reg |= (gain << 2);
-
-    // Write back
-    return DRV8301_WriteRegister(drv, DRV8301_REG_CSA_CTRL, reg);
+    return DRV8301_WriteRegister(drv, DRV8301_REG_CTRL2, reg);
 }
 
 uint8_t DRV8301_GetCSAGain(DRV8301_HandleTypeDef *drv)
 {
-    uint16_t reg = 0;
+    uint16_t reg;
+    if(DRV8301_ReadRegister(drv, DRV8301_REG_CTRL2, &reg) != HAL_OK)
+        return 0xFF;
 
-    // Dummy read (important)
-    DRV8301_ReadRegister(drv, DRV8301_REG_CSA_CTRL, &reg);
+    return (uint8_t)((reg >> 2) & 0x03);
+}
 
-    // Actual read
-    DRV8301_ReadRegister(drv, DRV8301_REG_CSA_CTRL, &reg);
+/* ================= Fault Management ================= */
+HAL_StatusTypeDef DRV8301_ClearFaults(DRV8301_HandleTypeDef *drv)
+{
+    uint16_t reg;
 
-    // Extract gain bits [3:2]
-    return (reg >> 2) & 0x03;
+    // CLR_FLT bit is in Control Register 1 (Bit 0)
+    if(DRV8301_ReadRegister(drv, DRV8301_REG_CTRL1, &reg) != HAL_OK)
+        return HAL_ERROR;
+
+    reg |= (1 << 0); // Set CLR_FLT bit
+
+    return DRV8301_WriteRegister(drv, DRV8301_REG_CTRL1, reg);
+}
+
+bool DRV8301_IsFaulted(DRV8301_HandleTypeDef *drv)
+{
+    uint16_t status1;
+    // Status Register 1 has general fault bits
+    if(DRV8301_GetStatus1(drv, &status1) != HAL_OK)
+        return true;
+
+    // If any bit in Status Register 1 is set (besides reserved), it's a fault
+    return (status1 != 0);
 }
