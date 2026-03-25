@@ -345,3 +345,62 @@ java.lang.IllegalStateException: Call stack for thread main
 
 !ENTRY org.eclipse.cdt.core 1 0 2026-03-25 00:11:46.268
 !MESSAGE Indexed 'ESC_Project_Firmware' (29 sources, 160 headers) in 3.31 sec: 18,685 declarations; 102,488 references; 7 unresolved inclusions; 274 syntax errors; 1,892 unresolved names (1.5%)
+!SESSION 2026-03-25 13:51:33.855 -----------------------------------------------
+eclipse.buildId=Version 1.19.0
+java.version=21.0.3
+java.vendor=Eclipse Adoptium
+BootLoader constants: OS=win32, ARCH=x86_64, WS=win32, NL=en_US
+Framework arguments:  E:\Personal Projects\ESC_V1.0\ESC_Project_Firmware\ESC_Project_Firmware\.project
+Command-line arguments:  -os win32 -ws win32 -arch x86_64 E:\Personal Projects\ESC_V1.0\ESC_Project_Firmware\ESC_Project_Firmware\.project
+
+!ENTRY org.eclipse.core.resources 2 10035 2026-03-25 13:51:37.415
+!MESSAGE The workspace exited with unsaved changes in the previous session; refreshing workspace to recover changes.
+
+!ENTRY com.st.stm32cube.ide.mcu.informationcenter 4 4 2026-03-25 13:51:42.058
+!MESSAGE CubeMX plugin appears to be active, Log4j initialization might be too late.
+
+!ENTRY com.st.stm32cube.ide.mcu.informationcenter 1 1 2026-03-25 13:51:42.064
+!MESSAGE Log4j2 initialized with config file E:\Personal Projects\ESC_V1.0\ESC_Project_Firmware\.metadata\.log4j2.xml
+
+!ENTRY org.eclipse.cdt.core 4 0 2026-03-25 13:51:45.465
+!MESSAGE Failed to open C/C++ index file E:\Personal Projects\ESC_V1.0\ESC_Project_Firmware\.metadata\.plugins\org.eclipse.cdt.core\ESC_Project_Firmware.1774375898689.pdom - rebuilding the index
+!STACK 1
+org.eclipse.core.runtime.CoreException: Corrupted database: ESC_Project_Firmware.1774375898689.pdom
+	at org.eclipse.cdt.internal.core.pdom.db.Database.databaseCorruptionDetected(Database.java:323)
+	at org.eclipse.cdt.internal.core.pdom.db.Database.getChunk(Database.java:303)
+	at org.eclipse.cdt.internal.core.pdom.db.Database.getRecPtr(Database.java:518)
+	at org.eclipse.cdt.internal.core.pdom.dom.PDOMLinkage.getLinkageID(PDOMLinkage.java:140)
+	at org.eclipse.cdt.internal.core.pdom.PDOM.readLinkages(PDOM.java:479)
+	at org.eclipse.cdt.internal.core.pdom.PDOM.loadDatabase(PDOM.java:460)
+	at org.eclipse.cdt.internal.core.pdom.PDOM.<init>(PDOM.java:435)
+	at org.eclipse.cdt.internal.core.pdom.WritablePDOM.<init>(WritablePDOM.java:67)
+	at org.eclipse.cdt.internal.core.pdom.WritablePDOM.<init>(WritablePDOM.java:62)
+	at org.eclipse.cdt.internal.core.pdom.PDOMManager.getOrCreatePDOM(PDOMManager.java:391)
+	at org.eclipse.cdt.internal.core.pdom.PDOMManager.createIndexer(PDOMManager.java:592)
+	at org.eclipse.cdt.internal.core.pdom.PDOMSetupJob.run(PDOMSetupJob.java:61)
+	at org.eclipse.core.internal.jobs.Worker.run(Worker.java:63)
+!SUBENTRY 1 org.eclipse.cdt.core 4 0 2026-03-25 13:51:45.466
+!MESSAGE Corrupted database: ESC_Project_Firmware.1774375898689.pdom
+
+!ENTRY org.eclipse.cdt.core 4 0 2026-03-25 13:51:45.475
+!MESSAGE Error
+!STACK 1
+org.eclipse.core.runtime.CoreException: Corrupted database: ESC_Project_Firmware.1774375898689.pdom
+	at org.eclipse.cdt.internal.core.pdom.db.Database.databaseCorruptionDetected(Database.java:323)
+	at org.eclipse.cdt.internal.core.pdom.db.Database.getChunk(Database.java:303)
+	at org.eclipse.cdt.internal.core.pdom.db.Database.getRecPtr(Database.java:518)
+	at org.eclipse.cdt.internal.core.pdom.dom.PDOMLinkage.getLinkageID(PDOMLinkage.java:140)
+	at org.eclipse.cdt.internal.core.pdom.PDOM.readLinkages(PDOM.java:479)
+	at org.eclipse.cdt.internal.core.pdom.PDOM.loadDatabase(PDOM.java:460)
+	at org.eclipse.cdt.internal.core.pdom.PDOM.<init>(PDOM.java:435)
+	at org.eclipse.cdt.internal.core.pdom.WritablePDOM.<init>(WritablePDOM.java:67)
+	at org.eclipse.cdt.internal.core.pdom.WritablePDOM.<init>(WritablePDOM.java:62)
+	at org.eclipse.cdt.internal.core.pdom.PDOMManager.getOrCreatePDOM(PDOMManager.java:399)
+	at org.eclipse.cdt.internal.core.pdom.PDOMManager.createIndexer(PDOMManager.java:592)
+	at org.eclipse.cdt.internal.core.pdom.PDOMSetupJob.run(PDOMSetupJob.java:61)
+	at org.eclipse.core.internal.jobs.Worker.run(Worker.java:63)
+!SUBENTRY 1 org.eclipse.cdt.core 4 0 2026-03-25 13:51:45.475
+!MESSAGE Corrupted database: ESC_Project_Firmware.1774375898689.pdom
+
+!ENTRY com.st.stm32cube.ide.mcu.ide 1 1 2026-03-25 13:51:49.521
+!MESSAGE Started RMI Server, listening on port 41337

@@ -21,7 +21,7 @@
 
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
-
+#include "app.h"
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -54,6 +54,8 @@ DMA_HandleTypeDef hdma_usart3_tx;
 DMA_HandleTypeDef hdma_usart3_rx;
 
 /* USER CODE BEGIN PV */
+
+TIM_HandleTypeDef htim17;   // <-- Define here
 
 /* USER CODE END PV */
 
@@ -111,7 +113,7 @@ int main(void)
   MX_TIM1_Init();
   MX_USART3_UART_Init();
   /* USER CODE BEGIN 2 */
-
+  App_Setup();
   /* USER CODE END 2 */
 
   /* Infinite loop */
@@ -119,7 +121,7 @@ int main(void)
   while (1)
   {
     /* USER CODE END WHILE */
-
+	  App_Main_Loop();
     /* USER CODE BEGIN 3 */
   }
   /* USER CODE END 3 */
@@ -427,7 +429,7 @@ static void MX_TIM1_Init(void)
   htim1.Instance = TIM1;
   htim1.Init.Prescaler = 0;
   htim1.Init.CounterMode = TIM_COUNTERMODE_CENTERALIGNED1;
-  htim1.Init.Period = 8499;
+  htim1.Init.Period = 4249;
   htim1.Init.ClockDivision = TIM_CLOCKDIVISION_DIV1;
   htim1.Init.RepetitionCounter = 0;
   htim1.Init.AutoReloadPreload = TIM_AUTORELOAD_PRELOAD_ENABLE;
