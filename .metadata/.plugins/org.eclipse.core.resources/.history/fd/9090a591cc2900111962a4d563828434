@@ -127,14 +127,3 @@ bool DRV8301_IsFaulted(DRV8301_HandleTypeDef *drv)
     // If any bit in Status Register 1 is set (besides reserved), it's a fault
     return (status1 != 0);
 }
-
-
-void DRV8301_DC_Cal_High(DRV8301_HandleTypeDef *drv)
-{
-    HAL_GPIO_WritePin(DC_CAL_GPIO_Port, DC_CAL_Pin, GPIO_PIN_SET);
-}
-
-void DRV8301_DC_Cal_Low(DRV8301_HandleTypeDef *drv)
-{
-    HAL_GPIO_WritePin(DC_CAL_GPIO_Port, DC_CAL_Pin, GPIO_PIN_RESET);
-}

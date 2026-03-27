@@ -1,3 +1,4 @@
-../Core/Src/app.c:12:6:ADC_Start_System	144	static
-../Core/Src/app.c:88:6:App_Setup	8	static
-../Core/Src/app.c:124:6:App_Main_Loop	216	static
+../Core/Src/app.c:13:6:ADC2_DMA_Start_BareMetal	4	static
+../Core/Src/app.c:45:6:ADC_Start_System	8	static
+../Core/Src/app.c:64:6:App_Setup	8	static
+../Core/Src/app.c:101:6:App_Main_Loop	216	static

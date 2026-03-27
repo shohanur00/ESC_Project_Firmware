@@ -31,8 +31,5 @@ uint8_t           DRV8301_GetCSAGain    (DRV8301_HandleTypeDef *drv);
  * ============================================================ */
 HAL_StatusTypeDef DRV8301_ClearFaults   (DRV8301_HandleTypeDef *drv);
 bool              DRV8301_IsFaulted     (DRV8301_HandleTypeDef *drv);
-void 			  DRV8301_DC_Cal_High(DRV8301_HandleTypeDef *drv);
-void 			  DRV8301_DC_Cal_Low(DRV8301_HandleTypeDef *drv);
-
 
 #endif /* __DRV8301_H */

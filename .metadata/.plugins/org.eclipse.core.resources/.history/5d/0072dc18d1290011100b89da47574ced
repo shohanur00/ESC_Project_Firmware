@@ -9,39 +9,6 @@ char msg[50];
 uint8_t gain;
 uint32_t adc2_ch3_value = 0;
 
-
-void ADC2_DMA_Start_BareMetal(void)
-{
-    // 1. Disable DMA
-    DMA1_Channel2->CCR &= ~DMA_CCR_EN;
-
-    // 2. Setup DMA
-    DMA1_Channel2->CPAR = (uint32_t)&ADC2->DR;
-    DMA1_Channel2->CMAR = (uint32_t)adc2_buffer;
-    DMA1_Channel2->CNDTR = 5;
-
-    DMA1_Channel2->CCR =
-          DMA_CCR_MINC
-        | DMA_CCR_CIRC
-        | DMA_CCR_PSIZE_0
-        | DMA_CCR_MSIZE_0;
-
-    DMA1_Channel2->CCR |= DMA_CCR_EN;
-
-    // 3. Enable ADC DMA
-    ADC2->CFGR |= ADC_CFGR_DMAEN | ADC_CFGR_DMACFG;
-
-    // 4. Enable ADC
-    if (!(ADC2->CR & ADC_CR_ADEN))
-    {
-        ADC2->CR |= ADC_CR_ADEN;
-        while (!(ADC2->ISR & ADC_ISR_ADRDY));
-    }
-
-    // 5. Start conversion
-    ADC2->CR |= ADC_CR_ADSTART;
-}
-
 void ADC_Start_System(void)
 {
     // 1. Calibration (once)
@@ -57,7 +24,6 @@ void ADC_Start_System(void)
     // 3. Then ADC2
 //    if (HAL_ADC_Start_DMA(&hadc2, (uint32_t*)adc2_buffer, 5) != HAL_OK)
 //        Error_Handler();
-    ADC2_DMA_Start_BareMetal();
 }
 
 // ---------------- Application Setup ----------------
@@ -103,19 +69,18 @@ void App_Main_Loop(void)
     if(Timebase_DownCounter_SS_Continuous_Expired_Event(1))
     {
     	char full_msg[150];
-    	/*HAL_ADC_Start(&hadc2);
+    	HAL_ADC_Start(&hadc2);
     	if (HAL_ADC_PollForConversion(&hadc2, 10) == HAL_OK)
     	{
     	    adc2_ch3_value = HAL_ADC_GetValue(&hadc2);
     	}
-    	HAL_ADC_Stop(&hadc2);*/
+    	HAL_ADC_Stop(&hadc2);
 
     	// Print করো
     	sprintf(full_msg,
-    	        "ADC1:[%u,%u,%u,%u] | ADC2:[%u,%u,%u,%u,%u]\r\n",
+    	        "ADC1:[%u,%u,%u,%u] | ADC2_CH3:%lu\r\n",
     	        adc1_buffer[0], adc1_buffer[1], adc1_buffer[2], adc1_buffer[3],
-				adc2_buffer[0], adc2_buffer[1], adc2_buffer[2], adc2_buffer[3],adc2_buffer[4]);
-
+    	        adc2_ch3_value);
 
         if(huart3.gState == HAL_UART_STATE_READY){
             HAL_UART_Transmit_DMA(&huart3, (uint8_t*)full_msg, strlen(full_msg));

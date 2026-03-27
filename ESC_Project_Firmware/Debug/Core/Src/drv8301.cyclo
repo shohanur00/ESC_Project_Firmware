@@ -9,3 +9,5 @@
 ../Core/Src/drv8301.c:97:9:DRV8301_GetCSAGain	2
 ../Core/Src/drv8301.c:107:19:DRV8301_ClearFaults	2
 ../Core/Src/drv8301.c:120:6:DRV8301_IsFaulted	2
+../Core/Src/drv8301.c:132:6:DRV8301_DC_Cal_High	1
+../Core/Src/drv8301.c:137:6:DRV8301_DC_Cal_Low	1

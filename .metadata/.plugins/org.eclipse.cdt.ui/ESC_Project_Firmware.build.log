@@ -1,10 +1,10 @@
-16:02:53 **** Incremental Build of configuration Debug for project ESC_Project_Firmware ****
+18:45:48 **** Incremental Build of configuration Debug for project ESC_Project_Firmware ****
 make -j20 all 
 arm-none-eabi-size  ESC_Project_Firmware.elf 
    text	   data	    bss	    dec	    hex	filename
-  41556	     92	   3732	  45380	   b144	ESC_Project_Firmware.elf
+  40992	     92	   3732	  44816	   af10	ESC_Project_Firmware.elf
 Finished building: default.size.stdout
  
 
-16:02:53 Build Finished. 0 errors, 0 warnings. (took 670ms)
+18:45:48 Build Finished. 0 errors, 0 warnings. (took 660ms)
 

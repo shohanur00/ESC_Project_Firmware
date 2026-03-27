@@ -9,39 +9,6 @@ char msg[50];
 uint8_t gain;
 uint32_t adc2_ch3_value = 0;
 
-
-void ADC2_DMA_Start_BareMetal(void)
-{
-    // 1. Disable DMA
-    DMA1_Channel2->CCR &= ~DMA_CCR_EN;
-
-    // 2. Setup DMA
-    DMA1_Channel2->CPAR = (uint32_t)&ADC2->DR;
-    DMA1_Channel2->CMAR = (uint32_t)adc2_buffer;
-    DMA1_Channel2->CNDTR = 5;
-
-    DMA1_Channel2->CCR =
-          DMA_CCR_MINC
-        | DMA_CCR_CIRC
-        | DMA_CCR_PSIZE_0
-        | DMA_CCR_MSIZE_0;
-
-    DMA1_Channel2->CCR |= DMA_CCR_EN;
-
-    // 3. Enable ADC DMA
-    ADC2->CFGR |= ADC_CFGR_DMAEN | ADC_CFGR_DMACFG;
-
-    // 4. Enable ADC
-    if (!(ADC2->CR & ADC_CR_ADEN))
-    {
-        ADC2->CR |= ADC_CR_ADEN;
-        while (!(ADC2->ISR & ADC_ISR_ADRDY));
-    }
-
-    // 5. Start conversion
-    ADC2->CR |= ADC_CR_ADSTART;
-}
-
 void ADC_Start_System(void)
 {
     // 1. Calibration (once)
@@ -55,9 +22,8 @@ void ADC_Start_System(void)
         Error_Handler();
 
     // 3. Then ADC2
-//    if (HAL_ADC_Start_DMA(&hadc2, (uint32_t*)adc2_buffer, 5) != HAL_OK)
-//        Error_Handler();
-    ADC2_DMA_Start_BareMetal();
+    if (HAL_ADC_Start_DMA(&hadc2, (uint32_t*)adc2_buffer, 5) != HAL_OK)
+        Error_Handler();
 }
 
 // ---------------- Application Setup ----------------
