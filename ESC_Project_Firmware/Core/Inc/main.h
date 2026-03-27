@@ -52,6 +52,10 @@ extern DMA_HandleTypeDef hdma_usart3_tx;
 extern DMA_HandleTypeDef hdma_usart3_rx;
 
 extern TIM_HandleTypeDef htim17;  // <-- Declare here for global access
+extern uint16_t adc1_buffer[4]; // ADC1
+extern uint16_t adc2_buffer[5]; // ADC2
+extern float current_offset_a;
+extern float current_offset_b;
 /* USER CODE END ET */
 
 /* Exported constants --------------------------------------------------------*/

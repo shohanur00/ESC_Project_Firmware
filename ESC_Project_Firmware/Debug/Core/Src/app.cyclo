@@ -1,2 +1,3 @@
-../Core/Src/app.c:69:6:App_Setup	1
-../Core/Src/app.c:104:6:App_Main_Loop	3
+../Core/Src/app.c:12:6:ADC_Start_System	9
+../Core/Src/app.c:88:6:App_Setup	1
+../Core/Src/app.c:124:6:App_Main_Loop	3

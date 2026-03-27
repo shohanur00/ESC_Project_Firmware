@@ -1,0 +1,127 @@
+#include "main.h"
+#include "drv8301.h"
+#include "timebase.h"
+#include <stdio.h>   // for sprintf
+#include <string.h>  // for strlen
+
+DRV8301_HandleTypeDef drv;
+char msg[50];
+uint8_t gain;
+
+// --- Static Helper Functions for Chip Select ---
+//static inline void DRV8301_CS_Low(void) {
+//    HAL_GPIO_WritePin(SPI1_CS_GPIO_Port, SPI1_CS_Pin, GPIO_PIN_RESET);
+//    for(volatile int i=0; i<10; i++); // Short setup delay (~50-100ns)
+//}
+//
+//static inline void DRV8301_CS_High(void) {
+//    for(volatile int i=0; i<10; i++); // Hold time
+//    HAL_GPIO_WritePin(SPI1_CS_GPIO_Port, SPI1_CS_Pin, GPIO_PIN_SET);
+//}
+//
+///**
+// * @brief Write to DRV8301 Register
+// * @param reg_addr: 4-bit register address (0x00 to 0x0F)
+// * @param data: 11-bit data to write
+// */
+//HAL_StatusTypeDef DRV8301_WriteReg(uint8_t reg_addr, uint16_t data) {
+//    // Frame: [W=0][Addr=4 bit][Data=11 bit]
+//    uint16_t frame = ((uint16_t)(reg_addr & 0x0F) << 11) | (data & 0x07FF);
+//    HAL_StatusTypeDef status;
+//
+//    DRV8301_CS_Low();
+//    // Size is 1 because SPI is configured for 16-bit Data Size
+//    status = HAL_SPI_Transmit(&hspi1, (uint8_t*)&frame, 1, HAL_MAX_DELAY);
+//    DRV8301_CS_High();
+//
+//    return status;
+//}
+//
+///**
+// * @brief Read from DRV8301 Register
+// * @note DRV8301 uses a 2-cycle read protocol.
+// */
+//uint16_t DRV8301_ReadReg(uint8_t reg_addr) {
+//    // Frame: [R=1][Addr=4 bit][Data=Don't Care]
+//    uint16_t tx_frame = (1 << 15) | ((uint16_t)(reg_addr & 0x0F) << 11);
+//    uint16_t rx_frame = 0;
+//    uint16_t dummy_frame = 0x8000; // Read Status Reg 1 as dummy
+//
+//    // Cycle 1: Send the address we want to read
+//    DRV8301_CS_Low();
+//    HAL_SPI_Transmit(&hspi1, (uint8_t*)&tx_frame, 1, HAL_MAX_DELAY);
+//    DRV8301_CS_High();
+//
+//    // Small delay between pulses for DRV8301 to prepare data
+//    for(volatile int i=0; i<20; i++);
+//
+//    // Cycle 2: Clock out the data (Send dummy, receive actual data)
+//    DRV8301_CS_Low();
+//    HAL_SPI_TransmitReceive(&hspi1, (uint8_t*)&dummy_frame, (uint8_t*)&rx_frame, 1, HAL_MAX_DELAY);
+//    DRV8301_CS_High();
+//
+//    // Data is in the lower 11 bits
+//    return (rx_frame & 0x07FF);
+//}
+
+
+// ---------------- Application Setup ----------------
+void App_Setup(void)
+{
+    // Init periodic timebase (1 kHz)
+    Timebase_Init(1000);
+    // Enable gate driver
+    HAL_GPIO_WritePin(EN_GATE_GPIO_Port, EN_GATE_Pin, GPIO_PIN_SET);
+    HAL_Delay(10); // small delay to ensure DRV8301 sees EN_GATE high
+    // SPI & CS pin for DRV8301
+    drv.hspi = &hspi1;
+    drv.CS_Port = SPI1_CS_GPIO_Port;
+    drv.CS_Pin  = SPI1_CS_Pin;
+
+    HAL_GPIO_WritePin(drv.CS_Port, drv.CS_Pin, GPIO_PIN_SET); // CS idle high
+    // -------- 3-phase PWM setup --------
+    /*HAL_TIM_PWM_Start(&htim1, TIM_CHANNEL_1);
+    HAL_TIMEx_PWMN_Start(&htim1, TIM_CHANNEL_1);
+    __HAL_TIM_SET_COMPARE(&htim1, TIM_CHANNEL_1, htim1.Init.Period*20/100);
+
+    HAL_TIM_PWM_Start(&htim1, TIM_CHANNEL_2);
+    HAL_TIMEx_PWMN_Start(&htim1, TIM_CHANNEL_2);
+    __HAL_TIM_SET_COMPARE(&htim1, TIM_CHANNEL_2, htim1.Init.Period*20/100);
+
+    HAL_TIM_PWM_Start(&htim1, TIM_CHANNEL_3);
+    HAL_TIMEx_PWMN_Start(&htim1, TIM_CHANNEL_3);
+    __HAL_TIM_SET_COMPARE(&htim1, TIM_CHANNEL_3, htim1.Init.Period*20/100);
+
+	*/
+    DRV8301_Init(&drv);
+    DRV8301_SetCSAGain(&drv,DRV8301_CSA_GAIN_40);
+    //DRV8301_WriteReg(0x03, 0x0008);
+    // Start down-counter for 500ms interval
+    Timebase_DownCounter_SS_Set_Securely(1, 500);
+}
+
+// ---------------- Application Main Loop ----------------
+void App_Main_Loop(void)
+{
+    if(Timebase_DownCounter_SS_Continuous_Expired_Event(1))
+    {
+        // 1. Write to Control Register 2 (Address 0x03)
+        // Setting Gain to 10V/V (Bit 2=0), etc.
+        // Let's try writing 0x0004 (Setting Gain bits or similar)
+        //DRV8301_WriteReg(0x03, 0x0008);
+
+        // 2. Read back to verify
+        uint16_t val = 0xFF;
+        DRV8301_ReadRegister(&drv,0x03,&val);
+        // 3. Print result
+        sprintf(msg, "DRV8301 Reg 0x03: 0x%03X\r\n", val);
+
+        if(huart3.gState == HAL_UART_STATE_READY){
+            HAL_UART_Transmit_DMA(&huart3, (uint8_t*)msg, strlen(msg));
+        }
+
+        HAL_GPIO_TogglePin(LED_GPIO_Port, LED_Pin);
+    }
+
+    Timebase_Main_Loop_Executables();
+}

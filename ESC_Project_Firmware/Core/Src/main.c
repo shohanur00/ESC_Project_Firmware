@@ -56,6 +56,10 @@ DMA_HandleTypeDef hdma_usart3_rx;
 /* USER CODE BEGIN PV */
 
 TIM_HandleTypeDef htim17;   // <-- Define here
+uint16_t adc1_buffer[4]; // ADC1	[4,11,12,15]
+uint16_t adc2_buffer[5]; // ADC2	[17,13,3,4,12]
+float current_offset_a = 0;
+float current_offset_b = 0;
 
 /* USER CODE END PV */
 
@@ -113,6 +117,8 @@ int main(void)
   MX_TIM1_Init();
   MX_USART3_UART_Init();
   /* USER CODE BEGIN 2 */
+  //HAL_ADCEx_Calibration_Start(&hadc1, ADC_SINGLE_ENDED);
+  //HAL_ADCEx_Calibration_Start(&hadc2, ADC_SINGLE_ENDED);
   App_Setup();
   /* USER CODE END 2 */
 
@@ -337,7 +343,6 @@ static void MX_ADC2_Init(void)
   */
   sConfig.Channel = ADC_CHANNEL_3;
   sConfig.Rank = ADC_REGULAR_RANK_3;
-  sConfig.SamplingTime = ADC_SAMPLETIME_6CYCLES_5;
   if (HAL_ADC_ConfigChannel(&hadc2, &sConfig) != HAL_OK)
   {
     Error_Handler();
@@ -356,7 +361,6 @@ static void MX_ADC2_Init(void)
   */
   sConfig.Channel = ADC_CHANNEL_12;
   sConfig.Rank = ADC_REGULAR_RANK_5;
-  sConfig.SamplingTime = ADC_SAMPLETIME_12CYCLES_5;
   if (HAL_ADC_ConfigChannel(&hadc2, &sConfig) != HAL_OK)
   {
     Error_Handler();

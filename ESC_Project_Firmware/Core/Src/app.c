@@ -8,62 +8,81 @@ DRV8301_HandleTypeDef drv;
 char msg[50];
 uint8_t gain;
 
-// --- Static Helper Functions for Chip Select ---
-//static inline void DRV8301_CS_Low(void) {
-//    HAL_GPIO_WritePin(SPI1_CS_GPIO_Port, SPI1_CS_Pin, GPIO_PIN_RESET);
-//    for(volatile int i=0; i<10; i++); // Short setup delay (~50-100ns)
-//}
-//
-//static inline void DRV8301_CS_High(void) {
-//    for(volatile int i=0; i<10; i++); // Hold time
-//    HAL_GPIO_WritePin(SPI1_CS_GPIO_Port, SPI1_CS_Pin, GPIO_PIN_SET);
-//}
-//
-///**
-// * @brief Write to DRV8301 Register
-// * @param reg_addr: 4-bit register address (0x00 to 0x0F)
-// * @param data: 11-bit data to write
-// */
-//HAL_StatusTypeDef DRV8301_WriteReg(uint8_t reg_addr, uint16_t data) {
-//    // Frame: [W=0][Addr=4 bit][Data=11 bit]
-//    uint16_t frame = ((uint16_t)(reg_addr & 0x0F) << 11) | (data & 0x07FF);
-//    HAL_StatusTypeDef status;
-//
-//    DRV8301_CS_Low();
-//    // Size is 1 because SPI is configured for 16-bit Data Size
-//    status = HAL_SPI_Transmit(&hspi1, (uint8_t*)&frame, 1, HAL_MAX_DELAY);
-//    DRV8301_CS_High();
-//
-//    return status;
-//}
-//
-///**
-// * @brief Read from DRV8301 Register
-// * @note DRV8301 uses a 2-cycle read protocol.
-// */
-//uint16_t DRV8301_ReadReg(uint8_t reg_addr) {
-//    // Frame: [R=1][Addr=4 bit][Data=Don't Care]
-//    uint16_t tx_frame = (1 << 15) | ((uint16_t)(reg_addr & 0x0F) << 11);
-//    uint16_t rx_frame = 0;
-//    uint16_t dummy_frame = 0x8000; // Read Status Reg 1 as dummy
-//
-//    // Cycle 1: Send the address we want to read
-//    DRV8301_CS_Low();
-//    HAL_SPI_Transmit(&hspi1, (uint8_t*)&tx_frame, 1, HAL_MAX_DELAY);
-//    DRV8301_CS_High();
-//
-//    // Small delay between pulses for DRV8301 to prepare data
-//    for(volatile int i=0; i<20; i++);
-//
-//    // Cycle 2: Clock out the data (Send dummy, receive actual data)
-//    DRV8301_CS_Low();
-//    HAL_SPI_TransmitReceive(&hspi1, (uint8_t*)&dummy_frame, (uint8_t*)&rx_frame, 1, HAL_MAX_DELAY);
-//    DRV8301_CS_High();
-//
-//    // Data is in the lower 11 bits
-//    return (rx_frame & 0x07FF);
-//}
 
+void ADC_Start_System(void)
+{
+    //HAL_GPIO_TogglePin(LED_GPIO_Port, LED_Pin); // ধাপ ১ — শুরু হয়েছে
+    HAL_Delay(200);
+
+    // ১. Deep Power Down মোড থেকে বের হওয়া
+    hadc1.Instance->CR &= ~ADC_CR_DEEPPWD;
+    hadc2.Instance->CR &= ~ADC_CR_DEEPPWD;
+
+    //HAL_GPIO_TogglePin(LED_GPIO_Port, LED_Pin); // ধাপ ২ — DEEPPWD clear হয়েছে
+    HAL_Delay(200);
+
+    // ২. Voltage Regulator Enable
+    hadc1.Instance->CR |= ADC_CR_ADVREGEN;
+    hadc2.Instance->CR |= ADC_CR_ADVREGEN;
+
+    HAL_Delay(5);
+
+    //HAL_GPIO_TogglePin(LED_GPIO_Port, LED_Pin); // ধাপ ৩ — ADVREGEN হয়েছে
+    HAL_Delay(200);
+
+    // ৩. ADEN clear করো Calibration এর আগে
+    if (hadc1.Instance->CR & ADC_CR_ADEN)
+    {
+        hadc1.Instance->CR |= ADC_CR_ADDIS;
+        while (hadc1.Instance->CR & ADC_CR_ADEN);
+    }
+    if (hadc2.Instance->CR & ADC_CR_ADEN)
+    {
+        hadc2.Instance->CR |= ADC_CR_ADDIS;
+        while (hadc2.Instance->CR & ADC_CR_ADEN);
+    }
+
+    //HAL_GPIO_TogglePin(LED_GPIO_Port, LED_Pin); // ধাপ ৪ — ADEN disable হয়েছে
+    HAL_Delay(200);
+
+    // ৪. ADC1 Calibration
+    if (HAL_ADCEx_Calibration_Start(&hadc1, ADC_SINGLE_ENDED) != HAL_OK)
+    {
+        Error_Handler();
+    }
+
+    //HAL_GPIO_TogglePin(LED_GPIO_Port, LED_Pin); // ধাপ ৫ — ADC1 Calibration হয়েছে
+    HAL_Delay(200);
+
+    // ৫. ADC2 Calibration
+    if (HAL_ADCEx_Calibration_Start(&hadc2, ADC_SINGLE_ENDED) != HAL_OK)
+    {
+        Error_Handler();
+    }
+
+
+    // ADC1 DMA Start — এটা হয়ে গেছে
+//    if (HAL_ADC_Start_DMA(&hadc1, (uint32_t*)adc1_buffer, 4) != HAL_OK)
+//        Error_Handler();
+
+    // ADC2 এর আগে debug করো
+    char debug_msg[120];
+    sprintf(debug_msg, "ADC2 State: 0x%08lX | Error: 0x%08lX | Lock: %d | DMA_Handle: %s\r\n",
+            hadc2.State,
+            hadc2.ErrorCode,
+            hadc2.Lock,
+            (hadc2.DMA_Handle == NULL) ? "NULL!" : "OK");
+    HAL_UART_Transmit(&huart3, (uint8_t*)debug_msg, strlen(debug_msg), 100);
+    HAL_Delay(500);
+
+    // ADC2 DMA Start
+    //hadc2.Lock = HAL_UNLOCKED;
+    if (HAL_ADC_Start_DMA(&hadc2, (uint32_t*)adc2_buffer, 5) != HAL_OK)
+        Error_Handler();
+
+    //HAL_GPIO_TogglePin(LED_GPIO_Port, LED_Pin); // ধাপ ৮ — সব শেষ, সফল!
+    HAL_Delay(200);
+}
 
 // ---------------- Application Setup ----------------
 void App_Setup(void)
@@ -95,6 +114,7 @@ void App_Setup(void)
 	*/
     DRV8301_Init(&drv);
     DRV8301_SetCSAGain(&drv,DRV8301_CSA_GAIN_40);
+    ADC_Start_System();
     //DRV8301_WriteReg(0x03, 0x0008);
     // Start down-counter for 500ms interval
     Timebase_DownCounter_SS_Set_Securely(1, 500);
@@ -105,20 +125,23 @@ void App_Main_Loop(void)
 {
     if(Timebase_DownCounter_SS_Continuous_Expired_Event(1))
     {
-        // 1. Write to Control Register 2 (Address 0x03)
-        // Setting Gain to 10V/V (Bit 2=0), etc.
-        // Let's try writing 0x0004 (Setting Gain bits or similar)
-        //DRV8301_WriteReg(0x03, 0x0008);
+        // ১. DRV8301 কন্ট্রোল রেজিস্টার রিড
+        uint16_t drv_reg = 0;
+        DRV8301_ReadRegister(&drv, 0x03, &drv_reg);
 
-        // 2. Read back to verify
-        uint16_t val = 0xFF;
-        DRV8301_ReadRegister(&drv,0x03,&val);
+        // ২. সব ADC Raw ভ্যালু একসাথে একটি স্ট্রিং-এ সাজানো
+        // ADC1 এর ৪টি ভ্যালু এবং ADC2 এর ৫টি ভ্যালু
+        char full_msg[150]; // বাফার সাইজ বাড়িয়ে নিলাম নিরাপদ থাকার জন্য
 
-        // 3. Print result
-        sprintf(msg, "DRV8301 Reg 0x03: 0x%03X\r\n", val);
+        sprintf(full_msg,
+                "REG03:0x%03X | ADC1:[%u, %u, %u, %u] | ADC2:[%u, %u, %u, %u, %u]\r\n",
+                drv_reg,
+                adc1_buffer[0], adc1_buffer[1], adc1_buffer[2], adc1_buffer[3],
+                adc2_buffer[0], adc2_buffer[1], adc2_buffer[2], adc2_buffer[3], adc2_buffer[4]);
 
+        // ৩. UART DMA দিয়ে পাঠানো
         if(huart3.gState == HAL_UART_STATE_READY){
-            HAL_UART_Transmit_DMA(&huart3, (uint8_t*)msg, strlen(msg));
+            HAL_UART_Transmit_DMA(&huart3, (uint8_t*)full_msg, strlen(full_msg));
         }
 
         HAL_GPIO_TogglePin(LED_GPIO_Port, LED_Pin);

@@ -1,6 +1,6 @@
 ################################################################################
 # Automatically-generated file. Do not edit!
-# Toolchain: GNU Tools for STM32 (14.3.rel1)
+# Toolchain: GNU Tools for STM32 (13.3.rel1)
 ################################################################################
 
 -include ../makefile.init
@@ -60,8 +60,8 @@ all: main-build
 main-build: ESC_Project_Firmware.elf secondary-outputs
 
 # Tool invocations
-ESC_Project_Firmware.elf ESC_Project_Firmware.map: $(OBJS) $(USER_OBJS) E:\Software\ Project\Drone_Esc_V1.0\ESC_Project_Firmware\ESC_Project_Firmware\STM32G431CBTX_FLASH.ld makefile objects.list $(OPTIONAL_TOOL_DEPS)
-	arm-none-eabi-gcc -o "ESC_Project_Firmware.elf" @"objects.list" $(USER_OBJS) $(LIBS) -mcpu=cortex-m4 -T"E:\Software Project\Drone_Esc_V1.0\ESC_Project_Firmware\ESC_Project_Firmware\STM32G431CBTX_FLASH.ld" --specs=nosys.specs -Wl,-Map="ESC_Project_Firmware.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
+ESC_Project_Firmware.elf ESC_Project_Firmware.map: $(OBJS) $(USER_OBJS) E:\Personal\ Projects\ESC_V1.0\ESC_Project_Firmware\ESC_Project_Firmware\STM32G431CBTX_FLASH.ld makefile objects.list $(OPTIONAL_TOOL_DEPS)
+	arm-none-eabi-gcc -o "ESC_Project_Firmware.elf" @"objects.list" $(USER_OBJS) $(LIBS) -mcpu=cortex-m4 -T"E:\Personal Projects\ESC_V1.0\ESC_Project_Firmware\ESC_Project_Firmware\STM32G431CBTX_FLASH.ld" --specs=nosys.specs -Wl,-Map="ESC_Project_Firmware.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
 	@echo 'Finished building target: $@'
 	@echo ' '
 
