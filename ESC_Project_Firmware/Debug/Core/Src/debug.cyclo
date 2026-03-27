@@ -1,0 +1,3 @@
+../Core/Src/debug.c:16:6:Debug_Add_Log	3
+../Core/Src/debug.c:38:6:Debug_Send_Log	2
+../Core/Src/debug.c:58:6:Debug_Clear_All_Log	1

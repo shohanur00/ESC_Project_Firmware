@@ -3,62 +3,12 @@
 #include "timebase.h"
 #include <stdio.h>   // for sprintf
 #include <string.h>  // for strlen
+#include "debug.h"
+#include "sensor.h"
 
 DRV8301_HandleTypeDef drv;
-char msg[50];
-uint8_t gain;
-uint32_t adc2_ch3_value = 0;
 
 
-void ADC2_DMA_Start_BareMetal(void)
-{
-    // 1. Disable DMA
-    DMA1_Channel2->CCR &= ~DMA_CCR_EN;
-
-    // 2. Setup DMA
-    DMA1_Channel2->CPAR = (uint32_t)&ADC2->DR;
-    DMA1_Channel2->CMAR = (uint32_t)adc2_buffer;
-    DMA1_Channel2->CNDTR = 5;
-
-    DMA1_Channel2->CCR =
-          DMA_CCR_MINC
-        | DMA_CCR_CIRC
-        | DMA_CCR_PSIZE_0
-        | DMA_CCR_MSIZE_0;
-
-    DMA1_Channel2->CCR |= DMA_CCR_EN;
-
-    // 3. Enable ADC DMA
-    ADC2->CFGR |= ADC_CFGR_DMAEN | ADC_CFGR_DMACFG;
-
-    // 4. Enable ADC
-    if (!(ADC2->CR & ADC_CR_ADEN))
-    {
-        ADC2->CR |= ADC_CR_ADEN;
-        while (!(ADC2->ISR & ADC_ISR_ADRDY));
-    }
-
-    // 5. Start conversion
-    ADC2->CR |= ADC_CR_ADSTART;
-}
-
-void ADC_Start_System(void)
-{
-    // 1. Calibration (once)
-    HAL_ADCEx_Calibration_Start(&hadc1, ADC_SINGLE_ENDED);
-    HAL_ADCEx_Calibration_Start(&hadc2, ADC_SINGLE_ENDED);
-
-    HAL_Delay(10);
-
-    // 2. Start ADC1 first
-    if (HAL_ADC_Start_DMA(&hadc1, (uint32_t*)adc1_buffer, 4) != HAL_OK)
-        Error_Handler();
-
-    // 3. Then ADC2
-//    if (HAL_ADC_Start_DMA(&hadc2, (uint32_t*)adc2_buffer, 5) != HAL_OK)
-//        Error_Handler();
-    ADC2_DMA_Start_BareMetal();
-}
 
 // ---------------- Application Setup ----------------
 void App_Setup(void)
@@ -90,11 +40,9 @@ void App_Setup(void)
 	*/
     DRV8301_Init(&drv);
     DRV8301_SetCSAGain(&drv,DRV8301_CSA_GAIN_40);
-    ADC_Start_System();
-    //DRV8301_WriteReg(0x03, 0x0008);
-    // Start down-counter for 500ms interval
+    Sensor_ADC_Init();
     Timebase_DownCounter_SS_Set_Securely(1, 500);
-    DRV8301_DC_Cal_High(&drv);
+    //DRV8301_DC_Cal_High(&drv);
 }
 
 // ---------------- Application Main Loop ----------------
@@ -102,26 +50,10 @@ void App_Main_Loop(void)
 {
     if(Timebase_DownCounter_SS_Continuous_Expired_Event(1))
     {
-    	char full_msg[150];
-    	/*HAL_ADC_Start(&hadc2);
-    	if (HAL_ADC_PollForConversion(&hadc2, 10) == HAL_OK)
-    	{
-    	    adc2_ch3_value = HAL_ADC_GetValue(&hadc2);
-    	}
-    	HAL_ADC_Stop(&hadc2);*/
 
-    	// Print করো
-    	sprintf(full_msg,
-    	        "ADC1:[%u,%u,%u,%u] | ADC2:[%u,%u,%u,%u,%u]\r\n",
-    	        adc1_buffer[0], adc1_buffer[1], adc1_buffer[2], adc1_buffer[3],
-				adc2_buffer[0], adc2_buffer[1], adc2_buffer[2], adc2_buffer[3],adc2_buffer[4]);
-
-
-        if(huart3.gState == HAL_UART_STATE_READY){
-            HAL_UART_Transmit_DMA(&huart3, (uint8_t*)full_msg, strlen(full_msg));
-        }
-
+    	Sensor_ADC_Debug_Print();
         HAL_GPIO_TogglePin(LED_GPIO_Port, LED_Pin);
+        Debug_Send_Log();
     }
 
     Timebase_Main_Loop_Executables();
