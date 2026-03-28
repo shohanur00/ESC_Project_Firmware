@@ -1,4 +1,73 @@
 #include "sensor.h"
+#include "motor.h"
+
+#define ADC_MAX        4095.0f
+#define VREF           3.3f
+#define CSA_GAIN       40.0f
+#define SHUNT_RES      0.001f   // <-- change if different
+#define ADC2_CURRENT_A_INDEX   0   // IN3
+#define ADC2_CURRENT_B_INDEX   1   // IN4
+
+
+// ------------------- Current Offset Calibration -------------------
+void Sensor_Current_Amp_Offset_Measure(void)
+{
+    const uint16_t samples = 500;
+    uint32_t sum_a = 0;
+    uint32_t sum_b = 0;
+
+    // 1️⃣ Stop motor / PWM before calibration
+    Motor_Stop();
+
+    // 2️⃣ Enable DC calibration mode on DRV8301
+    HAL_GPIO_WritePin(DC_CAL_GPIO_Port, DC_CAL_Pin, GPIO_PIN_SET);
+    HAL_Delay(20);  // allow amplifier to settle
+
+    // 3️⃣ Collect samples from DMA buffer
+    for (uint16_t i = 0; i < samples; i++)
+    {
+        sum_a += adc2_buffer[ADC2_CURRENT_A_INDEX];
+        sum_b += adc2_buffer[ADC2_CURRENT_B_INDEX];
+
+        HAL_Delay(1);  // allow new DMA samples
+    }
+
+    // 4️⃣ Disable DC calibration
+    HAL_GPIO_WritePin(DC_CAL_GPIO_Port, DC_CAL_Pin, GPIO_PIN_RESET);
+
+    // 5️⃣ Compute average ADC value
+    float adc_avg_a = (float)sum_a / samples;
+    float adc_avg_b = (float)sum_b / samples;
+
+    // 6️⃣ Convert ADC → voltage
+    float voltage_a = (adc_avg_a / ADC_MAX) * VREF;
+    float voltage_b = (adc_avg_b / ADC_MAX) * VREF;
+
+    // 7️⃣ Compute current offset (accounting for 1.65V midpoint)
+    current_offset_a = (voltage_a - VREF / 2.0f) / (CSA_GAIN * SHUNT_RES);
+    current_offset_b = (voltage_b - VREF / 2.0f) / (CSA_GAIN * SHUNT_RES);
+}
+
+// ------------------- Read Phase Currents -------------------
+float Sensor_Get_Phase_A_Current(void)
+{
+    float voltage = ((float)adc2_buffer[ADC2_CURRENT_A_INDEX] / ADC_MAX) * VREF;
+    float current = (voltage - VREF / 2.0f) / (CSA_GAIN * SHUNT_RES);
+    return current - current_offset_a;
+}
+
+float Sensor_Get_Phase_B_Current(void)
+{
+    float voltage = ((float)adc2_buffer[ADC2_CURRENT_B_INDEX] / ADC_MAX) * VREF;
+    float current = (voltage - VREF / 2.0f) / (CSA_GAIN * SHUNT_RES);
+    return current - current_offset_b;
+}
+
+// Phase C can be computed by Kirchhoff: Ic = -(Ia + Ib)
+float Sensor_Get_Phase_C_Current(void)
+{
+    return -(Sensor_Get_Phase_A_Current() + Sensor_Get_Phase_B_Current());
+}
 
 
 void Sensor_ADC2_DMA_Start(void){
@@ -69,3 +138,8 @@ void Sensor_ADC_Init(void){
 
     Sensor_ADC2_DMA_Start();
 }
+
+
+
+
+

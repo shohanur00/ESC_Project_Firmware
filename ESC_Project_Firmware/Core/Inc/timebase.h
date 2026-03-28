@@ -1,5 +1,5 @@
-#ifndef TIMEBASE_H
-#define TIMEBASE_H
+#ifndef __TIMEBASE_H
+#define __TIMEBASE_H
 
 #include "main.h"
 

@@ -1,0 +1,42 @@
+!SESSION 2026-03-28 09:30:10.658 -----------------------------------------------
+eclipse.buildId=Version 2.1.1
+java.version=21.0.9
+java.vendor=Eclipse Adoptium
+BootLoader constants: OS=win32, ARCH=x86_64, WS=win32, NL=en_US
+Framework arguments:  E:\Personal Projects\ESC_V1.0\ESC_Project_Firmware\ESC_Project_Firmware\.project
+Command-line arguments:  -os win32 -ws win32 -arch x86_64 E:\Personal Projects\ESC_V1.0\ESC_Project_Firmware\ESC_Project_Firmware\.project
+
+!ENTRY com.st.stm32cube.ide.mcu.informationcenter 1 1 2026-03-28 09:30:25.926
+!MESSAGE Log4j2 initialized with config file E:\Personal Projects\ESC_V1.0\ESC_Project_Firmware\ESC_Project_Firmware\.metadata\.log4j2.xml
+
+!ENTRY com.st.stm32cube.ide.mcu.ide 1 1 2026-03-28 09:30:33.186
+!MESSAGE Started RMI Server, listening on port 41337
+
+!ENTRY com.st.stm32cube.ide.mpu.remote.serial 1 1 2026-03-28 09:30:38.074
+!MESSAGE Executed PowerShell command powershell.exe -Command "Get-CimInstance -ClassName Win32_SerialPort | Select-Object -ExpandProperty DeviceID":
+COM7
+
+
+!ENTRY com.st.stm32cube.ide.mpu.remote.serial 1 1 2026-03-28 09:30:38.078
+!MESSAGE port: COM7
+!SESSION 2026-03-28 09:32:29.456 -----------------------------------------------
+eclipse.buildId=Version 2.1.1
+java.version=21.0.9
+java.vendor=Eclipse Adoptium
+BootLoader constants: OS=win32, ARCH=x86_64, WS=win32, NL=en_US
+Framework arguments:  E:\Personal Projects\ESC_V1.0\ESC_Project_Firmware\.project
+Command-line arguments:  -os win32 -ws win32 -arch x86_64 E:\Personal Projects\ESC_V1.0\ESC_Project_Firmware\.project
+
+!ENTRY com.st.stm32cube.ide.mcu.informationcenter 1 1 2026-03-28 09:32:52.914
+!MESSAGE Log4j2 initialized with config file E:\Personal Projects\ESC_V1.0\ESC_Project_Firmware\.metadata\.log4j2.xml
+
+!ENTRY com.st.stm32cube.ide.mcu.ide 1 1 2026-03-28 09:33:00.227
+!MESSAGE Started RMI Server, listening on port 41337
+
+!ENTRY com.st.stm32cube.ide.mpu.remote.serial 1 1 2026-03-28 09:34:13.225
+!MESSAGE Executed PowerShell command powershell.exe -Command "Get-CimInstance -ClassName Win32_SerialPort | Select-Object -ExpandProperty DeviceID":
+COM7
+
+
+!ENTRY com.st.stm32cube.ide.mpu.remote.serial 1 1 2026-03-28 09:34:13.229
+!MESSAGE port: COM7

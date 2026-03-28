@@ -5,10 +5,11 @@
 #include <string.h>  // for strlen
 #include "debug.h"
 #include "sensor.h"
+#include "motor.h"
 
 DRV8301_HandleTypeDef drv;
 
-
+uint8_t current_step = 1;
 
 // ---------------- Application Setup ----------------
 void App_Setup(void)
@@ -24,24 +25,24 @@ void App_Setup(void)
     drv.CS_Pin  = SPI1_CS_Pin;
 
     HAL_GPIO_WritePin(drv.CS_Port, drv.CS_Pin, GPIO_PIN_SET); // CS idle high
-    // -------- 3-phase PWM setup --------
-    /*HAL_TIM_PWM_Start(&htim1, TIM_CHANNEL_1);
-    HAL_TIMEx_PWMN_Start(&htim1, TIM_CHANNEL_1);
-    __HAL_TIM_SET_COMPARE(&htim1, TIM_CHANNEL_1, htim1.Init.Period*20/100);
 
-    HAL_TIM_PWM_Start(&htim1, TIM_CHANNEL_2);
-    HAL_TIMEx_PWMN_Start(&htim1, TIM_CHANNEL_2);
-    __HAL_TIM_SET_COMPARE(&htim1, TIM_CHANNEL_2, htim1.Init.Period*20/100);
+    Motor_Init();
+    Motor_Start();
 
-    HAL_TIM_PWM_Start(&htim1, TIM_CHANNEL_3);
-    HAL_TIMEx_PWMN_Start(&htim1, TIM_CHANNEL_3);
-    __HAL_TIM_SET_COMPARE(&htim1, TIM_CHANNEL_3, htim1.Init.Period*20/100);
+    //Motor_Apply_Phase_Control(MOTOR_PHASE_A, PHASE_MODE_OFF, 40);
+    //Motor_Apply_Phase_Control(MOTOR_PHASE_B, PHASE_MODE_PWM, 40);
+    //Motor_Apply_Phase_Control(MOTOR_PHASE_C, PHASE_MODE_PWM, 60);
 
-	*/
     DRV8301_Init(&drv);
     DRV8301_SetCSAGain(&drv,DRV8301_CSA_GAIN_40);
     Sensor_ADC_Init();
+    Sensor_Current_Amp_Offset_Measure();
+    // Align rotor
     Timebase_DownCounter_SS_Set_Securely(1, 500);
+    Timebase_DownCounter_SS_Set_Securely(2, 2);
+    Motor_Apply_Phase_Control(MOTOR_PHASE_A, PHASE_MODE_PWM, 100);
+    Motor_Apply_Phase_Control(MOTOR_PHASE_B, PHASE_MODE_LOW, 0);
+
     //DRV8301_DC_Cal_High(&drv);
 }
 
@@ -53,8 +54,24 @@ void App_Main_Loop(void)
 
     	Sensor_ADC_Debug_Print();
         HAL_GPIO_TogglePin(LED_GPIO_Port, LED_Pin);
+        Debug_Add_Log("Offset_A: %ld mA | Offset_B: %ld mA\r\n",
+                      (long)(current_offset_a * 1000.0f),
+                      (long)(current_offset_b * 1000.0f));
+
+        Debug_Add_Log("CurrA_A: %ld mA | Curr_B: %ld mA\r\n",
+                              (long)(Sensor_Get_Phase_A_Current() * 1000.0f),
+                              (long)(Sensor_Get_Phase_B_Current() * 1000.0f));
         Debug_Send_Log();
     }
+
+//    if(Timebase_DownCounter_SS_Continuous_Expired_Event(2))
+//    {
+//
+//    	Motor_Commutate_Step(current_step, 30.0f); // 10% duty cycle
+//    	current_step++;
+//    	if (current_step > 6) current_step = 1;
+//
+//    }
 
     Timebase_Main_Loop_Executables();
 }

@@ -35,7 +35,7 @@ Core/Src/app.o: ../Core/Src/app.c ../Core/Inc/main.h \
  ../Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_hal_uart_ex.h \
  ../Core/Inc/drv8301.h ../Core/Inc/main.h ../Core/Inc/drv8301_types.h \
  ../Core/Inc/drv8301_config.h ../Core/Inc/timebase.h ../Core/Inc/debug.h \
- ../Core/Inc/sensor.h ../Core/Inc/debug.h
+ ../Core/Inc/sensor.h ../Core/Inc/debug.h ../Core/Inc/motor.h
 ../Core/Inc/main.h:
 ../Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_hal.h:
 ../Core/Inc/stm32g4xx_hal_conf.h:
@@ -79,3 +79,4 @@ Core/Src/app.o: ../Core/Src/app.c ../Core/Inc/main.h \
 ../Core/Inc/debug.h:
 ../Core/Inc/sensor.h:
 ../Core/Inc/debug.h:
+../Core/Inc/motor.h:
