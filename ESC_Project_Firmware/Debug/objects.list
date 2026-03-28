@@ -1,6 +1,7 @@
 "./Core/Src/app.o"
 "./Core/Src/debug.o"
 "./Core/Src/drv8301.o"
+"./Core/Src/llrlpf.o"
 "./Core/Src/main.o"
 "./Core/Src/motor.o"
 "./Core/Src/sensor.o"

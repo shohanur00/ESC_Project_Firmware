@@ -60,7 +60,7 @@ float Sensor_Get_Phase_B_Current(void)
 {
     float voltage = ((float)adc2_buffer[ADC2_CURRENT_B_INDEX] / ADC_MAX) * VREF;
     float current = (voltage - VREF / 2.0f) / (CSA_GAIN * SHUNT_RES);
-    return current - current_offset_b;
+    return current;// - current_offset_b;
 }
 
 // Phase C can be computed by Kirchhoff: Ic = -(Ia + Ib)
