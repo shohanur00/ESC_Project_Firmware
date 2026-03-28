@@ -56,6 +56,16 @@ extern uint16_t adc1_buffer[4]; // ADC1
 extern uint16_t adc2_buffer[5]; // ADC2
 extern float current_offset_a;
 extern float current_offset_b;
+extern float voltage_a;
+extern float voltage_b;
+extern float voltage_c;
+extern float current_a;
+extern float current_b;
+extern float current_c;
+extern float temperature;
+extern float bus_voltage;
+extern float total_current;
+
 /* USER CODE END ET */
 
 /* Exported constants --------------------------------------------------------*/

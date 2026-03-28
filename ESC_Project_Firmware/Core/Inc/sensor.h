@@ -26,6 +26,6 @@ void Sensor_Current_Amp_Offset_Measure(void);
 float Sensor_Get_Phase_A_Current(void);
 float Sensor_Get_Phase_B_Current(void);
 float Sensor_Get_Phase_C_Current(void);
-
+void Sensor_Main_Loop_Executable(void);
 
 #endif

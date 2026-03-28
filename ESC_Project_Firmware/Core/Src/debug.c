@@ -2,7 +2,7 @@
 #include <stdarg.h>
 #include <stdio.h>
 
-#define LOG_BUF_SIZE 500
+#define LOG_BUF_SIZE 1024
 
 static char log_buf1[LOG_BUF_SIZE];
 static char log_buf2[LOG_BUF_SIZE];

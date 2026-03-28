@@ -60,6 +60,15 @@ uint16_t adc1_buffer[4]; // ADC1	[4,11,12,15]
 uint16_t adc2_buffer[5]; // ADC2	[3,4,12,13,17]
 float current_offset_a = 0;
 float current_offset_b = 0;
+float voltage_a = 0;
+float voltage_b = 0;
+float voltage_c = 0;
+float current_a = 0;
+float current_b = 0;
+float current_c = 0;
+float temperature = 0;
+float bus_voltage = 0;
+float total_current = 0;
 
 /* USER CODE END PV */
 

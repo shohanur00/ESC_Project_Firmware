@@ -93,7 +93,7 @@ void App_Setup(void)
     Sensor_ADC_Init();
     Sensor_Current_Amp_Offset_Measure();
     // Align rotor
-    Timebase_DownCounter_SS_Set_Securely(1, 500);
+    Timebase_DownCounter_SS_Set_Securely(1, 50);
     Timebase_DownCounter_SS_Set_Securely(2, 2);
     //Motor_Apply_Phase_Control(MOTOR_PHASE_A, PHASE_MODE_PWM, 100);
     //Motor_Apply_Phase_Control(MOTOR_PHASE_B, PHASE_MODE_LOW, 0);
@@ -107,7 +107,7 @@ void App_Main_Loop(void)
     if(Timebase_DownCounter_SS_Continuous_Expired_Event(1))
     {
 
-    	Sensor_ADC_Debug_Print();
+    	//Sensor_ADC_Debug_Print();
         HAL_GPIO_TogglePin(LED_GPIO_Port, LED_Pin);
         Debug_Add_Log("Offset_A: %ld mA | Offset_B: %ld mA\r\n",
                       (long)(current_offset_a * 1000.0f),
@@ -127,6 +127,6 @@ void App_Main_Loop(void)
 //    	if (current_step > 6) current_step = 1;
 //
 //    }
-
+    Sensor_Main_Loop_Executable();
     Timebase_Main_Loop_Executables();
 }
