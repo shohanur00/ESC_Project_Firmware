@@ -1,8 +1,8 @@
-../Core/Src/sensor.c:39:6:Sensor_Current_Amp_Offset_Measure	48	static,ignoring_inline_asm
-../Core/Src/sensor.c:91:7:Sensor_Get_Phase_A_Current	16	static
-../Core/Src/sensor.c:98:7:Sensor_Get_Phase_B_Current	16	static
-../Core/Src/sensor.c:106:7:Sensor_Get_Phase_C_Current	16	static
-../Core/Src/sensor.c:112:6:Sensor_ADC2_DMA_Start	4	static
-../Core/Src/sensor.c:145:6:Sensor_ADC_Debug_Print	120	static
-../Core/Src/sensor.c:190:6:Sensor_Main_Loop_Executable	88	static
-../Core/Src/sensor.c:235:6:Sensor_ADC_Init	8	static
+../Core/Src/sensor.c:58:6:Sensor_Current_Amp_Offset_Measure	48	static,ignoring_inline_asm
+../Core/Src/sensor.c:112:7:Sensor_Get_Phase_A_Current	16	static
+../Core/Src/sensor.c:119:7:Sensor_Get_Phase_B_Current	16	static
+../Core/Src/sensor.c:127:7:Sensor_Get_Phase_C_Current	16	static
+../Core/Src/sensor.c:133:6:Sensor_ADC2_DMA_Start	4	static
+../Core/Src/sensor.c:166:6:Sensor_ADC_Debug_Print	120	static
+../Core/Src/sensor.c:212:6:Sensor_Main_Loop_Executable	48	static
+../Core/Src/sensor.c:258:6:Sensor_ADC_Init	8	static

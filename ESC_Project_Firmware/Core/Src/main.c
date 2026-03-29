@@ -58,8 +58,13 @@ DMA_HandleTypeDef hdma_usart3_rx;
 TIM_HandleTypeDef htim17;   // <-- Define here
 uint16_t adc1_buffer[4]; // ADC1	[4,11,12,15]
 uint16_t adc2_buffer[5]; // ADC2	[3,4,12,13,17]
+uint16_t adc1_buffer_filtered[4]; // ADC1	[4,11,12,15]
+uint16_t adc2_buffer_filtered[5]; // ADC2	[3,4,12,13,17]
+
 float current_offset_a = 0;
 float current_offset_b = 0;
+uint16_t current_offset_a_adc = 0;
+uint16_t current_offset_b_adc = 0;
 float voltage_a = 0;
 float voltage_b = 0;
 float voltage_c = 0;

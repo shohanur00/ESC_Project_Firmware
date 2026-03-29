@@ -1,20 +1,21 @@
-/*
- * llrlpg.h
- *
- *  Created on: Mar 28, 2026
- *      Author: WALTON
- */
+// llrlpf.h
+#ifndef LLRLPF_H
+#define LLRLPF_H
 
-#ifndef INC_LLRLPF_H_
-#define INC_LLRLPF_H_
-#include "main.h"
+#include <stdint.h>
 
-void    LPF_Struct_Init(void);
-void    LPF_Set_Alpha(uint8_t lpf_index, uint8_t val);
-uint8_t LPF_Get_Alpha(uint8_t lpf_index);
-int32_t LPF_Get_Filtered_Value(uint8_t lpf_index, int32_t val);
-void    LPF_Init(void);
+// Number of LPF channels
+#define LPF_COUNT 9
 
+// Function declarations
 
+// Filter initialize
+void LPF_Init(void);
 
-#endif /* INC_LLRLPF_H_ */
+// Set alpha for a specific filter (0-100)
+void LPF_Set_Alpha(uint8_t index, uint8_t alpha);
+
+// Run filter for new input, return filtered value
+int32_t LPF_Run(uint8_t index, int32_t adc_val);
+
+#endif // LLRLPF_H

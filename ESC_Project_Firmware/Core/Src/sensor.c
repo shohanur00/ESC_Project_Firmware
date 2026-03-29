@@ -34,8 +34,27 @@
 #define LPF_TOTAL_CURRENT  7
 #define LPF_TEMPERATURE    8
 
+// ---------- ADC1 LPF CHANNELS ----------
+#define LPF_ADC1_0    0   // ADC1 Channel IN4
+#define LPF_ADC1_1    1   // ADC1 Channel IN11
+#define LPF_ADC1_2    2   // ADC1 Channel IN12
+#define LPF_ADC1_3    3   // ADC1 Channel IN15
 
-// ------------------- Current Offset Calibration (Non-blocking / DMA-safe) -------------------
+// ---------- ADC2 LPF CHANNELS ----------
+#define LPF_ADC2_0    4   // ADC2 Channel IN3
+#define LPF_ADC2_1    5   // ADC2 Channel IN4
+#define LPF_ADC2_2    6   // ADC2 Channel IN12 (Virtual N)
+#define LPF_ADC2_3    7   // ADC2 Channel IN13
+#define LPF_ADC2_4    8   // ADC2 Channel IN17
+#define LPF_OFFSET_A  9
+#define LPF_OFFSET_B  10
+
+
+#define VOLTAGE_ALPHA	10
+#define CURRENT_ALPHA	10
+#define TEMP_ALPHA		10
+
+
 void Sensor_Current_Amp_Offset_Measure(void)
 {
     const uint16_t samples = 500;
@@ -62,20 +81,21 @@ void Sensor_Current_Amp_Offset_Measure(void)
         if (dma_index != last_index)
         {
             // New sample available
-            sum_a += adc2_buffer[ADC2_CURRENT_A_INDEX];
-            sum_b += adc2_buffer[ADC2_CURRENT_B_INDEX];
+            sum_a += LPF_Run(LPF_OFFSET_A, adc2_buffer[0]); // Current A
+            sum_b += LPF_Run(LPF_OFFSET_B, adc2_buffer[1]); // Current B
 
             last_index = dma_index;
             collected++;
         }
-        // Optional: small delay to prevent tight loop
-        __NOP();
+        __NOP(); // small delay to prevent tight loop
     }
 
     // 4️⃣ Disable DC calibration
     HAL_GPIO_WritePin(DC_CAL_GPIO_Port, DC_CAL_Pin, GPIO_PIN_RESET);
 
     // 5️⃣ Compute average ADC value
+    current_offset_a_adc = sum_a / samples;
+    current_offset_b_adc = sum_b / samples;
     float adc_avg_a = (float)sum_a / samples;
     float adc_avg_b = (float)sum_b / samples;
 
@@ -87,6 +107,7 @@ void Sensor_Current_Amp_Offset_Measure(void)
     current_offset_a = (voltage_a - VREF / 2.0f) / (CSA_GAIN * SHUNT_RES);
     current_offset_b = (voltage_b - VREF / 2.0f) / (CSA_GAIN * SHUNT_RES);
 }
+
 // ------------------- Read Phase Currents -------------------
 float Sensor_Get_Phase_A_Current(void)
 {
@@ -186,49 +207,51 @@ void Sensor_ADC_Debug_Print(void)
 }
 
 
+
 // ---------- SENSOR LOOP ----------
 void Sensor_Main_Loop_Executable(void)
 {
-    // -------- ADC → Voltage --------
-    float v_adc1_0 = ((float)adc1_buffer[0] / ADC_MAX) * VREF;
-    float v_adc1_1 = ((float)adc1_buffer[1] / ADC_MAX) * VREF;
-    float v_adc1_2 = ((float)adc1_buffer[2] / ADC_MAX) * VREF;
-    float v_adc1_3 = ((float)adc1_buffer[3] / ADC_MAX) * VREF;
+    // --------- FILTER RAW ADC VALUES ---------
+    adc1_buffer_filtered[0] = LPF_Run(LPF_ADC1_0, adc1_buffer[0]);
+    adc1_buffer_filtered[1] = LPF_Run(LPF_ADC1_1, adc1_buffer[1]);
+    adc1_buffer_filtered[2] = LPF_Run(LPF_ADC1_2, adc1_buffer[2]);
+    adc1_buffer_filtered[3] = LPF_Run(LPF_ADC1_3, adc1_buffer[3]);
 
-    float v_adc2_0 = ((float)adc2_buffer[0] / ADC_MAX) * VREF;
-    float v_adc2_1 = ((float)adc2_buffer[1] / ADC_MAX) * VREF;
-    float v_adc2_3 = ((float)adc2_buffer[3] / ADC_MAX) * VREF;
-    float v_adc2_4 = ((float)adc2_buffer[4] / ADC_MAX) * VREF;
+    adc2_buffer_filtered[0] = LPF_Run(LPF_ADC2_0, adc2_buffer[0]);
+    adc2_buffer_filtered[1] = LPF_Run(LPF_ADC2_1, adc2_buffer[1]);
+    adc2_buffer_filtered[2] = LPF_Run(LPF_ADC2_2, adc2_buffer[2]);
+    adc2_buffer_filtered[3] = LPF_Run(LPF_ADC2_3, adc2_buffer[3]);
+    adc2_buffer_filtered[4] = LPF_Run(LPF_ADC2_4, adc2_buffer[4]);
+
+    // -------- ADC → Voltage (use filtered values) --------
+    float v_adc1_0 = ((float)adc1_buffer_filtered[0] / ADC_MAX) * VREF;
+    float v_adc1_1 = ((float)adc1_buffer_filtered[1] / ADC_MAX) * VREF;
+    float v_adc1_2 = ((float)adc1_buffer_filtered[2] / ADC_MAX) * VREF;
+    float v_adc1_3 = ((float)adc1_buffer_filtered[3] / ADC_MAX) * VREF;
+
+    float v_adc2_0 = ((float)adc2_buffer_filtered[0] / ADC_MAX) * VREF;
+    float v_adc2_1 = ((float)adc2_buffer_filtered[1] / ADC_MAX) * VREF;
+    float v_adc2_3 = ((float)adc2_buffer_filtered[3] / ADC_MAX) * VREF;
+    float v_adc2_4 = ((float)adc2_buffer_filtered[4] / ADC_MAX) * VREF;
 
     // -------- Phase Voltages (scaled ×100) --------
-    int32_t v_a_int = (int32_t)(v_adc1_0 * ((R_UP + R_DOWN) / R_DOWN) * 100.0f);
-    int32_t v_b_int = (int32_t)(v_adc2_4 * ((R_UP + R_DOWN) / R_DOWN) * 100.0f);
-    int32_t v_c_int = (int32_t)(v_adc2_3 * ((R_UP + R_DOWN) / R_DOWN) * 100.0f);
-    int32_t bus_v_int = (int32_t)(v_adc1_2 * ((R_UP + R_DOWN) / R_DOWN) * 100.0f);
-
-    voltage_a = LPF_Get_Filtered_Value(LPF_VOLTAGE_A, v_a_int) / 100.0f;
-    voltage_b = LPF_Get_Filtered_Value(LPF_VOLTAGE_B, v_b_int) / 100.0f;
-    voltage_c = LPF_Get_Filtered_Value(LPF_VOLTAGE_C, v_c_int) / 100.0f;
-    bus_voltage = LPF_Get_Filtered_Value(LPF_BUS_VOLTAGE, bus_v_int) / 100.0f;
+    voltage_a = v_adc1_0 * ((R_UP + R_DOWN) / R_DOWN);
+    voltage_b = v_adc2_4 * ((R_UP + R_DOWN) / R_DOWN);
+    voltage_c = v_adc2_3 * ((R_UP + R_DOWN) / R_DOWN);
+    bus_voltage = v_adc1_2 * ((R_UP + R_DOWN) / R_DOWN);
 
     // -------- Phase Currents (scaled ×1000) --------
-    int32_t i_a_int = (int32_t)(((v_adc2_0 - VREF/2.0f) / (CSA_GAIN * SHUNT_RES) - current_offset_a) * 1000.0f);
-    int32_t i_b_int = (int32_t)(((v_adc2_1 - VREF/2.0f) / (CSA_GAIN * SHUNT_RES) - current_offset_b) * 1000.0f);
-    int32_t i_c_int = -(i_a_int + i_b_int);
-
-    current_a = LPF_Get_Filtered_Value(LPF_CURRENT_A, i_a_int) / 1000.0f;
-    current_b = LPF_Get_Filtered_Value(LPF_CURRENT_B, i_b_int) / 1000.0f;
-    current_c = LPF_Get_Filtered_Value(LPF_CURRENT_C, i_c_int) / 1000.0f;
+    current_a = -((v_adc2_0 - VREF/2.0f) / (CSA_GAIN * SHUNT_RES) - current_offset_a);
+    current_b = -((v_adc2_1 - VREF/2.0f) / (CSA_GAIN * SHUNT_RES) - current_offset_b);
+    current_c = -(current_a + current_b);
 
     // -------- Total Current (scaled ×1000) --------
-    int32_t total_i_int = (int32_t)((v_adc1_3 / (INA180A2_GAIN * SHUNT_RES)) * 1000.0f);
-    total_current = LPF_Get_Filtered_Value(LPF_TOTAL_CURRENT, total_i_int) / 1000.0f;
+    total_current = v_adc1_3 / (INA180A2_GAIN * SHUNT_RES);
 
     // -------- Temperature (scaled ×10) --------
     float r_ntc = (v_adc1_1 * NTC_R_FIXED) / (VREF - v_adc1_1);
     float temp_kelvin = 1.0f / ((1.0f/NTC_T0) + (1.0f/NTC_BETA) * logf(r_ntc / NTC_R0));
-    int32_t temp_int = (int32_t)((temp_kelvin - 273.15f) * 10.0f);
-    temperature = LPF_Get_Filtered_Value(LPF_TEMPERATURE, temp_int) / 10.0f;
+    temperature = temp_kelvin - 273.15f;
 }
 
 
@@ -247,16 +270,19 @@ void Sensor_ADC_Init(void){
     // ---------- Initialize LPF ----------
     LPF_Init();
 
-    // -------- Set Alpha values --------
-    LPF_Set_Alpha(LPF_VOLTAGE_A, 20);       // voltage smoothing
-    LPF_Set_Alpha(LPF_VOLTAGE_B, 20);
-    LPF_Set_Alpha(LPF_VOLTAGE_C, 20);
-    LPF_Set_Alpha(LPF_BUS_VOLTAGE, 10);     // bus voltage slower smoothing
-    LPF_Set_Alpha(LPF_CURRENT_A, 30);       // currents can be a bit faster
-    LPF_Set_Alpha(LPF_CURRENT_B, 30);
-    LPF_Set_Alpha(LPF_CURRENT_C, 30);
-    LPF_Set_Alpha(LPF_TOTAL_CURRENT, 15);   // total current smoother
-    LPF_Set_Alpha(LPF_TEMPERATURE, 5);      // temperature very slow
+    // -------- ADC RAW FILTER (light smoothing) --------
+    LPF_Set_Alpha(LPF_ADC1_0, VOLTAGE_ALPHA);
+    LPF_Set_Alpha(LPF_ADC1_1, TEMP_ALPHA);
+    LPF_Set_Alpha(LPF_ADC1_2, VOLTAGE_ALPHA);
+    LPF_Set_Alpha(LPF_ADC1_3, CURRENT_ALPHA);
+
+    LPF_Set_Alpha(LPF_ADC2_0, CURRENT_ALPHA);   // current channels → faster
+    LPF_Set_Alpha(LPF_ADC2_1, CURRENT_ALPHA);
+    LPF_Set_Alpha(LPF_ADC2_2, VOLTAGE_ALPHA);
+    LPF_Set_Alpha(LPF_ADC2_3, VOLTAGE_ALPHA);
+    LPF_Set_Alpha(LPF_ADC2_4, VOLTAGE_ALPHA);
+    LPF_Set_Alpha(LPF_OFFSET_A, CURRENT_ALPHA);
+    LPF_Set_Alpha(LPF_OFFSET_B, CURRENT_ALPHA);
 }
 
 

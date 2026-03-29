@@ -1,41 +1,29 @@
+#include <stdint.h>
 #include "llrlpf.h"
 
-#define NUMBER_OF_LPF 9
+#define LPF_COUNT 11
 
-typedef struct lpf_t{
-  uint8_t  Alpha ;
-  int32_t  Input ;
-  int32_t  Output;
-}lpf_t;
+// প্রতিটা filter er জন্য input, output এবং alpha আলাদা array
+uint8_t LPF_Alpha[LPF_COUNT];
+int32_t LPF_Output[LPF_COUNT];
 
-lpf_t LPF[NUMBER_OF_LPF];
-
-void LPF_Struct_Init(void){
-  for(uint8_t i=0; i<NUMBER_OF_LPF; i++){
-    LPF[i].Alpha = 0;
-    LPF[i].Input = 0;
-	LPF[i].Output = 0;
-  }
-}
-
-void LPF_Set_Alpha(uint8_t lpf_index, uint8_t val){
-  LPF[lpf_index].Alpha = val;
-}
-
-uint8_t LPF_Get_Alpha(uint8_t lpf_index){
-  return LPF[lpf_index].Alpha;
-}
-
-int32_t LPF_Get_Filtered_Value(uint8_t lpf_index, int32_t val){
-  int32_t tmp1=LPF_Get_Alpha(lpf_index);
-  tmp1*=val;
-  int32_t tmp2=(100 - LPF_Get_Alpha(lpf_index));
-  tmp2*=LPF[lpf_index].Output ;
-	LPF[lpf_index].Output = tmp1 + tmp2;
-	LPF[lpf_index].Output/= 100;
-  return LPF[lpf_index].Output;
-}
-
+// Filter initialize
 void LPF_Init(void){
-  LPF_Struct_Init();
+    for(uint8_t i=0; i<LPF_COUNT; i++){
+        LPF_Alpha[i] = 0;
+        LPF_Output[i] = 0;
+    }
+}
+
+// Filter alpha set করা
+void LPF_Set_Alpha(uint8_t index, uint8_t alpha){
+    if(index < LPF_COUNT) LPF_Alpha[index] = alpha;
+}
+
+// Filter চালানো (new ADC value input)
+int32_t LPF_Run(uint8_t index, int32_t adc_val){
+    if(index >= LPF_COUNT) return 0;
+    // 1st order LPF: Output = alpha*input + (1-alpha)*previous_output
+    LPF_Output[index] = (LPF_Alpha[index]*adc_val + (100 - LPF_Alpha[index])*LPF_Output[index])/100;
+    return LPF_Output[index];
 }

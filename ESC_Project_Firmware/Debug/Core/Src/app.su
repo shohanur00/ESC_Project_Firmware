@@ -1,4 +1,4 @@
 ../Core/Src/app.c:16:6:TIM1_Disable_All	8	static
 ../Core/Src/app.c:41:6:TIM1_Pins_To_GPIO	32	static
 ../Core/Src/app.c:62:6:App_Setup	8	static
-../Core/Src/app.c:105:6:App_Main_Loop	16	static
+../Core/Src/app.c:105:6:App_Main_Loop	8	static
