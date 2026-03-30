@@ -1,8 +1,8 @@
 ../Core/Src/sensor.c:58:6:Sensor_Current_Amp_Offset_Measure	3
-../Core/Src/sensor.c:112:7:Sensor_Get_Phase_A_Current	1
-../Core/Src/sensor.c:119:7:Sensor_Get_Phase_B_Current	1
-../Core/Src/sensor.c:127:7:Sensor_Get_Phase_C_Current	1
-../Core/Src/sensor.c:133:6:Sensor_ADC2_DMA_Start	3
-../Core/Src/sensor.c:166:6:Sensor_ADC_Debug_Print	1
-../Core/Src/sensor.c:212:6:Sensor_Main_Loop_Executable	1
-../Core/Src/sensor.c:258:6:Sensor_ADC_Init	2
+../Core/Src/sensor.c:103:7:Sensor_Get_Phase_A_Current	1
+../Core/Src/sensor.c:110:7:Sensor_Get_Phase_B_Current	1
+../Core/Src/sensor.c:118:7:Sensor_Get_Phase_C_Current	1
+../Core/Src/sensor.c:124:6:Sensor_ADC2_DMA_Start	3
+../Core/Src/sensor.c:157:6:Sensor_ADC_Debug_Print	1
+../Core/Src/sensor.c:203:6:Sensor_Main_Loop_Executable	1
+../Core/Src/sensor.c:249:6:Sensor_ADC_Init	2

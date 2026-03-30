@@ -96,16 +96,7 @@ void Sensor_Current_Amp_Offset_Measure(void)
     // 5️⃣ Compute average ADC value
     current_offset_a_adc = sum_a / samples;
     current_offset_b_adc = sum_b / samples;
-    float adc_avg_a = (float)sum_a / samples;
-    float adc_avg_b = (float)sum_b / samples;
 
-    // 6️⃣ Convert ADC → voltage
-    float voltage_a = (adc_avg_a / ADC_MAX) * VREF;
-    float voltage_b = (adc_avg_b / ADC_MAX) * VREF;
-
-    // 7️⃣ Compute current offset (accounting for 1.65V midpoint)
-    current_offset_a = (voltage_a - VREF / 2.0f) / (CSA_GAIN * SHUNT_RES);
-    current_offset_b = (voltage_b - VREF / 2.0f) / (CSA_GAIN * SHUNT_RES);
 }
 
 // ------------------- Read Phase Currents -------------------

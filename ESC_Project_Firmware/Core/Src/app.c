@@ -109,15 +109,15 @@ void App_Main_Loop(void)
 
     	//Sensor_ADC_Debug_Print();
         HAL_GPIO_TogglePin(LED_GPIO_Port, LED_Pin);
-        Debug_Add_Log("Offset_A: %d  | Offset_B: %d \r\n",
-                      (current_offset_a_adc),
-                      (current_offset_b_adc));
-//
+//        Debug_Add_Log("Offset_A: %d  | Offset_B: %d \r\n",
+//                      (current_offset_a_adc),
+//                      (current_offset_b_adc));
+////
 //        Debug_Add_Log("CurrA_A: %ld mA | Curr_B: %ld mA\r\n",
 //                              (long)(Sensor_Get_Phase_A_Current() * 1000.0f),
 //                              (long)(Sensor_Get_Phase_B_Current() * 1000.0f));
 //        Debug_Add_Log("Curr_A ADC Ac = %d  Curr_B ADC = %d  Gain:%d \r\n",adc2_buffer[0],adc2_buffer[1],DRV8301_GetCSAGain(&drv));
-//    	Debug_Add_Log("Curr_A ADC Fi = %d  Curr_B ADC = %d  Gain:%d \r\n",adc2_buffer_filtered[0],adc2_buffer_filtered[1],DRV8301_GetCSAGain(&drv));
+    	Debug_Add_Log("Curr_A ADC Fi = %d  Curr_B ADC = %d  Gain:40 \r\n",adc2_buffer_filtered[0],adc2_buffer_filtered[1],DRV8301_GetCSAGain(&drv));
 
         // Header
 //        Debug_Add_Log("Curr_A_Ac  Curr_A_Fi  Curr_B_Ac  Curr_B_Fi\r\n");
