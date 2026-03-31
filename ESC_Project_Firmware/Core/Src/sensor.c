@@ -214,35 +214,35 @@ void Sensor_Main_Loop_Executable(void)
     adc2_buffer_filtered[3] = LPF_Run(LPF_ADC2_3, adc2_buffer[3]);
     adc2_buffer_filtered[4] = LPF_Run(LPF_ADC2_4, adc2_buffer[4]);
 
-    // -------- ADC → Voltage (use filtered values) --------
-    float v_adc1_0 = ((float)adc1_buffer_filtered[0] / ADC_MAX) * VREF;
-    float v_adc1_1 = ((float)adc1_buffer_filtered[1] / ADC_MAX) * VREF;
-    float v_adc1_2 = ((float)adc1_buffer_filtered[2] / ADC_MAX) * VREF;
-    float v_adc1_3 = ((float)adc1_buffer_filtered[3] / ADC_MAX) * VREF;
-
-    float v_adc2_0 = ((float)adc2_buffer_filtered[0] / ADC_MAX) * VREF;
-    float v_adc2_1 = ((float)adc2_buffer_filtered[1] / ADC_MAX) * VREF;
-    float v_adc2_3 = ((float)adc2_buffer_filtered[3] / ADC_MAX) * VREF;
-    float v_adc2_4 = ((float)adc2_buffer_filtered[4] / ADC_MAX) * VREF;
-
-    // -------- Phase Voltages (scaled ×100) --------
-    voltage_a = v_adc1_0 * ((R_UP + R_DOWN) / R_DOWN);
-    voltage_b = v_adc2_4 * ((R_UP + R_DOWN) / R_DOWN);
-    voltage_c = v_adc2_3 * ((R_UP + R_DOWN) / R_DOWN);
-    bus_voltage = v_adc1_2 * ((R_UP + R_DOWN) / R_DOWN);
-
-    // -------- Phase Currents (scaled ×1000) --------
-    current_a = -((v_adc2_0 - VREF/2.0f) / (CSA_GAIN * SHUNT_RES) - current_offset_a);
-    current_b = -((v_adc2_1 - VREF/2.0f) / (CSA_GAIN * SHUNT_RES) - current_offset_b);
-    current_c = -(current_a + current_b);
-
-    // -------- Total Current (scaled ×1000) --------
-    total_current = v_adc1_3 / (INA180A2_GAIN * SHUNT_RES);
-
-    // -------- Temperature (scaled ×10) --------
-    float r_ntc = (v_adc1_1 * NTC_R_FIXED) / (VREF - v_adc1_1);
-    float temp_kelvin = 1.0f / ((1.0f/NTC_T0) + (1.0f/NTC_BETA) * logf(r_ntc / NTC_R0));
-    temperature = temp_kelvin - 273.15f;
+//    // -------- ADC → Voltage (use filtered values) --------
+//    float v_adc1_0 = ((float)adc1_buffer_filtered[0] / ADC_MAX) * VREF;
+//    float v_adc1_1 = ((float)adc1_buffer_filtered[1] / ADC_MAX) * VREF;
+//    float v_adc1_2 = ((float)adc1_buffer_filtered[2] / ADC_MAX) * VREF;
+//    float v_adc1_3 = ((float)adc1_buffer_filtered[3] / ADC_MAX) * VREF;
+//
+//    float v_adc2_0 = ((float)adc2_buffer_filtered[0] / ADC_MAX) * VREF;
+//    float v_adc2_1 = ((float)adc2_buffer_filtered[1] / ADC_MAX) * VREF;
+//    float v_adc2_3 = ((float)adc2_buffer_filtered[3] / ADC_MAX) * VREF;
+//    float v_adc2_4 = ((float)adc2_buffer_filtered[4] / ADC_MAX) * VREF;
+//
+//    // -------- Phase Voltages (scaled ×100) --------
+//    voltage_a = v_adc1_0 * ((R_UP + R_DOWN) / R_DOWN);
+//    voltage_b = v_adc2_4 * ((R_UP + R_DOWN) / R_DOWN);
+//    voltage_c = v_adc2_3 * ((R_UP + R_DOWN) / R_DOWN);
+//    bus_voltage = v_adc1_2 * ((R_UP + R_DOWN) / R_DOWN);
+//
+//    // -------- Phase Currents (scaled ×1000) --------
+//    current_a = -((v_adc2_0 - VREF/2.0f) / (CSA_GAIN * SHUNT_RES) - current_offset_a);
+//    current_b = -((v_adc2_1 - VREF/2.0f) / (CSA_GAIN * SHUNT_RES) - current_offset_b);
+//    current_c = -(current_a + current_b);
+//
+//    // -------- Total Current (scaled ×1000) --------
+//    total_current = v_adc1_3 / (INA180A2_GAIN * SHUNT_RES);
+//
+//    // -------- Temperature (scaled ×10) --------
+//    float r_ntc = (v_adc1_1 * NTC_R_FIXED) / (VREF - v_adc1_1);
+//    float temp_kelvin = 1.0f / ((1.0f/NTC_T0) + (1.0f/NTC_BETA) * logf(r_ntc / NTC_R0));
+//    temperature = temp_kelvin - 273.15f;
 }
 
 

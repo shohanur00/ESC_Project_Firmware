@@ -89,21 +89,8 @@ void App_Setup(void)
 
     HAL_GPIO_WritePin(drv.CS_Port, drv.CS_Pin, GPIO_PIN_SET); // CS idle high
 
-    Motor_Init();
-    Motor_Start();
-
-//    TIM1_Disable_All();
-//    TIM1_Pins_To_GPIO();
-    // Set PA8 and PB14 HIGH
-//    HAL_GPIO_WritePin(GPIOA, GPIO_PIN_8, GPIO_PIN_SET);
-//    HAL_GPIO_WritePin(GPIOB, GPIO_PIN_14, GPIO_PIN_SET);
-    // 3️⃣ Set outputs
-//    HAL_GPIO_WritePin(GPIOA, GPIO_PIN_9, GPIO_PIN_SET);   // Phase A HIGH
-//    HAL_GPIO_WritePin(GPIOA, GPIO_PIN_11, GPIO_PIN_SET); // Phase B LOW
-//    Motor_Apply_Phase_Control(MOTOR_PHASE_A, PHASE_MODE_PWM, 20);
-//    Motor_Apply_Phase_Control(MOTOR_PHASE_B, PHASE_MODE_PWM, 40);
-//    Motor_Apply_Phase_Control(MOTOR_PHASE_C, PHASE_MODE_PWM, 60);
-
+    //Motor_Init();
+    //Motor_Start();
     DRV8301_Init(&drv);
     DRV8301_SetCSAGain(&drv,DRV8301_CSA_GAIN_40);
     Sensor_ADC_Init();
@@ -111,11 +98,8 @@ void App_Setup(void)
     // Align rotor
     Timebase_DownCounter_SS_Set_Securely(1, 50);
     Timebase_DownCounter_SS_Set_Securely(2, 1);
-    //Motor_Apply_Phase_Control(MOTOR_PHASE_A, PHASE_MODE_PWM, 100);
-    //Motor_Apply_Phase_Control(MOTOR_PHASE_B, PHASE_MODE_LOW, 0);
-//    Motor_Apply_Phase_Control(MOTOR_PHASE_A, PHASE_MODE_PWM, 100);
-//    Motor_Apply_Phase_Control(MOTOR_PHASE_B, PHASE_MODE_LOW, 100);
-    //DRV8301_DC_Cal_High(&drv);
+//    Motor_Apply_Phase_Control(MOTOR_PHASE_B, PHASE_MODE_PWM, 100);
+//    Motor_Apply_Phase_Control(MOTOR_PHASE_A, PHASE_MODE_LOW, 100);
 }
 
 // ---------------- Application Main Loop ----------------
@@ -134,8 +118,26 @@ void App_Main_Loop(void)
 //                              (long)(Sensor_Get_Phase_A_Current() * 1000.0f),
 //                              (long)(Sensor_Get_Phase_B_Current() * 1000.0f));
 //        Debug_Add_Log("Curr_A ADC Ac = %d  Curr_B ADC = %d  Gain:%d \r\n",adc2_buffer[0],adc2_buffer[1],DRV8301_GetCSAGain(&drv));
-//    	Debug_Add_Log("Curr_A ADC Fi = %d  Curr_B ADC = %d  Gain:40 \r\n",adc2_buffer_filtered[0],adc2_buffer_filtered[1],DRV8301_GetCSAGain(&drv));
+    	int gain;
 
+    	/* Calculate current */
+    	current_a = (2019.0f - adc2_buffer_filtered[0]) * 20.27f;
+    	current_b = (2025.0f - adc2_buffer_filtered[1]) * 20.2f;
+
+    	/* Read gain once */
+    	gain = DRV8301_GetCSAGain(&drv);
+
+    	/* Debug print (ADC values) */
+    	Debug_Add_Log("Curr_A ADC = %d  Curr_B ADC = %d  Gain:%d\r\n",
+    	              adc2_buffer_filtered[0],
+    	              adc2_buffer_filtered[1],
+    	              gain);
+
+    	/* Debug print (Current values) */
+    	Debug_Add_Log("Curr_A = %d mA  Curr_B = %d mA  Gain:%d\r\n",
+    	              (int)current_a,
+    	              (int)current_b,
+    	              gain);
         // Header
 //        Debug_Add_Log("Curr_A_Ac  Curr_A_Fi  Curr_B_Ac  Curr_B_Fi\r\n");
 //        Debug_Add_Log("-----------------------------------------\r\n");
@@ -147,14 +149,14 @@ void App_Main_Loop(void)
         Debug_Send_Log();
     }
 
-    if(Timebase_DownCounter_SS_Continuous_Expired_Event(2))
-    {
-    	//HAL_GPIO_TogglePin(LED_GPIO_Port, LED_Pin);
-    	Motor_Commutate_Step(current_step, 20.0f); // 10% duty cycle
-    	current_step++;
-    	if (current_step > 6) current_step = 1;
-
-    }
-//    Sensor_Main_Loop_Executable();
+//    if(Timebase_DownCounter_SS_Continuous_Expired_Event(2))
+//    {
+//    	//HAL_GPIO_TogglePin(LED_GPIO_Port, LED_Pin);
+//    	Motor_Commutate_Step(current_step, 20.0f); // 10% duty cycle
+//    	current_step++;
+//    	if (current_step > 6) current_step = 1;
+//
+//    }
+    Sensor_Main_Loop_Executable();
     Timebase_Main_Loop_Executables();
 }

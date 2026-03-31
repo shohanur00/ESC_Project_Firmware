@@ -4,5 +4,5 @@
 ../Core/Src/sensor.c:118:7:Sensor_Get_Phase_C_Current	16	static
 ../Core/Src/sensor.c:124:6:Sensor_ADC2_DMA_Start	4	static
 ../Core/Src/sensor.c:157:6:Sensor_ADC_Debug_Print	120	static
-../Core/Src/sensor.c:203:6:Sensor_Main_Loop_Executable	48	static
+../Core/Src/sensor.c:203:6:Sensor_Main_Loop_Executable	8	static
 ../Core/Src/sensor.c:249:6:Sensor_ADC_Init	8	static

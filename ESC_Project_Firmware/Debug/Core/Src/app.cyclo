@@ -3,4 +3,4 @@
 ../Core/Src/app.c:61:6:DWT_Init	1
 ../Core/Src/app.c:68:6:delay_us	2
 ../Core/Src/app.c:78:6:App_Setup	1
-../Core/Src/app.c:122:6:App_Main_Loop	4
+../Core/Src/app.c:106:6:App_Main_Loop	2
