@@ -58,6 +58,22 @@ void TIM1_Pins_To_GPIO(void)
     HAL_GPIO_WritePin(GPIOB, GPIO_PIN_9 | GPIO_PIN_14, GPIO_PIN_RESET);
 }
 
+void DWT_Init(void)
+{
+    CoreDebug->DEMCR |= CoreDebug_DEMCR_TRCENA_Msk; // Enable DWT
+    DWT->CYCCNT = 0;
+    DWT->CTRL |= DWT_CTRL_CYCCNTENA_Msk;           // Start counter
+}
+
+void delay_us(uint32_t us)
+{
+    uint32_t start = DWT->CYCCNT;
+    uint32_t ticks = us * (SystemCoreClock / 1000000);
+
+    while ((DWT->CYCCNT - start) < ticks);
+}
+
+
 // ---------------- Application Setup ----------------
 void App_Setup(void)
 {
@@ -73,20 +89,20 @@ void App_Setup(void)
 
     HAL_GPIO_WritePin(drv.CS_Port, drv.CS_Pin, GPIO_PIN_SET); // CS idle high
 
-    //Motor_Init();
-    //Motor_Start();
+    Motor_Init();
+    Motor_Start();
 
-    TIM1_Disable_All();
-    TIM1_Pins_To_GPIO();
+//    TIM1_Disable_All();
+//    TIM1_Pins_To_GPIO();
     // Set PA8 and PB14 HIGH
 //    HAL_GPIO_WritePin(GPIOA, GPIO_PIN_8, GPIO_PIN_SET);
 //    HAL_GPIO_WritePin(GPIOB, GPIO_PIN_14, GPIO_PIN_SET);
     // 3️⃣ Set outputs
-    HAL_GPIO_WritePin(GPIOA, GPIO_PIN_9, GPIO_PIN_SET);   // Phase A HIGH
-    HAL_GPIO_WritePin(GPIOA, GPIO_PIN_11, GPIO_PIN_SET); // Phase B LOW
-    //Motor_Apply_Phase_Control(MOTOR_PHASE_A, PHASE_MODE_OFF, 40);
-    //Motor_Apply_Phase_Control(MOTOR_PHASE_B, PHASE_MODE_PWM, 40);
-    //Motor_Apply_Phase_Control(MOTOR_PHASE_C, PHASE_MODE_PWM, 60);
+//    HAL_GPIO_WritePin(GPIOA, GPIO_PIN_9, GPIO_PIN_SET);   // Phase A HIGH
+//    HAL_GPIO_WritePin(GPIOA, GPIO_PIN_11, GPIO_PIN_SET); // Phase B LOW
+//    Motor_Apply_Phase_Control(MOTOR_PHASE_A, PHASE_MODE_PWM, 20);
+//    Motor_Apply_Phase_Control(MOTOR_PHASE_B, PHASE_MODE_PWM, 40);
+//    Motor_Apply_Phase_Control(MOTOR_PHASE_C, PHASE_MODE_PWM, 60);
 
     DRV8301_Init(&drv);
     DRV8301_SetCSAGain(&drv,DRV8301_CSA_GAIN_40);
@@ -94,10 +110,11 @@ void App_Setup(void)
     Sensor_Current_Amp_Offset_Measure();
     // Align rotor
     Timebase_DownCounter_SS_Set_Securely(1, 50);
-    Timebase_DownCounter_SS_Set_Securely(2, 2);
+    Timebase_DownCounter_SS_Set_Securely(2, 1);
     //Motor_Apply_Phase_Control(MOTOR_PHASE_A, PHASE_MODE_PWM, 100);
     //Motor_Apply_Phase_Control(MOTOR_PHASE_B, PHASE_MODE_LOW, 0);
-
+//    Motor_Apply_Phase_Control(MOTOR_PHASE_A, PHASE_MODE_PWM, 100);
+//    Motor_Apply_Phase_Control(MOTOR_PHASE_B, PHASE_MODE_LOW, 100);
     //DRV8301_DC_Cal_High(&drv);
 }
 
@@ -108,7 +125,7 @@ void App_Main_Loop(void)
     {
 
     	//Sensor_ADC_Debug_Print();
-        HAL_GPIO_TogglePin(LED_GPIO_Port, LED_Pin);
+//        HAL_GPIO_TogglePin(LED_GPIO_Port, LED_Pin);
 //        Debug_Add_Log("Offset_A: %d  | Offset_B: %d \r\n",
 //                      (current_offset_a_adc),
 //                      (current_offset_b_adc));
@@ -117,7 +134,7 @@ void App_Main_Loop(void)
 //                              (long)(Sensor_Get_Phase_A_Current() * 1000.0f),
 //                              (long)(Sensor_Get_Phase_B_Current() * 1000.0f));
 //        Debug_Add_Log("Curr_A ADC Ac = %d  Curr_B ADC = %d  Gain:%d \r\n",adc2_buffer[0],adc2_buffer[1],DRV8301_GetCSAGain(&drv));
-    	Debug_Add_Log("Curr_A ADC Fi = %d  Curr_B ADC = %d  Gain:40 \r\n",adc2_buffer_filtered[0],adc2_buffer_filtered[1],DRV8301_GetCSAGain(&drv));
+//    	Debug_Add_Log("Curr_A ADC Fi = %d  Curr_B ADC = %d  Gain:40 \r\n",adc2_buffer_filtered[0],adc2_buffer_filtered[1],DRV8301_GetCSAGain(&drv));
 
         // Header
 //        Debug_Add_Log("Curr_A_Ac  Curr_A_Fi  Curr_B_Ac  Curr_B_Fi\r\n");
@@ -130,14 +147,14 @@ void App_Main_Loop(void)
         Debug_Send_Log();
     }
 
-//    if(Timebase_DownCounter_SS_Continuous_Expired_Event(2))
-//    {
-//
-//    	Motor_Commutate_Step(current_step, 30.0f); // 10% duty cycle
-//    	current_step++;
-//    	if (current_step > 6) current_step = 1;
-//
-//    }
-    Sensor_Main_Loop_Executable();
+    if(Timebase_DownCounter_SS_Continuous_Expired_Event(2))
+    {
+    	//HAL_GPIO_TogglePin(LED_GPIO_Port, LED_Pin);
+    	Motor_Commutate_Step(current_step, 20.0f); // 10% duty cycle
+    	current_step++;
+    	if (current_step > 6) current_step = 1;
+
+    }
+//    Sensor_Main_Loop_Executable();
     Timebase_Main_Loop_Executables();
 }

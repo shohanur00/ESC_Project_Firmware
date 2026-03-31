@@ -38,6 +38,7 @@ void Motor_Set_Frequency(uint32_t freq_hz) {
 void Motor_Apply_Phase_Control(Motor_Phase_t phase, Phase_Mode_t mode, float duty) {
     uint32_t channel;
 
+    // Map phase to timer channel
     if (phase == MOTOR_PHASE_A)      channel = TIM_CHANNEL_1;
     else if (phase == MOTOR_PHASE_B) channel = TIM_CHANNEL_2;
     else                             channel = TIM_CHANNEL_3;
@@ -46,29 +47,30 @@ void Motor_Apply_Phase_Control(Motor_Phase_t phase, Phase_Mode_t mode, float dut
     if (duty > 100.0f) duty = 100.0f;
     if (duty < 0.0f)   duty = 0.0f;
 
-    uint32_t compare_val = (uint32_t)((htim1.Instance->ARR) * (duty / 100.0f));
+    uint32_t arr = htim1.Instance->ARR;
+    uint32_t compare_val = (uint32_t)(arr * (duty / 100.0f));
 
     switch (mode) {
         case PHASE_MODE_PWM:
-            // Activate High-side PWM, ensure Low-side is OFF
+            // High-side PWM ON, complementary low-side PWM ON
             HAL_TIM_PWM_Start(&htim1, channel);
             HAL_TIMEx_PWMN_Start(&htim1, channel);
             __HAL_TIM_SET_COMPARE(&htim1, channel, compare_val);
             break;
 
         case PHASE_MODE_LOW:
-            // Force Low-side MOSFET ON, High-side OFF
-            HAL_TIM_PWM_Stop(&htim1, channel);
-            HAL_TIMEx_PWMN_Start(&htim1, channel);
-            __HAL_TIM_SET_COMPARE(&htim1, channel, 0);
+            // High-side OFF, Low-side fully ON
+            HAL_TIM_PWM_Stop(&htim1, channel);        // High-side OFF
+            HAL_TIMEx_PWMN_Start(&htim1, channel);    // Low-side ON
+            __HAL_TIM_SET_COMPARE(&htim1, channel, arr); // Full duty = ON
             break;
 
         case PHASE_MODE_OFF:
         default:
-            // Both High-side and Low-side OFF (High Impedance / Floating)
-            HAL_TIM_PWM_Stop(&htim1, channel);
-            HAL_TIMEx_PWMN_Stop(&htim1, channel);
-            __HAL_TIM_SET_COMPARE(&htim1, channel, 0);
+            // Both High-side and Low-side OFF (Floating)
+            HAL_TIM_PWM_Stop(&htim1, channel);        // High-side OFF
+            HAL_TIMEx_PWMN_Stop(&htim1, channel);     // Low-side OFF
+            __HAL_TIM_SET_COMPARE(&htim1, channel, 0); // Ensure compare = 0
             break;
     }
 }
@@ -122,7 +124,7 @@ void Motor_Commutate_Step(uint8_t step, float duty) {
 void Motor_Init(void) {
     Motor_Set_Gate(GATE_ENABLE);
     Motor_Stop();
-    Motor_Set_Frequency(DEFAULT_PWM_FREQ);
+    //Motor_Set_Frequency(DEFAULT_PWM_FREQ);
 }
 
 /**
