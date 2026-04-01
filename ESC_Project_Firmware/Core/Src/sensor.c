@@ -51,7 +51,7 @@
 
 
 #define VOLTAGE_ALPHA	10
-#define CURRENT_ALPHA	10
+#define CURRENT_ALPHA	30
 #define TEMP_ALPHA		10
 
 

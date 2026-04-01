@@ -98,9 +98,17 @@ void App_Setup(void)
     // Align rotor
     Timebase_DownCounter_SS_Set_Securely(1, 50);
     Timebase_DownCounter_SS_Set_Securely(2, 1);
-//    Motor_Apply_Phase_Control(MOTOR_PHASE_B, PHASE_MODE_PWM, 100);
-//    Motor_Apply_Phase_Control(MOTOR_PHASE_A, PHASE_MODE_LOW, 100);
+    Motor_Apply_Phase_Control(MOTOR_PHASE_B, PHASE_MODE_PWM, 100);
+    Motor_Apply_Phase_Control(MOTOR_PHASE_A, PHASE_MODE_LOW, 100);
+    //DRV8301_DC_Cal_High(&drv);
 }
+
+
+/* ─── Calibrated Constants ─────────────────────── */
+#define PHASE_A_INTERCEPT   2042.9f   /* updated: was 2040.9 */
+#define PHASE_B_INTERCEPT   2018.9f   /* unchanged */
+#define PHASE_A_INV_SLOPE   6.7842f   /* 1 / 0.1474 */
+#define PHASE_B_INV_SLOPE   6.8027f   /* 1 / 0.1470 */
 
 // ---------------- Application Main Loop ----------------
 void App_Main_Loop(void)
@@ -121,8 +129,8 @@ void App_Main_Loop(void)
     	int gain;
 
     	/* Calculate current */
-    	current_a = (2019.0f - adc2_buffer_filtered[0]) * 20.27f;
-    	current_b = (2025.0f - adc2_buffer_filtered[1]) * 20.2f;
+    	current_a = (PHASE_A_INTERCEPT - adc2_buffer_filtered[0]) * PHASE_A_INV_SLOPE;
+    	current_b = (PHASE_B_INTERCEPT - adc2_buffer_filtered[1]) * PHASE_B_INV_SLOPE;
 
     	/* Read gain once */
     	gain = DRV8301_GetCSAGain(&drv);
@@ -133,11 +141,11 @@ void App_Main_Loop(void)
     	              adc2_buffer_filtered[1],
     	              gain);
 
-    	/* Debug print (Current values) */
-    	Debug_Add_Log("Curr_A = %d mA  Curr_B = %d mA  Gain:%d\r\n",
-    	              (int)current_a,
-    	              (int)current_b,
-    	              gain);
+//    	/* Debug print (Current values) */
+//    	Debug_Add_Log("Curr_A = %d mA  Curr_B = %d mA  Gain:%d\r\n",
+//    	              (int)current_a,
+//    	              (int)current_b,
+//    	              gain);
         // Header
 //        Debug_Add_Log("Curr_A_Ac  Curr_A_Fi  Curr_B_Ac  Curr_B_Fi\r\n");
 //        Debug_Add_Log("-----------------------------------------\r\n");
