@@ -99,16 +99,13 @@ void App_Setup(void)
     Timebase_DownCounter_SS_Set_Securely(1, 50);
     Timebase_DownCounter_SS_Set_Securely(2, 1);
     Motor_Apply_Phase_Control(MOTOR_PHASE_B, PHASE_MODE_PWM, 100);
-    Motor_Apply_Phase_Control(MOTOR_PHASE_A, PHASE_MODE_LOW, 100);
+    Motor_Apply_Phase_Control(MOTOR_PHASE_A, PHASE_MODE_PWM, 100);
+    Motor_Apply_Phase_Control(MOTOR_PHASE_C, PHASE_MODE_PWM, 100);
     //DRV8301_DC_Cal_High(&drv);
 }
 
 
-/* ─── Calibrated Constants ─────────────────────── */
-#define PHASE_A_INTERCEPT   2042.9f   /* updated: was 2040.9 */
-#define PHASE_B_INTERCEPT   2018.9f   /* unchanged */
-#define PHASE_A_INV_SLOPE   6.7842f   /* 1 / 0.1474 */
-#define PHASE_B_INV_SLOPE   6.8027f   /* 1 / 0.1470 */
+
 
 // ---------------- Application Main Loop ----------------
 void App_Main_Loop(void)
@@ -128,24 +125,23 @@ void App_Main_Loop(void)
 //        Debug_Add_Log("Curr_A ADC Ac = %d  Curr_B ADC = %d  Gain:%d \r\n",adc2_buffer[0],adc2_buffer[1],DRV8301_GetCSAGain(&drv));
     	int gain;
 
-    	/* Calculate current */
-    	current_a = (PHASE_A_INTERCEPT - adc2_buffer_filtered[0]) * PHASE_A_INV_SLOPE;
-    	current_b = (PHASE_B_INTERCEPT - adc2_buffer_filtered[1]) * PHASE_B_INV_SLOPE;
+
 
     	/* Read gain once */
     	gain = DRV8301_GetCSAGain(&drv);
 
     	/* Debug print (ADC values) */
-    	Debug_Add_Log("Curr_A ADC = %d  Curr_B ADC = %d  Gain:%d\r\n",
-    	              adc2_buffer_filtered[0],
-    	              adc2_buffer_filtered[1],
-    	              gain);
+//    	Debug_Add_Log("Curr_A ADC = %d  Curr_B ADC = %d  Gain:%d\r\n",
+//    	              adc2_buffer_filtered[0],
+//    	              adc2_buffer_filtered[1],
+//    	              gain);
 
 //    	/* Debug print (Current values) */
 //    	Debug_Add_Log("Curr_A = %d mA  Curr_B = %d mA  Gain:%d\r\n",
-//    	              (int)current_a,
-//    	              (int)current_b,
+//    	              current_a,
+//    	              current_b,
 //    	              gain);
+    	Sensor_ADC_Debug_Print();
         // Header
 //        Debug_Add_Log("Curr_A_Ac  Curr_A_Fi  Curr_B_Ac  Curr_B_Fi\r\n");
 //        Debug_Add_Log("-----------------------------------------\r\n");

@@ -60,15 +60,15 @@ extern float current_offset_a;
 extern float current_offset_b;
 extern uint16_t current_offset_a_adc;
 extern uint16_t current_offset_b_adc;
-extern float voltage_a;
-extern float voltage_b;
-extern float voltage_c;
-extern float current_a;
-extern float current_b;
-extern float current_c;
-extern float temperature;
-extern float bus_voltage;
-extern float total_current;
+extern uint16_t voltage_a;
+extern uint16_t voltage_b;
+extern uint16_t voltage_c;
+extern int16_t current_a;
+extern int16_t current_b;
+extern int16_t current_c;
+extern int16_t temperature;
+extern int16_t bus_voltage;
+extern int16_t total_current;
 
 /* USER CODE END ET */
 

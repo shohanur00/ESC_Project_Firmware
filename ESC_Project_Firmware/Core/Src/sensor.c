@@ -15,6 +15,7 @@
 // Bus voltage divider
 #define R_UP           34800.0f
 #define R_DOWN         5100.0f
+#define VOLTAGE_GAIN_CORRECTION  1.0f
 
 // NTC
 #define NTC_R_FIXED    10000.0f
@@ -50,10 +51,17 @@
 #define LPF_OFFSET_B  10
 
 
-#define VOLTAGE_ALPHA	10
+#define VOLTAGE_ALPHA	30
 #define CURRENT_ALPHA	30
 #define TEMP_ALPHA		10
 
+
+
+/* ─── Calibrated Constants ─────────────────────── */
+#define PHASE_A_INTERCEPT   2042.9f   /* updated: was 2040.9 */
+#define PHASE_B_INTERCEPT   2018.9f   /* unchanged */
+#define PHASE_A_INV_SLOPE   6.7842f   /* 1 / 0.1474 */
+#define PHASE_B_INV_SLOPE   6.8027f   /* 1 / 0.1470 */
 
 void Sensor_Current_Amp_Offset_Measure(void)
 {
@@ -157,43 +165,49 @@ void Sensor_ADC2_DMA_Start(void){
 void Sensor_ADC_Debug_Print(void)
 {
     Debug_Add_Log(
-        "\r\n================= ADC Readings =================\r\n"
-        "ADC1:\r\n"
-        "  Voltage_A_Sense = %4u  (IN4)\r\n"
-        "  Temp_Sense      = %4u  (IN11)\r\n"
-        "  Bus_Voltage     = %4u  (IN12)\r\n"
-        "  Total_Current   = %4u  (IN15)\r\n"
-        "ADC2:\r\n"
-        "  Current_A       = %4u  (IN3)\r\n"
-        "  Current_B       = %4u  (IN4)\r\n"
-        "  Virtual_N       = %4u  (IN12)\r\n"
-        "  Voltage_C_Sense = %4u  (IN13)\r\n"
-        "  Voltage_B_Sense = %4u  (IN17)\r\n"
+        "\r\n================== ADC DEBUG ==================\r\n"
+
+        // -------- RAW ADC --------
+        "RAW ADC VALUES:\r\n"
+        "  ADC1:\r\n"
+        "    Va_Sense   : %4u   (IN4)\r\n"
+        "    Temp       : %4u   (IN11)\r\n"
+        "    Bus        : %4u   (IN12)\r\n"
+        "    Total_I    : %4u   (IN15)\r\n"
+
+        "  ADC2:\r\n"
+        "    Ia         : %4u   (IN3)\r\n"
+        "    Ib         : %4u   (IN4)\r\n"
+        "    Vneutral   : %4u   (IN12)\r\n"
+        "    Vc_Sense   : %4u   (IN13)\r\n"
+        "    Vb_Sense   : %4u   (IN17)\r\n"
+
         "------------------------------------------------\r\n"
-        "Calculated (scaled):\r\n"
-        "  Va=%4d  Vb=%4d  Vc=%4d   (x0.1V)\r\n"
-        "  Ia=%5d  Ib=%5d  Ic=%5d   (mA)\r\n"
-        "  Bus=%4d  Total_I=%5d     (0.1V / mA)\r\n"
-        "  Temp=%4d                (0.1C)\r\n"
+
+        // -------- CALCULATED --------
+        "CALCULATED VALUES:\r\n"
+
+        "  Voltage (x0.1V):\r\n"
+        "    Va = %4d   Vb = %4d   Vc = %4d\r\n"
+
+        "  Current (mA):\r\n"
+        "    Ia = %5d   Ib = %5d   Ic = %5d\r\n"
+
+        "  System:\r\n"
+        "    Bus = %4d   Total_I = %5d\r\n"
+        "    Temp = %4d (0.1C)\r\n"
+
         "================================================\r\n",
 
-        // ADC RAW
+        // RAW ADC
         adc1_buffer[0], adc1_buffer[1], adc1_buffer[2], adc1_buffer[3],
         adc2_buffer[0], adc2_buffer[1], adc2_buffer[2], adc2_buffer[3], adc2_buffer[4],
 
-        // Scaled Calculated
-        (int)(voltage_a * 10),
-        (int)(voltage_b * 10),
-        (int)(voltage_c * 10),
-
-        (int)(current_a * 1000),
-        (int)(current_b * 1000),
-        (int)(current_c * 1000),
-
-        (int)(bus_voltage * 10),
-        (int)(total_current * 1000),
-
-        (int)(temperature * 10)
+        // Calculated
+        (int)voltage_a, (int)voltage_b, (int)voltage_c,
+        (int)current_a, (int)current_b, (int)current_c,
+        (int)bus_voltage, (int)total_current,
+        (int)temperature
     );
 }
 
@@ -214,35 +228,38 @@ void Sensor_Main_Loop_Executable(void)
     adc2_buffer_filtered[3] = LPF_Run(LPF_ADC2_3, adc2_buffer[3]);
     adc2_buffer_filtered[4] = LPF_Run(LPF_ADC2_4, adc2_buffer[4]);
 
+	/* Calculate current */
+	current_a = (PHASE_A_INTERCEPT - adc2_buffer_filtered[0]) * PHASE_A_INV_SLOPE;
+	current_b = (PHASE_B_INTERCEPT - adc2_buffer_filtered[1]) * PHASE_B_INV_SLOPE;
 //    // -------- ADC → Voltage (use filtered values) --------
-//    float v_adc1_0 = ((float)adc1_buffer_filtered[0] / ADC_MAX) * VREF;
-//    float v_adc1_1 = ((float)adc1_buffer_filtered[1] / ADC_MAX) * VREF;
-//    float v_adc1_2 = ((float)adc1_buffer_filtered[2] / ADC_MAX) * VREF;
-//    float v_adc1_3 = ((float)adc1_buffer_filtered[3] / ADC_MAX) * VREF;
+    float v_adc1_0 = ((float)adc1_buffer_filtered[0] / ADC_MAX) * VREF;
+    float v_adc1_1 = ((float)adc1_buffer_filtered[1] / ADC_MAX) * VREF;
+    float v_adc1_2 = ((float)adc1_buffer_filtered[2] / ADC_MAX) * VREF;
+    float v_adc1_3 = ((float)adc1_buffer_filtered[3] / ADC_MAX) * VREF;
+
+    float v_adc2_0 = ((float)adc2_buffer_filtered[0] / ADC_MAX) * VREF;
+    float v_adc2_1 = ((float)adc2_buffer_filtered[1] / ADC_MAX) * VREF;
+    float v_adc2_3 = ((float)adc2_buffer_filtered[3] / ADC_MAX) * VREF;
+    float v_adc2_4 = ((float)adc2_buffer_filtered[4] / ADC_MAX) * VREF;
 //
-//    float v_adc2_0 = ((float)adc2_buffer_filtered[0] / ADC_MAX) * VREF;
-//    float v_adc2_1 = ((float)adc2_buffer_filtered[1] / ADC_MAX) * VREF;
-//    float v_adc2_3 = ((float)adc2_buffer_filtered[3] / ADC_MAX) * VREF;
-//    float v_adc2_4 = ((float)adc2_buffer_filtered[4] / ADC_MAX) * VREF;
-//
-//    // -------- Phase Voltages (scaled ×100) --------
-//    voltage_a = v_adc1_0 * ((R_UP + R_DOWN) / R_DOWN);
-//    voltage_b = v_adc2_4 * ((R_UP + R_DOWN) / R_DOWN);
-//    voltage_c = v_adc2_3 * ((R_UP + R_DOWN) / R_DOWN);
-//    bus_voltage = v_adc1_2 * ((R_UP + R_DOWN) / R_DOWN);
+    // -------- Phase Voltages (scaled ×100) --------
+    voltage_a = 10*v_adc1_0 * ((R_UP + R_DOWN) / R_DOWN)* VOLTAGE_GAIN_CORRECTION;
+    voltage_b = 10*v_adc2_4 * ((R_UP + R_DOWN) / R_DOWN)* VOLTAGE_GAIN_CORRECTION;
+    voltage_c = 10*v_adc2_3 * ((R_UP + R_DOWN) / R_DOWN)* VOLTAGE_GAIN_CORRECTION;
+    bus_voltage = 10*v_adc1_2 * ((R_UP + R_DOWN) / R_DOWN);
 //
 //    // -------- Phase Currents (scaled ×1000) --------
 //    current_a = -((v_adc2_0 - VREF/2.0f) / (CSA_GAIN * SHUNT_RES) - current_offset_a);
 //    current_b = -((v_adc2_1 - VREF/2.0f) / (CSA_GAIN * SHUNT_RES) - current_offset_b);
-//    current_c = -(current_a + current_b);
+    current_c = -(current_a + current_b);
 //
 //    // -------- Total Current (scaled ×1000) --------
-//    total_current = v_adc1_3 / (INA180A2_GAIN * SHUNT_RES);
+    total_current = 1000*v_adc1_3 / (INA180A2_GAIN * SHUNT_RES);
 //
-//    // -------- Temperature (scaled ×10) --------
-//    float r_ntc = (v_adc1_1 * NTC_R_FIXED) / (VREF - v_adc1_1);
-//    float temp_kelvin = 1.0f / ((1.0f/NTC_T0) + (1.0f/NTC_BETA) * logf(r_ntc / NTC_R0));
-//    temperature = temp_kelvin - 273.15f;
+    // -------- Temperature (scaled ×10) --------
+    float r_ntc = (v_adc1_1 * NTC_R_FIXED) / (VREF - v_adc1_1);
+    float temp_kelvin = 1.0f / ((1.0f/NTC_T0) + (1.0f/NTC_BETA) * logf(r_ntc / NTC_R0));
+    temperature = 10*(temp_kelvin - 273.15f);
 }
 
 

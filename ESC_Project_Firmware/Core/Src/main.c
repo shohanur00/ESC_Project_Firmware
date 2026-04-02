@@ -65,15 +65,15 @@ float current_offset_a = 0;
 float current_offset_b = 0;
 uint16_t current_offset_a_adc = 0;
 uint16_t current_offset_b_adc = 0;
-float voltage_a = 0;
-float voltage_b = 0;
-float voltage_c = 0;
-float current_a = 0;
-float current_b = 0;
-float current_c = 0;
-float temperature = 0;
-float bus_voltage = 0;
-float total_current = 0;
+uint16_t voltage_a = 0;
+uint16_t voltage_b = 0;
+uint16_t voltage_c = 0;
+int16_t current_a = 0;
+int16_t current_b = 0;
+int16_t current_c = 0;
+int16_t temperature = 0;
+int16_t bus_voltage = 0;
+int16_t total_current = 0;
 
 /* USER CODE END PV */
 
