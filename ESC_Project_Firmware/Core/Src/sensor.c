@@ -7,7 +7,7 @@
 #define ADC_MAX        4095.0f
 #define VREF           3.3f
 #define CSA_GAIN       40.0f
-#define SHUNT_RES      0.001f   // <-- change if different
+#define SHUNT_RES      0.010f   // <-- change if different
 #define ADC2_CURRENT_A_INDEX   0   // IN3
 #define ADC2_CURRENT_B_INDEX   1   // IN4
 #define INA180A2_GAIN		  50
@@ -57,11 +57,20 @@
 
 
 
-/* ─── Calibrated Constants ─────────────────────── */
-#define PHASE_A_INTERCEPT   2042.9f   /* updated: was 2040.9 */
-#define PHASE_B_INTERCEPT   2018.9f   /* unchanged */
-#define PHASE_A_INV_SLOPE   6.7842f   /* 1 / 0.1474 */
-#define PHASE_B_INV_SLOPE   6.8027f   /* 1 / 0.1470 */
+/* ─── Calibrated Constants  Gain 20 ─────────────────────── */
+//#define PHASE_A_INTERCEPT   2046.4f
+//#define PHASE_B_INTERCEPT   2032.4f
+//#define PHASE_A_INV_SLOPE   4.0161f
+//#define PHASE_B_INV_SLOPE   4.0161f
+
+/* ─── Calibrated Constants  Gain 40 ─────────────────────── */
+#define PHASE_A_INTERCEPT   2039.4f
+#define PHASE_B_INTERCEPT   2019.0f   // ← 2021.7 থেকে change
+#define PHASE_A_INV_SLOPE   2.0161f   // 1 / 0.4960
+#define PHASE_B_INV_SLOPE   2.0000f   // 1 / 0.5003
+
+
+
 
 void Sensor_Current_Amp_Offset_Measure(void)
 {

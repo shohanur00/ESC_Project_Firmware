@@ -1,6 +1,6 @@
-../Core/Src/app.c:16:6:TIM1_Disable_All	8	static
-../Core/Src/app.c:41:6:TIM1_Pins_To_GPIO	32	static
-../Core/Src/app.c:61:6:DWT_Init	4	static
-../Core/Src/app.c:68:6:delay_us	24	static
-../Core/Src/app.c:78:6:App_Setup	8	static
-../Core/Src/app.c:111:6:App_Main_Loop	16	static
+../Core/Src/app.c:17:6:TIM1_Disable_All	8	static
+../Core/Src/app.c:42:6:TIM1_Pins_To_GPIO	32	static
+../Core/Src/app.c:62:6:DWT_Init	4	static
+../Core/Src/app.c:69:6:delay_us	24	static
+../Core/Src/app.c:79:6:App_Setup	8	static
+../Core/Src/app.c:112:6:App_Main_Loop	24	static

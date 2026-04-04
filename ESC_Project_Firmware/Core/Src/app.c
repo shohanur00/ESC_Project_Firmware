@@ -6,6 +6,7 @@
 #include "debug.h"
 #include "sensor.h"
 #include "motor.h"
+#include "foc_transforms.h"
 
 DRV8301_HandleTypeDef drv;
 
@@ -89,8 +90,8 @@ void App_Setup(void)
 
     HAL_GPIO_WritePin(drv.CS_Port, drv.CS_Pin, GPIO_PIN_SET); // CS idle high
 
-    //Motor_Init();
-    //Motor_Start();
+    Motor_Init();
+    Motor_Start();
     DRV8301_Init(&drv);
     DRV8301_SetCSAGain(&drv,DRV8301_CSA_GAIN_40);
     Sensor_ADC_Init();
@@ -99,8 +100,8 @@ void App_Setup(void)
     Timebase_DownCounter_SS_Set_Securely(1, 50);
     Timebase_DownCounter_SS_Set_Securely(2, 1);
     Motor_Apply_Phase_Control(MOTOR_PHASE_B, PHASE_MODE_PWM, 100);
-    Motor_Apply_Phase_Control(MOTOR_PHASE_A, PHASE_MODE_PWM, 100);
-    Motor_Apply_Phase_Control(MOTOR_PHASE_C, PHASE_MODE_PWM, 100);
+    Motor_Apply_Phase_Control(MOTOR_PHASE_A, PHASE_MODE_LOW, 100);
+    //Motor_Apply_Phase_Control(MOTOR_PHASE_C, PHASE_MODE_PWM, 100);
     //DRV8301_DC_Cal_High(&drv);
 }
 
@@ -113,6 +114,7 @@ void App_Main_Loop(void)
     if(Timebase_DownCounter_SS_Continuous_Expired_Event(1))
     {
 
+    	Clarke_t out =  FOC_ClarkeTransform();
     	//Sensor_ADC_Debug_Print();
 //        HAL_GPIO_TogglePin(LED_GPIO_Port, LED_Pin);
 //        Debug_Add_Log("Offset_A: %d  | Offset_B: %d \r\n",
@@ -135,13 +137,13 @@ void App_Main_Loop(void)
 //    	              adc2_buffer_filtered[0],
 //    	              adc2_buffer_filtered[1],
 //    	              gain);
-
+//
 //    	/* Debug print (Current values) */
-//    	Debug_Add_Log("Curr_A = %d mA  Curr_B = %d mA  Gain:%d\r\n",
-//    	              current_a,
-//    	              current_b,
-//    	              gain);
-    	Sensor_ADC_Debug_Print();
+    	Debug_Add_Log("Ialpha = %d   Ibeta = %d   Gain:%d\r\n",
+    	              (int)out.Ialpha,
+    	              (int)out.Ibeta,
+    	              (int)gain);
+    	//Sensor_ADC_Debug_Print();
         // Header
 //        Debug_Add_Log("Curr_A_Ac  Curr_A_Fi  Curr_B_Ac  Curr_B_Fi\r\n");
 //        Debug_Add_Log("-----------------------------------------\r\n");
@@ -156,7 +158,7 @@ void App_Main_Loop(void)
 //    if(Timebase_DownCounter_SS_Continuous_Expired_Event(2))
 //    {
 //    	//HAL_GPIO_TogglePin(LED_GPIO_Port, LED_Pin);
-//    	Motor_Commutate_Step(current_step, 20.0f); // 10% duty cycle
+//    	Motor_Commutate_Step(current_step, 40.0f); // 10% duty cycle
 //    	current_step++;
 //    	if (current_step > 6) current_step = 1;
 //
