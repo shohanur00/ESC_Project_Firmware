@@ -99,7 +99,7 @@ void App_Setup(void)
     // Align rotor
     Timebase_DownCounter_SS_Set_Securely(1, 500);
     Timebase_DownCounter_SS_Set_Securely(2, 1);
-    Motor_Apply_Phase_Control(MOTOR_PHASE_B, PHASE_MODE_PWM, 100);
+    Motor_Apply_Phase_Control(MOTOR_PHASE_B, PHASE_MODE_LOW, 100);
     Motor_Apply_Phase_Control(MOTOR_PHASE_A, PHASE_MODE_LOW, 100);
     Motor_Apply_Phase_Control(MOTOR_PHASE_C, PHASE_MODE_LOW, 100);
     //DRV8301_DC_Cal_High(&drv);
@@ -163,11 +163,11 @@ void App_Main_Loop(void)
     	gain = DRV8301_GetCSAGain(&drv);
 
     	/* Debug print (ADC values) */
-//    	Debug_Add_Log("Curr_A ADC = %d  Curr_B ADC = %d  Gain:%d\r\n",
-//    	              adc2_buffer_filtered[0],
-//    	              adc2_buffer_filtered[1],
-//    	              gain);
-    	Sensor_ADC_Debug_Print();
+    	Debug_Add_Log("Curr_A ADC = %d  Curr_B ADC = %d  Gain:20\r\n",
+    					adc2_current_a,
+						adc2_current_b,
+    	              gain);
+    	//Sensor_ADC_Debug_Print();
     	Debug_Send_Log();
     	updateFlag = 0;
     }

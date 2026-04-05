@@ -2,10 +2,10 @@
 ../Core/Src/main.c:163:6:SystemClock_Config	3
 ../Core/Src/main.c:209:13:MX_ADC1_Init	7
 ../Core/Src/main.c:304:13:MX_ADC2_Init	8
-../Core/Src/main.c:415:13:MX_SPI1_Init	2
-../Core/Src/main.c:455:13:MX_TIM1_Init	9
-../Core/Src/main.c:545:13:MX_USART3_UART_Init	5
-../Core/Src/main.c:591:13:MX_DMA_Init	1
-../Core/Src/main.c:619:13:MX_GPIO_Init	1
-../Core/Src/main.c:693:6:HAL_ADCEx_InjectedConvCpltCallback	2
-../Core/Src/main.c:713:6:Error_Handler	1
+../Core/Src/main.c:417:13:MX_SPI1_Init	2
+../Core/Src/main.c:457:13:MX_TIM1_Init	9
+../Core/Src/main.c:547:13:MX_USART3_UART_Init	5
+../Core/Src/main.c:593:13:MX_DMA_Init	1
+../Core/Src/main.c:621:13:MX_GPIO_Init	1
+../Core/Src/main.c:695:6:HAL_ADCEx_InjectedConvCpltCallback	2
+../Core/Src/main.c:715:6:Error_Handler	1

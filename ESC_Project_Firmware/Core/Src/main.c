@@ -81,7 +81,7 @@ int16_t total_current = 0;
 
 
 
-uint8_t updateFlag = 0;
+volatile uint8_t updateFlag = 0;
 
 /* USER CODE END PV */
 
@@ -383,7 +383,9 @@ static void MX_ADC2_Init(void)
   sConfigInjected.QueueInjectedContext = DISABLE;
   sConfigInjected.ExternalTrigInjecConv = ADC_EXTERNALTRIGINJEC_T1_TRGO;
   sConfigInjected.ExternalTrigInjecConvEdge = ADC_EXTERNALTRIGINJECCONV_EDGE_RISING;
-  sConfigInjected.InjecOversamplingMode = DISABLE;
+  sConfigInjected.InjecOversamplingMode = ENABLE;
+  sConfigInjected.InjecOversampling.Ratio = ADC_OVERSAMPLING_RATIO_8;
+  sConfigInjected.InjecOversampling.RightBitShift = ADC_RIGHTBITSHIFT_3;
   if (HAL_ADCEx_InjectedConfigChannel(&hadc2, &sConfigInjected) != HAL_OK)
   {
     Error_Handler();

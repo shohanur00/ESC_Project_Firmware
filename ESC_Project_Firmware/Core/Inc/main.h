@@ -74,7 +74,7 @@ extern int16_t temperature;
 extern int16_t bus_voltage;
 extern int16_t total_current;
 
-extern uint8_t updateFlag;
+extern volatile uint8_t updateFlag;
 
 /* USER CODE END ET */
 
