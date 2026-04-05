@@ -93,15 +93,15 @@ void App_Setup(void)
     Motor_Init();
     Motor_Start();
     DRV8301_Init(&drv);
-    DRV8301_SetCSAGain(&drv,DRV8301_CSA_GAIN_40);
+    DRV8301_SetCSAGain(&drv,DRV8301_CSA_GAIN_20);
     Sensor_ADC_Init();
-    Sensor_Current_Amp_Offset_Measure();
+    //Sensor_Current_Amp_Offset_Measure();
     // Align rotor
-    Timebase_DownCounter_SS_Set_Securely(1, 50);
+    Timebase_DownCounter_SS_Set_Securely(1, 500);
     Timebase_DownCounter_SS_Set_Securely(2, 1);
     Motor_Apply_Phase_Control(MOTOR_PHASE_B, PHASE_MODE_PWM, 100);
     Motor_Apply_Phase_Control(MOTOR_PHASE_A, PHASE_MODE_LOW, 100);
-    //Motor_Apply_Phase_Control(MOTOR_PHASE_C, PHASE_MODE_PWM, 100);
+    Motor_Apply_Phase_Control(MOTOR_PHASE_C, PHASE_MODE_LOW, 100);
     //DRV8301_DC_Cal_High(&drv);
 }
 
@@ -111,12 +111,14 @@ void App_Setup(void)
 // ---------------- Application Main Loop ----------------
 void App_Main_Loop(void)
 {
+	int gain;
+
     if(Timebase_DownCounter_SS_Continuous_Expired_Event(1))
     {
 
-    	Clarke_t out =  FOC_ClarkeTransform();
+//    	Clarke_t out =  FOC_ClarkeTransform();
     	//Sensor_ADC_Debug_Print();
-//        HAL_GPIO_TogglePin(LED_GPIO_Port, LED_Pin);
+        HAL_GPIO_TogglePin(LED_GPIO_Port, LED_Pin);
 //        Debug_Add_Log("Offset_A: %d  | Offset_B: %d \r\n",
 //                      (current_offset_a_adc),
 //                      (current_offset_b_adc));
@@ -125,7 +127,7 @@ void App_Main_Loop(void)
 //                              (long)(Sensor_Get_Phase_A_Current() * 1000.0f),
 //                              (long)(Sensor_Get_Phase_B_Current() * 1000.0f));
 //        Debug_Add_Log("Curr_A ADC Ac = %d  Curr_B ADC = %d  Gain:%d \r\n",adc2_buffer[0],adc2_buffer[1],DRV8301_GetCSAGain(&drv));
-    	int gain;
+
 
 
 
@@ -139,10 +141,10 @@ void App_Main_Loop(void)
 //    	              gain);
 //
 //    	/* Debug print (Current values) */
-    	Debug_Add_Log("Ialpha = %d   Ibeta = %d   Gain:%d\r\n",
-    	              (int)out.Ialpha,
-    	              (int)out.Ibeta,
-    	              (int)gain);
+//    	Debug_Add_Log("Ialpha = %d   Ibeta = %d   Gain:%d\r\n",
+//    	              (int)out.Ialpha,
+//    	              (int)out.Ibeta,
+//    	              (int)gain);
     	//Sensor_ADC_Debug_Print();
         // Header
 //        Debug_Add_Log("Curr_A_Ac  Curr_A_Fi  Curr_B_Ac  Curr_B_Fi\r\n");
@@ -152,7 +154,22 @@ void App_Main_Loop(void)
 //        Debug_Add_Log("%4d        %4d        %4d        %4d\r\n",
 //                      adc2_buffer[0], adc2_buffer_filtered[0],
 //                      adc2_buffer[1], adc2_buffer_filtered[1]);
-        Debug_Send_Log();
+//        Debug_Send_Log();
+    }
+
+    if(updateFlag){
+    	Sensor_Main_Loop_Executable();
+    	/* Read gain once */
+    	gain = DRV8301_GetCSAGain(&drv);
+
+    	/* Debug print (ADC values) */
+//    	Debug_Add_Log("Curr_A ADC = %d  Curr_B ADC = %d  Gain:%d\r\n",
+//    	              adc2_buffer_filtered[0],
+//    	              adc2_buffer_filtered[1],
+//    	              gain);
+    	Sensor_ADC_Debug_Print();
+    	Debug_Send_Log();
+    	updateFlag = 0;
     }
 
 //    if(Timebase_DownCounter_SS_Continuous_Expired_Event(2))
@@ -163,6 +180,6 @@ void App_Main_Loop(void)
 //    	if (current_step > 6) current_step = 1;
 //
 //    }
-    Sensor_Main_Loop_Executable();
+
     Timebase_Main_Loop_Executables();
 }

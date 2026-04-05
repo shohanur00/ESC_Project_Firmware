@@ -53,9 +53,13 @@ extern DMA_HandleTypeDef hdma_usart3_rx;
 
 extern TIM_HandleTypeDef htim17;  // <-- Declare here for global access
 extern uint16_t adc1_buffer[4]; // ADC1
-extern uint16_t adc2_buffer[5]; // ADC2
+extern uint16_t adc2_buffer[3]; // ADC2
 extern uint16_t adc1_buffer_filtered[4]; // ADC1	[4,11,12,15]
-extern uint16_t adc2_buffer_filtered[5]; // ADC2	[3,4,12,13,17]
+extern uint16_t adc2_buffer_filtered[3]; // ADC2	[3,4,12,13,17]
+extern uint16_t adc2_current_a;
+extern uint16_t adc2_current_b;
+extern uint16_t adc2_current_a_ffiltered;
+extern uint16_t adc2_current_b_filtered;
 extern float current_offset_a;
 extern float current_offset_b;
 extern uint16_t current_offset_a_adc;
@@ -69,6 +73,8 @@ extern int16_t current_c;
 extern int16_t temperature;
 extern int16_t bus_voltage;
 extern int16_t total_current;
+
+extern uint8_t updateFlag;
 
 /* USER CODE END ET */
 

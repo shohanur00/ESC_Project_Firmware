@@ -58,16 +58,16 @@
 
 
 /* ─── Calibrated Constants  Gain 20 ─────────────────────── */
-//#define PHASE_A_INTERCEPT   2046.4f
-//#define PHASE_B_INTERCEPT   2032.4f
-//#define PHASE_A_INV_SLOPE   4.0161f
-//#define PHASE_B_INV_SLOPE   4.0161f
+#define PHASE_A_INTERCEPT   2046.4f
+#define PHASE_B_INTERCEPT   2032.4f
+#define PHASE_A_INV_SLOPE   4.0161f
+#define PHASE_B_INV_SLOPE   4.0161f
 
 /* ─── Calibrated Constants  Gain 40 ─────────────────────── */
-#define PHASE_A_INTERCEPT   2039.4f
-#define PHASE_B_INTERCEPT   2019.0f   // ← 2021.7 থেকে change
-#define PHASE_A_INV_SLOPE   2.0161f   // 1 / 0.4960
-#define PHASE_B_INV_SLOPE   2.0000f   // 1 / 0.5003
+//#define PHASE_A_INTERCEPT   2039.4f
+//#define PHASE_B_INTERCEPT   2019.0f   // ← 2021.7 থেকে change
+//#define PHASE_A_INV_SLOPE   2.0161f   // 1 / 0.4960
+//#define PHASE_B_INV_SLOPE   2.0000f   // 1 / 0.5003
 
 
 
@@ -145,7 +145,7 @@ void Sensor_ADC2_DMA_Start(void){
 	// 2. Setup DMA
 	DMA1_Channel2->CPAR = (uint32_t)&ADC2->DR;
 	DMA1_Channel2->CMAR = (uint32_t)adc2_buffer;
-	DMA1_Channel2->CNDTR = 5;
+	DMA1_Channel2->CNDTR = 3;
 
 	DMA1_Channel2->CCR =
 		  DMA_CCR_MINC
@@ -210,7 +210,7 @@ void Sensor_ADC_Debug_Print(void)
 
         // RAW ADC
         adc1_buffer[0], adc1_buffer[1], adc1_buffer[2], adc1_buffer[3],
-        adc2_buffer[0], adc2_buffer[1], adc2_buffer[2], adc2_buffer[3], adc2_buffer[4],
+		adc2_current_a, adc2_current_b, adc2_buffer[0], adc2_buffer[1], adc2_buffer[2],
 
         // Calculated
         (int)voltage_a, (int)voltage_b, (int)voltage_c,
@@ -231,11 +231,11 @@ void Sensor_Main_Loop_Executable(void)
     adc1_buffer_filtered[2] = LPF_Run(LPF_ADC1_2, adc1_buffer[2]);
     adc1_buffer_filtered[3] = LPF_Run(LPF_ADC1_3, adc1_buffer[3]);
 
-    adc2_buffer_filtered[0] = LPF_Run(LPF_ADC2_0, adc2_buffer[0]);
-    adc2_buffer_filtered[1] = LPF_Run(LPF_ADC2_1, adc2_buffer[1]);
-    adc2_buffer_filtered[2] = LPF_Run(LPF_ADC2_2, adc2_buffer[2]);
-    adc2_buffer_filtered[3] = LPF_Run(LPF_ADC2_3, adc2_buffer[3]);
-    adc2_buffer_filtered[4] = LPF_Run(LPF_ADC2_4, adc2_buffer[4]);
+    adc2_buffer_filtered[0] = LPF_Run(LPF_ADC2_0, adc2_current_a);
+    adc2_buffer_filtered[1] = LPF_Run(LPF_ADC2_1, adc2_current_b);
+    adc2_buffer_filtered[2] = LPF_Run(LPF_ADC2_2, adc2_buffer[0]);
+    adc2_buffer_filtered[3] = LPF_Run(LPF_ADC2_3, adc2_buffer[1]);
+    adc2_buffer_filtered[4] = LPF_Run(LPF_ADC2_4, adc2_buffer[2]);
 
 	/* Calculate current */
 	current_a = (PHASE_A_INTERCEPT - adc2_buffer_filtered[0]) * PHASE_A_INV_SLOPE;
@@ -283,7 +283,9 @@ void Sensor_ADC_Init(void){
     if (HAL_ADC_Start_DMA(&hadc1, (uint32_t*)adc1_buffer, 4) != HAL_OK)
         Error_Handler();
 
-    Sensor_ADC2_DMA_Start();
+    //Sensor_ADC2_DMA_Start();
+    // ২. ইনজেক্টড (কারেন্ট) চ্যানেলগুলো ইন্টারাপ্টসহ স্টার্ট করুন
+    HAL_ADCEx_InjectedStart_IT(&hadc2);
     // ---------- Initialize LPF ----------
     LPF_Init();
 
