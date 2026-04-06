@@ -58,10 +58,12 @@
 
 
 /* ─── Calibrated Constants  Gain 20 ─────────────────────── */
-#define PHASE_A_INTERCEPT   2046.4f
-#define PHASE_B_INTERCEPT   2032.4f
-#define PHASE_A_INV_SLOPE   4.0161f
-#define PHASE_B_INV_SLOPE   4.0161f
+#define PHASE_A_INTERCEPT   2054.0f
+#define PHASE_B_INTERCEPT   2038.0f
+#define PHASE_A_INV_SLOPE   4.0039f
+#define PHASE_B_INV_SLOPE   4.0039f
+#define PHASE_A_CAL_FACTOR	0.91f
+#define PHASE_B_CAL_FACTOR	0.91f
 
 /* ─── Calibrated Constants  Gain 40 ─────────────────────── */
 //#define PHASE_A_INTERCEPT   2039.4f
@@ -74,68 +76,43 @@
 
 void Sensor_Current_Amp_Offset_Measure(void)
 {
-    const uint16_t samples = 500;
-    uint32_t sum_a = 0;
-    uint32_t sum_b = 0;
+    const uint16_t samples = 1000; // ৫০০ থেকে ১০০০ স্যাম্পল নিলে আরও স্টেবল হবে
+    uint64_t sum_a = 0; // uint64_t ব্যবহার করলে ওভারফ্লো হওয়ার ভয় থাকে না
+    uint64_t sum_b = 0;
 
-    // 1️⃣ Stop motor / PWM before calibration
-    Motor_Stop();
-
-    // 2️⃣ Enable DC calibration mode on DRV8301
+    //Motor_Stop();
+    Motor_Apply_Phase_Control(MOTOR_PHASE_A, PHASE_MODE_LOW, 0);
+    Motor_Apply_Phase_Control(MOTOR_PHASE_B, PHASE_MODE_LOW, 0);
+    Motor_Apply_Phase_Control(MOTOR_PHASE_C, PHASE_MODE_LOW, 0);
+    // DC_CAL এনাবল করা (DRV8301 এর ইনপুট শর্ট করে দেয় ইন্টারনালি)
     HAL_GPIO_WritePin(DC_CAL_GPIO_Port, DC_CAL_Pin, GPIO_PIN_SET);
-    HAL_Delay(20);  // allow amplifier to settle
+    HAL_Delay(100); // ২০ms এর বদলে ৫০ms দিলে এমপ্লিফায়ার পুরোপুরি স্টেবল হয়
 
     uint16_t collected = 0;
-    uint16_t last_index = 0xFFFF; // store last DMA index read
 
-    while (collected < samples)
-    {
-        // Assuming circular DMA with 5 elements as in your Sensor_ADC2_DMA_Start
-        uint16_t dma_index = ADC2->DR; // or get current DMA index if using HAL
-        // For STM32 without HAL helper, you can read NDTR register
-        // dma_index = 5 - DMA1_Channel2->CNDTR;
+    // DMA এর বর্তমান পজিশন ট্র্যাক করার জন্য
+//    uint32_t last_ndtr = DMA1_Channel2->CNDTR;
 
-        if (dma_index != last_index)
-        {
-            // New sample available
-            sum_a += LPF_Run(LPF_OFFSET_A, adc2_buffer[0]); // Current A
-            sum_b += LPF_Run(LPF_OFFSET_B, adc2_buffer[1]); // Current B
+//    while (collected < samples)
+//    {
+//
+//        // যদি NDTR চেঞ্জ হয়, তার মানে নতুন ডাটা বাফারে এসেছে
+//            sum_a += adc2_current_a; // সরাসরি বাফার থেকে ডাটা যোগ করুন
+//            sum_b += adc2_current_b;
+//            collected++;
+//
+//    }
 
-            last_index = dma_index;
-            collected++;
-        }
-        __NOP(); // small delay to prevent tight loop
-    }
+    // ফাইনাল অফসেট ক্যালকুলেশন
+    current_offset_a_adc = adc2_current_a;//(float)sum_a / samples;
+    current_offset_b_adc = adc2_current_b;//(float)sum_b / samples;
 
-    // 4️⃣ Disable DC calibration
+    // ক্যালিব্রেশন শেষে DC_CAL বন্ধ করুন
     HAL_GPIO_WritePin(DC_CAL_GPIO_Port, DC_CAL_Pin, GPIO_PIN_RESET);
-
-    // 5️⃣ Compute average ADC value
-    current_offset_a_adc = sum_a / samples;
-    current_offset_b_adc = sum_b / samples;
-
+    Motor_Stop();
 }
 
-// ------------------- Read Phase Currents -------------------
-float Sensor_Get_Phase_A_Current(void)
-{
-    float voltage = ((float)adc2_buffer[ADC2_CURRENT_A_INDEX] / ADC_MAX) * VREF;
-    float current = (voltage - VREF / 2.0f) / (CSA_GAIN * SHUNT_RES);
-    return current - current_offset_a;
-}
 
-float Sensor_Get_Phase_B_Current(void)
-{
-    float voltage = ((float)adc2_buffer[ADC2_CURRENT_B_INDEX] / ADC_MAX) * VREF;
-    float current = (voltage - VREF / 2.0f) / (CSA_GAIN * SHUNT_RES);
-    return current - current_offset_b;
-}
-
-// Phase C can be computed by Kirchhoff: Ic = -(Ia + Ib)
-float Sensor_Get_Phase_C_Current(void)
-{
-    return -(Sensor_Get_Phase_A_Current() + Sensor_Get_Phase_B_Current());
-}
 
 
 void Sensor_ADC2_DMA_Start(void){
@@ -238,8 +215,11 @@ void Sensor_Main_Loop_Executable(void)
     adc2_buffer_filtered[4] = LPF_Run(LPF_ADC2_4, adc2_buffer[2]);
 
 	/* Calculate current */
-	current_a = (PHASE_A_INTERCEPT - adc2_buffer_filtered[0]) * PHASE_A_INV_SLOPE;
-	current_b = (PHASE_B_INTERCEPT - adc2_buffer_filtered[1]) * PHASE_B_INV_SLOPE;
+	current_a = (PHASE_A_INTERCEPT - adc2_buffer_filtered[0]) * PHASE_A_INV_SLOPE*PHASE_A_CAL_FACTOR;
+	current_b = (PHASE_B_INTERCEPT - adc2_buffer_filtered[1]) * PHASE_B_INV_SLOPE*PHASE_B_CAL_FACTOR;
+	// Deadband filter for Noise reduction
+	if (current_a < 20 && current_a > -20) current_a = 0;
+	if (current_b < 20 && current_b > -20) current_b = 0;
 //    // -------- ADC → Voltage (use filtered values) --------
     float v_adc1_0 = ((float)adc1_buffer_filtered[0] / ADC_MAX) * VREF;
     float v_adc1_1 = ((float)adc1_buffer_filtered[1] / ADC_MAX) * VREF;
